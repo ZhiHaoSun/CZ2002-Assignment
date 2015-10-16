@@ -6,6 +6,8 @@ import com.moblima.project.controller.AccountManager;
 import com.moblima.project.controller.MovieManager;
 import com.moblima.project.model.Movie;
 import com.moblima.project.model.Movie.Language;
+import com.moblima.project.model.Movie.Rating;
+import com.moblima.project.model.Movie.Status;
 import com.moblima.project.model.User;
 
 public class Moblima {
@@ -16,6 +18,8 @@ public class Moblima {
 	
 	public static void main(String[] args) {		
 		sc = new Scanner(System.in);
+		sc.useDelimiter("\\n");
+		
 		displayMainMenu();
 	}
 	
@@ -94,7 +98,7 @@ public class Moblima {
 			try {
 				switch (choice) {
 					case 1:
-						login();
+						displayManageMovie();
 						break;
 					case 2:
 						break;
@@ -139,35 +143,70 @@ public class Moblima {
 					case 1:
 						movie = new Movie();
 						
-						System.out.print("Enter the Title of the movie:");
+						System.out.print("/** Create Movie ************************/");
+						System.out.println();						
+						
+						System.out.print("Title: ");
 						movie.setTitle(sc.next());
 						
-						System.out.print("Enter the SYNOPSIS of the movie:");
+						System.out.print("SYNOPSIS: ");
 						movie.setSynopsis(sc.next());
 						
-						System.out.print("Enter the director of the movie:");
+						System.out.print("Director: ");
 						movie.setDirector(sc.next());
 						
-						System.out.print("Enter Movie Casts (separate by comma):");
+						System.out.print("Casts (separate by COMMA): ");
 						input = sc.next();
-						sArr  = input.split(",");
-							
-						for (int i=0; i<sArr.length; i++)
-							movie.addCast(sArr[i]);
-
 						
+						sArr  = input.split(",");
+						for (int i=0; i<sArr.length; i++)
+							movie.addCast(sArr[i].trim());
+						
+						System.out.println("** Language **");						
 						length = Language.values().length;
 						for (int i=0, j=1; i<length; i++,j++)
-							System.out.println(j+". "+Language.values()[i]);
-						System.out.print("Enter language of the movie:");
+							System.out.println(" "+j+". "+Language.values()[i].value());
+						System.out.print("Choose Language (1~"+length+"): ");
+						movie.setLanguage(Language.values()[sc.nextInt()-1]);
 						
+						System.out.println("** Movie Rating **");
+						length = Rating.values().length;
+						for (int i=0, j=1; i<length; i++,j++)
+							System.out.println(" "+j+". "+Rating.values()[i]);
+						System.out.print("Choose Rating (1~"+length+"): ");
+						movie.setRating(Rating.values()[sc.nextInt()-1]);
 						
+						System.out.println("** Movie Status **");
+						length = Status.values().length;
+						for (int i=0, j=1; i<length; i++,j++)
+							System.out.println(" "+j+". "+Status.values()[i].value());
+						System.out.print("Choose Status (1~"+length+"): ");
+						movie.setStatus(Status.values()[sc.nextInt()-1]);
 						
+						System.out.print("RunTime (minutes): ");
+						movie.setRunTime(sc.next());
+						
+						System.out.print("Opening (TBA or dd/MM/yyyy): ");
+						movie.setOpening(sc.next());
+						
+						if (mMovieManager.create(movie))
+							System.out.println("Create Successful");
+						else
+							System.out.println("Create Unsuccessful");
 						break;
 					case 2:
 						break;
 					case 3:
-						return;
+						System.out.print("/** Create Movie ************************/");
+						System.out.println();			
+						
+						System.out.print("Enter Movie ID:");
+						if (mMovieManager.remove(sc.next()))
+							System.out.println("Remove Successful");
+						else
+							System.out.println("Remove Unsuccessful");
+
+						break;
 					case 4: 
 						return; // end this method and go back to previous menu
 					default:
