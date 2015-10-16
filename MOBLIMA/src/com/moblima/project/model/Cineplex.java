@@ -1,0 +1,5 @@
+package com.moblima.project.model;
+
+public enum Cineplex {
+	THE_CATHAY_CINEPLEX, CATHAY_CINEPLEX_CINELEISURE_ORCHARD, CATHAY_CINEPLEX_DOWNTOWN_EAST
+}
