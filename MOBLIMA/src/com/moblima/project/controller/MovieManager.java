@@ -1,12 +1,9 @@
 package com.moblima.project.controller;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import com.moblima.project.model.Movie;
 
@@ -43,14 +40,48 @@ public class MovieManager extends Manager {
 		
 		return false; 	
 	}
-	public boolean update(Movie movie) { return false; }
-	public boolean remove(String movieID) { 
+	
+	public Movie getMovieDetails(String movieID) {
+		for (Movie movie:mMovies) 
+			if (movie.match(movieID))
+				return movie;
+				
+		return null;
+	}
+	
+	public boolean update(Movie movie) { 
 		try {
 			String id;
 			for (int i=0; i<jitems.length(); i++) {
 				id = jitems.getJSONObject(i).getString("id");
 				
-				if (movieID.equals(id)) {
+				if (movie.match(id)) {
+					// remove the current movie
+					jitems.remove(i);
+					
+					// add the updated movie
+					jitems.put(movie.toJSONObject());
+					
+					// write to the json file
+					if (writeFile(JSON_FILE_PATH)) 
+						return true;
+					
+					break;
+				}
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return false; 
+	}
+	
+	public boolean remove(Movie movie) { 
+		try {
+			String id;
+			for (int i=0; i<jitems.length(); i++) {
+				id = jitems.getJSONObject(i).getString("id");
+				
+				if (movie.match(id)) {
 					jitems.remove(i);
 					
 					if (writeFile(JSON_FILE_PATH)) {
@@ -61,7 +92,6 @@ public class MovieManager extends Manager {
 				}
 			}
 			
-			System.out.println("Invalid Movie ID.");
 			// update the json file
 		} catch (JSONException e) {
 			e.printStackTrace();

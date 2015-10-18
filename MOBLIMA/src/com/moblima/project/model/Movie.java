@@ -96,6 +96,15 @@ public class Movie {
 		return casts;
 	}
 	
+	public void setCasts(String casts) {
+		String[] names = casts.split(",");
+		
+		this.casts.clear();
+		
+		for (String name: names)
+			addCast(name.trim());
+	}
+	
 	public void addCast(String cast) {
 		casts.add(cast);
 	}
@@ -146,6 +155,10 @@ public class Movie {
 
 	public void setRunTime(String runtime) {
 		this.runtime = runtime;
+	}
+	
+	public boolean match(String id) {
+		return id.equals(this.id);
 	}
 	
 	public JSONObject toJSONObject() throws JSONException {
