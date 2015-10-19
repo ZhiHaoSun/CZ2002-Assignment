@@ -1,5 +1,6 @@
 package com.moblima.project.model;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -9,7 +10,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Movie {
+import com.moblima.project.model.Constant.*;
+
+public class Movie extends Model{
 	private String id;
 	private String title;
 	private String synopsis;
@@ -27,11 +30,15 @@ public class Movie {
 	
 	// For opening date
 	private SimpleDateFormat sdf, sdp;
+	private static String file = "data/movie.json";
 
 	public Movie() {
 		casts = new ArrayList<>();
 		sdf   = new SimpleDateFormat("dd MMM yyyy");
 		sdp   = new SimpleDateFormat("dd/MM/yyyy");
+		status = Status.valueOf("NONE");
+		rating = Rating.valueOf("NO");
+		language = Language.valueOf("ENGLISH");
 	}
 	
 	public Movie(JSONObject jObj) throws JSONException {
@@ -161,6 +168,7 @@ public class Movie {
 		return id.equals(this.id);
 	}
 	
+	@Override
 	public JSONObject toJSONObject() throws JSONException {
 		JSONObject jobj = new JSONObject();
 		
@@ -182,38 +190,4 @@ public class Movie {
 		
 		return jobj;
 	}	
-	
-	/*
-	 * 
-	 * */
-
-	public enum Status {
-		COMING_SOON("Coming Soon"), 
-		PREVIEW("Preview"), 
-		NOW_SHOWING("Now Showing");
-		
-		private String value;
-		Status(String value) { this.value = value; }
-		public String value() { return value; }
-	}
-	
-	public enum Language {
-		ENGLISH("English"), 
-		ENGLISH_WITH_CHINESE_SUBTITLES("English with Chinese subtitles"), 
-		ENGLISH_WITH_NO_SUBTITLES("English with no subtitles"), 
-		MANDARIN("Mandarin"), 
-		MALAY("Malay"), 
-		TAMIL("Tamil"), 
-		HINDI("Hindi"), 
-		JAPANESE("Japanese"), 
-		THAI("Thai");
-		
-		private String value;
-		Language(String value) { this.value = value; }
-		public String value() { return value; }
-	}
-	
-	public enum Rating {
-		G, PG, PG13, NC16, M18, R21
-	}
 }
