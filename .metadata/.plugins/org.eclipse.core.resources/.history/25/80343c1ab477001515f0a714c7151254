@@ -1,10 +1,7 @@
 package com.moblima.project.view;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
-import com.moblima.project.model.Cinema;
-import com.moblima.project.model.Movie;
 import com.moblima.project.view.staff.LoginMenu;
 import com.moblima.project.view.staff.StaffMenu;
 
@@ -44,21 +41,4 @@ public class MainMenu extends BaseMenu {
 		} while (choice != 3);
 	}
 	
-	public void displayMovies(){
-		ArrayList<Movie> movies = Movie.instances;
-		
-		println("Id    Title    Opening     Runtime    Director");
-		for(int i=0;i<movies.size();i++){
-			println(movies.get(i).toDisplay());
-		}
-	}
-	
-	public void displayCinemas(){
-		ArrayList<Cinema> cinemas = Cinema.instances;
-		
-		println("Id    Title    Opening     Runtime    Director");
-		for(int i=0;i<cinemas.size();i++){
-			println(cinemas.get(i).toDisplay());
-		}
-	}
 }

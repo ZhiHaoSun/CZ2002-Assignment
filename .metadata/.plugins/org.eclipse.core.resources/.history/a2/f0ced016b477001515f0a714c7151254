@@ -34,8 +34,4 @@ public class Constant {
 	public static enum Rating {
 		G, PG, PG13, NC16, M18, R21,NO
 	}
-	
-	public static enum ClassType{
-		VIP,FIRST,SECONDARY,NORMAL
-	}
 }

@@ -14,8 +14,10 @@ import org.json.JSONObject;
 
 public abstract class Model {
 	public abstract JSONObject toJSONObject() throws JSONException;
+	public static String file;
+	public static ArrayList<Model> instances;
 	
-	public static ArrayList<JSONObject> readFile(String file) throws IOException, JSONException{
+	public static ArrayList<JSONObject> readFile() throws IOException, JSONException{
 		BufferedReader reader = new BufferedReader(new FileReader(file));
 		String line;
 		StringBuilder builder = new StringBuilder();
@@ -60,6 +62,4 @@ public abstract class Model {
 		
 		return null;
 	}
-	
-	public abstract String toDisplay();
 }

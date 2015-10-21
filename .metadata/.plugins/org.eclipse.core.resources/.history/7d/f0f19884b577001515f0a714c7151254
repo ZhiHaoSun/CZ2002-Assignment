@@ -60,6 +60,4 @@ public abstract class Model {
 		
 		return null;
 	}
-	
-	public abstract String toDisplay();
 }

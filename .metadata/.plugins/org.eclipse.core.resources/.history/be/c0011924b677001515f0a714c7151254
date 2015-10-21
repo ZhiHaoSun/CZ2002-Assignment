@@ -6,7 +6,9 @@ import java.util.Scanner;
 
 import com.moblima.project.controller.MovieManager;
 import com.moblima.project.model.Movie;
-import com.moblima.project.model.Constant.*;
+import com.moblima.project.model.Movie.Language;
+import com.moblima.project.model.Movie.Rating;
+import com.moblima.project.model.Movie.Status;
 
 public abstract class BaseMenu {
 	private Scanner sc;

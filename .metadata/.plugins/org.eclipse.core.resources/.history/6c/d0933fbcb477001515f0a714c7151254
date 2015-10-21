@@ -14,8 +14,10 @@ import org.json.JSONObject;
 
 public abstract class Model {
 	public abstract JSONObject toJSONObject() throws JSONException;
+	public static String file;
+	public static ArrayList<Model> instances;
 	
-	public static ArrayList<JSONObject> readFile(String file) throws IOException, JSONException{
+	public static ArrayList<JSONObject> readFile() throws IOException, JSONException{
 		BufferedReader reader = new BufferedReader(new FileReader(file));
 		String line;
 		StringBuilder builder = new StringBuilder();
@@ -26,7 +28,7 @@ public abstract class Model {
 		return load(builder.toString());
 	}
 	
-	protected static void writeFile(String file, String data) throws IOException, JSONException{
+	protected static void writeFile(String data) throws IOException, JSONException{
 		
 		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
 		
@@ -49,6 +51,25 @@ public abstract class Model {
 		
 		return null;
 	}
+	public static void save(String content) throws JSONException, IOException{
+		String data = Model.getData();
+		writeFile(data);
+	}
+	
+	protected static String getData() throws JSONException{
+		if(instances != null && instances.size() > 0){
+			int len = instances.size();
+			JSONArray objects = new JSONArray();
+			JSONObject object;
+			for(int i=0;i<len;i++){
+				object = instances.get(i).toJSONObject();
+				objects.put(object);
+			}
+			
+			return objects.toString();
+		}else
+			return null;
+	}
 	
 	public String toString(){
 		try {
@@ -60,6 +81,4 @@ public abstract class Model {
 		
 		return null;
 	}
-	
-	public abstract String toDisplay();
 }
