@@ -17,7 +17,7 @@ public class ManageMovieMenu extends BaseMenu {
 
 	@Override 
 	public void displayMenu() {
-		int choice = 0; // each menu manage their own choice integer
+		choice = 0; // each menu manage their own choice integer
 		
 		do {
 			printHeader("Manage Movie Listing");
