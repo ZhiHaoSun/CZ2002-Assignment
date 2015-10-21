@@ -75,8 +75,8 @@ public class Movie extends Model{
 			 movie = new Movie(objects.get(i));
 			 instances.add(movie);
 			 
-			 if(movie.getID() > curMaxID)
-				 curMaxID = movie.getID();
+			 if(movie.getId() > curMaxID)
+				 curMaxID = movie.getId();
 		 }
 	}
 	 
@@ -95,7 +95,7 @@ public class Movie extends Model{
 	}
 	 
 	public void save() throws IOException, JSONException{
-		if(this.getID() > Movie.curMaxID){
+		if(this.getId() > Movie.curMaxID){
 			this.create();
 		}else{
 			this.update();
@@ -104,7 +104,7 @@ public class Movie extends Model{
 	
 	public void create() throws IOException, JSONException{
 		Movie.instances.add(this);
-		Movie.curMaxID = this.getID();
+		Movie.curMaxID = this.getId();
 		
 		Movie.writeFile(file, Movie.getData());
 	}
@@ -114,7 +114,7 @@ public class Movie extends Model{
 		int i;
 		for(i=0;i<Movie.instances.size();i++){
 			movie = Movie.instances.get(i);
-			if(movie.getID() == this.getID())
+			if(movie.getId() == this.getId())
 				break;
 		}
 		
@@ -122,11 +122,11 @@ public class Movie extends Model{
 		Movie.writeFile(file, Movie.getData());
 	}
 
-	public int getID() {
+	public int getId() {
 		return id;
 	}
 
-	public void setID(int id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

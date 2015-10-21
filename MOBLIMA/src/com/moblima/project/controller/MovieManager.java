@@ -22,25 +22,25 @@ public class MovieManager extends Manager {
 		return "M" + String.format("%05d", mCounter);
 	}
 	
-	public boolean create(Movie movie) { 
-		try {
-			movie.setID(generateMovieID());
-			jitems.put(movie.toJSONObject());
-			
-			// update the json file
-			if (writeFile(JSON_FILE_PATH)) {
-				mMovies.add(movie);
-				return true;
-			} else {
-				jitems.remove(jitems.length()-1);
-			}
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		
-		return false; 	
-	}
-	
+//	public boolean create(Movie movie) { 
+//		try {
+//			movie.setID(generateMovieID());
+//			jitems.put(movie.toJSONObject());
+//			
+//			// update the json file
+//			if (writeFile(JSON_FILE_PATH)) {
+//				mMovies.add(movie);
+//				return true;
+//			} else {
+//				jitems.remove(jitems.length()-1);
+//			}
+//		} catch (JSONException e) {
+//			e.printStackTrace();
+//		}
+//		
+//		return false; 	
+//	}
+//	
 	public Movie getMovieDetails(String movieID) {
 		for (Movie movie:mMovies) 
 			if (movie.match(movieID))

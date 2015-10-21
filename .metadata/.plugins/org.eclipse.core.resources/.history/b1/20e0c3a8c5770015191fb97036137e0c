@@ -1,0 +1,56 @@
+package com.moblima.project.model;
+
+import java.util.ArrayList;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.moblima.project.model.Constant.ClassType;
+
+public class Cinema extends Model{
+	
+	private int id;
+	private String name;
+	private ClassType classType;
+	
+	private ArrayList<ShowTime> showTimes;
+	
+	public static ArrayList<Cinema> instances;
+	public static int curMaxID;
+	
+	public Cinema(String name, ClassType classType){
+		this.id = Cinema.curMaxID+1;
+		this.name = name;
+		this.classType = classType;
+		this.showTimes = new ArrayList<>();
+	}
+
+	public Cinema(String name, ClassType classType, ArrayList<ShowTime> showTimes) {
+		super();
+		this.id = Cinema.curMaxID + 1;
+		this.name = name;
+		this.classType = classType;
+		this.showTimes = showTimes;
+	}
+	
+	public Cinema(JSONObject object) throws JSONException{
+		this.id = object.getInt("id");
+		this.name = object.getString("name");
+		this.classType = ClassType.valueOf(object.getString("classType"));
+		
+		
+	}
+
+	@Override
+	public JSONObject toJSONObject() throws JSONException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String toDisplay() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}
