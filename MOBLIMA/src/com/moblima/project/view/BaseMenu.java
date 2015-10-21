@@ -5,10 +5,10 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import com.moblima.project.controller.MovieManager;
-import com.moblima.project.model.Movie;
-import com.moblima.project.model.Movie.Language;
-import com.moblima.project.model.Movie.Rating;
-import com.moblima.project.model.Movie.Status;
+import com.moblima.project.model.Constant.Language;
+import com.moblima.project.model.Constant.Rating;
+import com.moblima.project.model.Constant.Status;
+import com.moblima.project.model.Movie;	
 
 public abstract class BaseMenu {
 	private Scanner sc;

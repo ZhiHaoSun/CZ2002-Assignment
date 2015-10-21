@@ -1,6 +1,5 @@
 package com.moblima.project.model;
 
-import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -10,7 +9,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.moblima.project.model.Constant.*;
+import com.moblima.project.model.Constant.Language;
+import com.moblima.project.model.Constant.Rating;
+import com.moblima.project.model.Constant.Status;
 
 public class Movie extends Model{
 	private String id;
@@ -30,7 +31,6 @@ public class Movie extends Model{
 	
 	// For opening date
 	private SimpleDateFormat sdf, sdp;
-	private static String file = "data/movie.json";
 
 	public Movie() {
 		casts = new ArrayList<>();

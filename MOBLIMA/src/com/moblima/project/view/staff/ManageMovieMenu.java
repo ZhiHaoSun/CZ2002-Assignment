@@ -3,6 +3,7 @@ package com.moblima.project.view.staff;
 import java.text.ParseException;
 import java.util.Scanner;
 
+import com.moblima.project.controller.MovieManager;
 import com.moblima.project.model.Movie;
 import com.moblima.project.view.BaseMenu;
 
@@ -12,12 +13,13 @@ public class ManageMovieMenu extends BaseMenu {
 	
 	public ManageMovieMenu(Scanner sc) {
 		super(sc);
-
 	}
 
 	@Override 
 	public void displayMenu() {
 		choice = 0; // each menu manage their own choice integer
+		
+		mMovieManager = new MovieManager();
 		
 		do {
 			printHeader("Manage Movie Listing");
