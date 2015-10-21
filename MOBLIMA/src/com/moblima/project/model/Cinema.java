@@ -1,6 +1,7 @@
 package com.moblima.project.model;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 
 import org.json.JSONArray;
@@ -36,7 +37,7 @@ public class Cinema extends Model{
 		this.showTimes = showTimes;
 	}
 	
-	public Cinema(JSONObject object) throws JSONException{
+	public Cinema(JSONObject object) throws JSONException, ParseException{
 		this.id = object.getInt("id");
 		this.name = object.getString("name");
 		this.classType = ClassType.valueOf(object.getString("classType"));
@@ -52,7 +53,7 @@ public class Cinema extends Model{
 		this.showTimes = shows;
 	}
 	
-	public static void load() throws IOException, JSONException{
+	public static void load() throws IOException, JSONException, ParseException{
 		 instances = new ArrayList<>();
 		 ArrayList<JSONObject> objects = readFile(file);
 		 
@@ -108,6 +109,16 @@ public class Cinema extends Model{
 		}
 		
 		Cinema.instances.set(i, this);
+		Cinema.writeFile(file, Cinema.getData());
+	}
+	
+	public void delete() throws IOException, JSONException{
+		for(int i=0;i<Cinema.instances.size();i++){
+			if(Cinema.instances.get(i).getId() == this.id){
+				Cinema.instances.remove(i);
+				break;
+			}
+		}
 		Cinema.writeFile(file, Cinema.getData());
 	}
 	

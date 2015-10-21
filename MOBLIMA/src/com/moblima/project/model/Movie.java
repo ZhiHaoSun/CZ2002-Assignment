@@ -121,6 +121,16 @@ public class Movie extends Model{
 		Movie.instances.set(i, this);
 		Movie.writeFile(file, Movie.getData());
 	}
+	
+	public void delete() throws IOException, JSONException{
+		for(int i=0;i<Movie.instances.size();i++){
+			if(Movie.instances.get(i).getId() == this.id){
+				Movie.instances.remove(i);
+				break;
+			}
+		}
+		Movie.writeFile(file, Movie.getData());
+	}
 
 	public int getId() {
 		return id;

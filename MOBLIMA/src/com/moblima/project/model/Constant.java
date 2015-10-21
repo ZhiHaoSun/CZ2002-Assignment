@@ -1,6 +1,13 @@
 package com.moblima.project.model;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 public class Constant {
+	
+	public static SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
+	public static DateFormat dateTimeFormat = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.MEDIUM);
+	
 	public static enum Cineplex {
 		THE_CATHAY_CINEPLEX, CATHAY_CINEPLEX_CINELEISURE_ORCHARD, CATHAY_CINEPLEX_DOWNTOWN_EAST,NONE
 	}
