@@ -36,8 +36,11 @@ public class ShowTime extends Model {
 	public static void load() throws IOException, JSONException, ParseException{
 		 instances = new ArrayList<>();
 		 ArrayList<JSONObject> objects = readFile(file);
+		 int len = 0;
 		 
-		 int len = objects.size();
+		 if(objects != null)
+			 len = objects.size();
+		 
 		 ShowTime showTime;
 		 
 		 for(int i=0;i<len;i++){

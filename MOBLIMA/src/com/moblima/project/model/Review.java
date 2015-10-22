@@ -18,25 +18,28 @@ public class Review extends Model {
 	private Rating rating;
 	private Date date;
 	private String description;
+	private int movieId;
 	
 	public static ArrayList<Review> instances;
 	public static int curMaxID;
 	private static String file = "data/review.json";
 	
-	public Review(Rating rating, String description) {
+	public Review(Rating rating, String description, int movieId) {
 		super();
 		this.id = Review.curMaxID + 1;
 		this.rating = rating;
 		this.date = new Date();
 		this.description = description;
+		this.movieId = movieId;
 	}
 	
-	public Review(Rating rating, Date date, String description) {
+	public Review(Rating rating, Date date, String description, int movieId) {
 		super();
 		this.id = Review.curMaxID + 1;
 		this.rating = rating;
 		this.date = date;
 		this.description = description;
+		this.movieId = movieId;
 	}
 	
 	public Review(JSONObject object) throws JSONException, ParseException{
@@ -44,13 +47,16 @@ public class Review extends Model {
 		this.description = object.getString("description");
 		this.rating = Rating.valueOf(object.getString("rating"));
 		this.date = Constant.dateFormat.parse(object.getString("date"));
+		this.movieId = object.getInt("movieId");
 	}
 	
 	public static void load() throws IOException, JSONException, ParseException{
 		 instances = new ArrayList<>();
 		 ArrayList<JSONObject> objects = readFile(file);
+		 int len = 0;
 		 
-		 int len = objects.size();
+		 if(objects != null)
+			 len = objects.size();
 		 curMaxID = 0;
 		 Review review;
 		 
@@ -151,6 +157,23 @@ public class Review extends Model {
 		this.description = description;
 	}
 
+	public int getMovieId() {
+		return movieId;
+	}
+
+	public void setMovieId(int movieId) {
+		this.movieId = movieId;
+	}
+	
+	public Movie getMovie(){
+		for(Movie movie: Movie.instances){
+			if(movie.getId() == this.movieId)
+				return movie;
+		}
+		
+		return null;
+	}
+
 	@Override
 	public JSONObject toJSONObject() throws JSONException {
 		JSONObject object = new JSONObject();
@@ -158,6 +181,7 @@ public class Review extends Model {
 		object.put("description", description);
 		object.put("rating", rating.toString());
 		object.put("date", Constant.dateFormat.format(date));
+		object.put("movieId", movieId);
 		
 		return object;
 	}

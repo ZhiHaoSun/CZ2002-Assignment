@@ -56,8 +56,11 @@ public class Cinema extends Model{
 	public static void load() throws IOException, JSONException, ParseException{
 		 instances = new ArrayList<>();
 		 ArrayList<JSONObject> objects = readFile(file);
+		 int len = 0;
+			
+		 if(objects != null)
+			 len = objects.size();
 		 
-		 int len = objects.size();
 		 curMaxID = 0;
 		 Cinema cinema;
 		 
