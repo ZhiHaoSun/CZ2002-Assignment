@@ -1,0 +1,10 @@
+package com.moblima.project.view;
+
+public class MovieMenu extends BaseMenu{
+
+	@Override
+	public void displayMenu() {
+		
+	}
+
+}

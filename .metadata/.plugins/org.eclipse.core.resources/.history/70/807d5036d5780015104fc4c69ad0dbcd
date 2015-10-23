@@ -1,0 +1,41 @@
+package com.moblima.project.controller;
+
+import java.io.IOException;
+
+import org.json.JSONException;
+
+import com.moblima.project.model.Model;
+
+public class CinemaManager extends Manager {
+
+	@Override
+	protected void load() throws IOException, JSONException {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public boolean create(Model instance) throws JSONException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean update(Model instance) throws JSONException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean delete(Model instance) throws JSONException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Model getInstanceById(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

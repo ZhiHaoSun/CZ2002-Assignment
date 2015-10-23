@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <typeInfoHistroy>
-<typeInfo handle="=MOBLIMA/src&lt;com.moblima.project.model{Model.java[Model" modifiers="1025" timestamp="1445405720000"/>
+<typeInfo handle="=MOBLIMA/src&lt;com.moblima.project.model{Model.java[Model" modifiers="1025" timestamp="1445527921000"/>
+<typeInfo handle="=MOBLIMA/\/Library\/Java\/JavaVirtualMachines\/jdk1.7.0_79.jdk\/Contents\/Home\/jre\/lib\/rt.jar&lt;java.lang.management(ManagementFactory.class[ManagementFactory" modifiers="33" timestamp="1428691662000"/>
+<typeInfo handle="=MOBLIMA/src&lt;com.moblima.project.controller{Manager.java[Manager" modifiers="1025" timestamp="1445529594000"/>
 </typeInfoHistroy>

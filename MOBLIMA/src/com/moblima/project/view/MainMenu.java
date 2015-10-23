@@ -1,22 +1,34 @@
 package com.moblima.project.view;
 
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import org.json.JSONException;
+
+import com.moblima.project.controller.CinemaManager;
+import com.moblima.project.controller.MovieManager;
+import com.moblima.project.controller.ReviewManager;
+import com.moblima.project.controller.ShowTimeManager;
+import com.moblima.project.controller.StaffManager;
+import com.moblima.project.controller.TicketManager;
 import com.moblima.project.model.Cinema;
 import com.moblima.project.model.Movie;
+import com.moblima.project.view.moviegoer.MovieGoerMenu;
 import com.moblima.project.view.staff.LoginMenu;
 import com.moblima.project.view.staff.StaffMenu;
 
 public class MainMenu extends BaseMenu {
-	private LoginMenu mLoginMenu;
+	private MovieGoerMenu movieGoerMenu;
 	
-	public MainMenu(Scanner sc) {
-		super(sc);
+	public MainMenu(Scanner sc, MovieManager mMovieManager, CinemaManager mCinemaManager, ReviewManager mReviewManager,
+			ShowTimeManager mShowTimeManager, TicketManager mTicketManager, StaffManager mStaffManager) {
+		super(sc, mMovieManager, mCinemaManager, mReviewManager, mShowTimeManager, mTicketManager, mStaffManager);
 		
-		mLoginMenu = new LoginMenu(sc);
+		movieGoerMenu = new MovieGoerMenu(sc,mMovieManager, mCinemaManager, mReviewManager, mShowTimeManager, mTicketManager, mStaffManager);
 	}
-	
+
 	public void displayMenu() {
 		int choice = 0; // each menu manage their own choice integer
 
@@ -32,9 +44,10 @@ public class MainMenu extends BaseMenu {
 				
 				switch (choice) {
 					case 1:
-						mLoginMenu.displayMenu();
+//						mLoginMenu.displayMenu();
 						break;
 					case 2:
+						movieGoerMenu.displayMenu();
 						break;
 				}			
 			} catch (ExitException e) {
@@ -44,21 +57,7 @@ public class MainMenu extends BaseMenu {
 		} while (choice != 3);
 	}
 	
-	public void displayMovies(){
-		ArrayList<Movie> movies = Movie.instances;
-		
-		println("Id    Title    Opening     Runtime    Director");
-		for(int i=0;i<movies.size();i++){
-			println(movies.get(i).toDisplay());
-		}
-	}
 	
-	public void displayCinemas(){
-		ArrayList<Cinema> cinemas = Cinema.instances;
-		
-		println("Id    Title    Opening     Runtime    Director");
-		for(int i=0;i<cinemas.size();i++){
-			println(cinemas.get(i).toDisplay());
-		}
-	}
+	
+	
 }

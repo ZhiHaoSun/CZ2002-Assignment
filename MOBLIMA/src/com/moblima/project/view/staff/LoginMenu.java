@@ -2,22 +2,22 @@ package com.moblima.project.view.staff;
 
 import java.util.Scanner;
 
-import com.moblima.project.controller.AccountManager;
-import com.moblima.project.model.User;
+import com.moblima.project.controller.CinemaManager;
+import com.moblima.project.controller.MovieManager;
+import com.moblima.project.controller.ReviewManager;
+import com.moblima.project.controller.ShowTimeManager;
+import com.moblima.project.controller.StaffManager;
+import com.moblima.project.controller.TicketManager;
+import com.moblima.project.model.Staff;
 import com.moblima.project.view.BaseMenu;
 
 public class LoginMenu extends BaseMenu {
-
-	private StaffMenu mStaffMenu;
 	
-	private AccountManager mAcctManager;
+	private StaffMenu mStaffMenu;
 
-	public LoginMenu(Scanner sc) {
-		super(sc);
-		
-		mStaffMenu = new StaffMenu(sc);
-
-		mAcctManager = new AccountManager();
+	public LoginMenu(Scanner sc, MovieManager mMovieManager, CinemaManager mCinemaManager, ReviewManager mReviewManager,
+			ShowTimeManager mShowTimeManager, TicketManager mTicketManager, StaffManager mStaffManager) {
+		super(sc, mMovieManager, mCinemaManager, mReviewManager, mShowTimeManager, mTicketManager, mStaffManager);
 	}
 
 	// Main Menu: Choice #1
@@ -26,7 +26,7 @@ public class LoginMenu extends BaseMenu {
 		
 		// initialize AccountManager <-- controller
 		
-		User user = new User();
+		Staff user = new Staff();
 		
 		// prompt user for username
 		user.setUsername(read("username: "));
@@ -35,10 +35,10 @@ public class LoginMenu extends BaseMenu {
 		user.setPassword(read("password: "));
 
 		// authenticate user
-		return mAcctManager.authenticate(user);
+		return this.mStaffManager.match(user);
 	}
 	
-	public User getLoginUser() {
+	public Staff getLoginUser() {
 		return mAcctManager.getLoginUser();
 	}
 

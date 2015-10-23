@@ -1,10 +1,19 @@
 package com.moblima.project.view;
 
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import org.json.JSONException;
+
+import com.moblima.project.controller.CinemaManager;
 import com.moblima.project.controller.MovieManager;
+import com.moblima.project.controller.ReviewManager;
+import com.moblima.project.controller.ShowTimeManager;
+import com.moblima.project.controller.StaffManager;
+import com.moblima.project.controller.TicketManager;
 import com.moblima.project.model.Movie;
 import com.moblima.project.model.Constant.*;
 
@@ -12,12 +21,24 @@ public abstract class BaseMenu {
 	private Scanner sc;
 	protected int choice;
 	
-	protected MovieManager mMovieManager;
+	public MovieManager mMovieManager = null;
+	public CinemaManager mCinemaManager = null;
+	public ReviewManager mReviewManager = null;
+	public ShowTimeManager mShowTimeManager = null;
+	public TicketManager mTicketManager = null;
+	public StaffManager mStaffManager = null;
 	
-	public BaseMenu(Scanner sc) {
+	public BaseMenu(Scanner sc, MovieManager mMovieManager, CinemaManager mCinemaManager, ReviewManager mReviewManager,
+			ShowTimeManager mShowTimeManager, TicketManager mTicketManager, StaffManager mStaffManager) {
 		this.sc = sc;
+		this.mMovieManager = mMovieManager;
+		this.mCinemaManager = mCinemaManager;
+		this.mReviewManager = mReviewManager;
+		this.mShowTimeManager = mShowTimeManager;
+		this.mTicketManager = mTicketManager;
+		this.mStaffManager = mStaffManager;
 	}
-	
+
 	public abstract void displayMenu();
 	
 	protected String read(String message) {
@@ -88,7 +109,7 @@ public abstract class BaseMenu {
 	
 	//
 	protected Movie chooseMovie() throws ExitException {
-		ArrayList<Movie> movies = mMovieManager.getMovieListing();
+		ArrayList<Movie> movies = mMovieManager.getMovies();
 		
 		println("Choose Movie:");						
 		

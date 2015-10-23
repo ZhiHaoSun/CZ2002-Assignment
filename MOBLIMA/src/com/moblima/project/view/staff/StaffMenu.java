@@ -2,21 +2,15 @@ package com.moblima.project.view.staff;
 
 import java.util.Scanner;
 
-import com.moblima.project.model.User;
+import com.moblima.project.model.Staff;
 import com.moblima.project.view.BaseMenu;
 
 public class StaffMenu extends BaseMenu {
 
-	private User mLoginUser;
+	private Staff mLoginUser;
 	private ManageMovieMenu mManageMovieMenu;
 	
-	public StaffMenu(Scanner sc) {
-		super(sc);
-		
-		mManageMovieMenu = new ManageMovieMenu(sc);
-	}
-	
-	public void setLoginUser(User user) {
+	public void setLoginUser(Staff user) {
 		mLoginUser = user;
 	}
 

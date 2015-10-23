@@ -30,13 +30,8 @@ public class Movie extends Model{
 	
 	// For opening date
 	private SimpleDateFormat sdf, sdp;
-	private static String file = "data/movie.json";
-
-	public static ArrayList<Movie> instances;
-	public static int curMaxID;
 
 	public Movie() {
-		id = Movie.curMaxID + 1;
 		casts = new ArrayList<>();
 		sdf   = new SimpleDateFormat("dd MMM yyyy");
 		sdp   = new SimpleDateFormat("dd/MM/yyyy");
@@ -61,83 +56,6 @@ public class Movie extends Model{
 		
 		for (int i=0; i<jcasts.length(); i++)
 			casts.add(jcasts.getString(i));
-	}
-	
-	 public static void load() throws IOException, JSONException{
-		 instances = new ArrayList<>();
-		 ArrayList<JSONObject> objects = readFile(file);
-		 
-		 int len = objects.size();
-		 curMaxID = 0;
-		 Movie movie;
-		 
-		 for(int i=0;i<len;i++){
-			 movie = new Movie(objects.get(i));
-			 instances.add(movie);
-			 
-			 if(movie.getId() > curMaxID)
-				 curMaxID = movie.getId();
-		 }
-	}
-	 
-	public static String getData() throws JSONException{
-		if(Movie.instances == null)
-			return null;
-		else{
-			JSONArray array = new JSONArray();
-			
-			for(int i=0;i<Movie.instances.size();i++){
-				array.put(Movie.instances.get(i).toJSONObject());
-			}
-			
-			return array.toString();
-		}
-	}
-	 
-	public void save() throws IOException, JSONException{
-		if(this.getId() > Movie.curMaxID){
-			this.create();
-		}else{
-			this.update();
-		}
-	}
-	
-	public void create() throws IOException, JSONException{
-		Movie.instances.add(this);
-		Movie.curMaxID = this.getId();
-		
-		Movie.writeFile(file, Movie.getData());
-	}
-	
-	public void update() throws IOException, JSONException{
-		Movie movie;
-		int i;
-		for(i=0;i<Movie.instances.size();i++){
-			movie = Movie.instances.get(i);
-			if(movie.getId() == this.getId())
-				break;
-		}
-		
-		Movie.instances.set(i, this);
-		Movie.writeFile(file, Movie.getData());
-	}
-	
-	public void delete() throws IOException, JSONException{
-		for(int i=0;i<Movie.instances.size();i++){
-			if(Movie.instances.get(i).getId() == this.id){
-				Movie.instances.remove(i);
-				break;
-			}
-		}
-		Movie.writeFile(file, Movie.getData());
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public String getTitle() {

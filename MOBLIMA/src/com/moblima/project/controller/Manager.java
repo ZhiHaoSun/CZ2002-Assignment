@@ -5,23 +5,26 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.text.ParseException;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Manager {
-	protected JSONArray  jitems;
-	protected JSONObject jdata, jitem;
+import com.moblima.project.model.Model;
+
+public abstract class Manager {
+	protected int idCounter;
+	protected JSONArray  jdata;
 	
-	protected JSONArray getData(String filepath, String key) throws IOException, JSONException {
-		return getData(filepath).getJSONArray(key);
+	public Manager() throws IOException, JSONException, ParseException{
+		load();
 	}
 	
-	protected JSONObject getData(String filepath) throws IOException, JSONException {
+	protected JSONArray getData(String filepath) throws IOException, JSONException {
 		String data = new String(Files.readAllBytes(Paths.get(filepath)));
 		
-		jdata = new JSONObject(data);
+		jdata = new JSONArray(data);
 		return jdata;
 	}
 	
@@ -37,5 +40,24 @@ public class Manager {
 			e.printStackTrace();
 		}
 		return false;
+	}
+	
+	protected abstract void load() throws IOException, JSONException, ParseException ;
+	
+	public boolean save(Model instance) throws JSONException{
+		if(instance.getId() > this.idCounter)
+			return create(instance);
+		else
+			return update(instance);
+	}
+	public abstract boolean create(Model instance) throws JSONException;
+	public abstract boolean update(Model instance) throws JSONException;
+	public abstract boolean delete(Model instance) throws JSONException;
+	public abstract boolean deleteById(int id) throws JSONException;
+	
+	public abstract Model getInstanceById(int id);
+	
+	public String toString(){
+		return jdata.toString();
 	}
 }

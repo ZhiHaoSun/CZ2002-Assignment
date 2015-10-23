@@ -1,19 +1,28 @@
 package com.moblima.project.view.staff;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.Scanner;
 
+import org.json.JSONException;
+
+import com.moblima.project.controller.CinemaManager;
+import com.moblima.project.controller.MovieManager;
+import com.moblima.project.controller.ReviewManager;
+import com.moblima.project.controller.ShowTimeManager;
+import com.moblima.project.controller.StaffManager;
+import com.moblima.project.controller.TicketManager;
 import com.moblima.project.model.Movie;
 import com.moblima.project.view.BaseMenu;
 
 public class ManageMovieMenu extends BaseMenu {
 
-	private Movie movie;
-	
-	public ManageMovieMenu(Scanner sc) {
-		super(sc);
-
+	public ManageMovieMenu(Scanner sc, MovieManager mMovieManager, CinemaManager mCinemaManager,
+			ReviewManager mReviewManager, ShowTimeManager mShowTimeManager, TicketManager mTicketManager, StaffManager mStaffManager) {
+		super(sc, mMovieManager, mCinemaManager, mReviewManager, mShowTimeManager, mTicketManager, mStaffManager);
 	}
+
+	private Movie movie;
 
 	@Override 
 	public void displayMenu() {
@@ -52,7 +61,7 @@ public class ManageMovieMenu extends BaseMenu {
 		} while (choice != 4);
 	}
 	
-	private void createMovie() throws ParseException, ExitException {
+	private void createMovie() throws ParseException, ExitException, JSONException {
 		movie = new Movie();
 		
 		printHeader("Create Movie");
@@ -76,7 +85,7 @@ public class ManageMovieMenu extends BaseMenu {
 			System.out.println("Create Unsuccessful");
 	}
 	
-	private void updateMovie() throws ExitException, ParseException {
+	private void updateMovie() throws ExitException, ParseException, JSONException {
 		printHeader("Update Movie");
 	
 		movie = chooseMovie();
@@ -119,7 +128,7 @@ public class ManageMovieMenu extends BaseMenu {
 		
 		movie = chooseMovie();
 		
-		if (mMovieManager.remove(movie))
+		if (mMovieManager.delete(movie))
 			println("Remove Successful");
 		else
 			println("Remove Unsuccessful");

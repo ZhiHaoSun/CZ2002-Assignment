@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
-	<item value="/Users/sunzhihao/Desktop/CZ2002-Assignment/MOBLIMA" key="org.eclipse.jdt.ui.last.external.project"/>
+	<item value="/Users/sunzhihao/Desktop/Java Projects/2002 Assignment" key="org.eclipse.jdt.ui.last.external.project"/>
 	<section name="GenerateConstructorUsingFieldsSelectionDialog">
 		<item value="false" key="OmitCallToSuper"/>
 	</section>
@@ -61,6 +61,8 @@
 		<item value="false" key="Comments"/>
 		<item value="1" key="VisibilityModifier"/>
 		<item value="false" key="FinalModifier"/>
+	</section>
+	<section name="BreadcrumbItemDropDown">
 	</section>
 	<section name="quick_assist_proposal_size">
 	</section>

@@ -1,0 +1,9 @@
+package com.moblima.project.model;
+
+public class Customer {
+	private String name;
+	private String phone;
+	private String email;
+	
+	
+}
