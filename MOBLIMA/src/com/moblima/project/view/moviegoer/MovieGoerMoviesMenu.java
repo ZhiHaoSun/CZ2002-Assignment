@@ -55,7 +55,7 @@ public class MovieGoerMoviesMenu extends BaseMenu{
 	}
 	
 	public void displayMovieDetails(Movie movie){
-		println("Movie Details");
+		printHeader("Movie Details");
 		println("Title:  " + movie.getTitle());
 		println("Synopsis:  " + movie.getSynopsis());
 		println("Director:  " + movie.getDirector());
@@ -67,6 +67,7 @@ public class MovieGoerMoviesMenu extends BaseMenu{
 	}
 
 	public void displayReviews(Movie movie){
+		printHeader("Movie Reviews and Ratings");
 		ArrayList<Review> reviews = this.mReviewManager.getMovieReviews(movie);
 		
 		for(Review r : reviews){

@@ -8,6 +8,8 @@ public class Customer {
 	private String phone;
 	private String email;
 	
+	public Customer(){}
+	
 	public Customer(String name, String phone, String email) {
 		super();
 		this.name = name;

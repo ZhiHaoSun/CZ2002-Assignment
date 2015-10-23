@@ -97,9 +97,9 @@ public class ManageShowTimeMenu extends BaseMenu {
 			showTime.setDateTime(read("Show Time is (dd/MM/yyyy hh:mm PM)"));
 		
 		if (mShowTimeManager.update(showTime))
-			System.out.println("Create Successful");
+			System.out.println("Update Successful");
 		else
-			System.out.println("Create Unsuccessful");
+			System.out.println("Update Unsuccessful");
 	}
 	
 	public void deleteShowTime() throws ExitException{

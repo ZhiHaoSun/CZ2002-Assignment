@@ -19,13 +19,14 @@ public class MovieGoerMenu extends BaseMenu {
 	
 	private MovieGoerMoviesMenu movieMenu;
 	private MovieGoerSearchMenu searchMenu;
+	private MovieGoerTicketMenu ticketMenu;
 	
 	public MovieGoerMenu(Scanner sc, MovieManager mMovieManager, CinemaManager mCinemaManager,
 			ReviewManager mReviewManager, ShowTimeManager mShowTimeManager, TicketManager mTicketManager, StaffManager mStaffManager) {
 		super(sc, mMovieManager, mCinemaManager, mReviewManager, mShowTimeManager, mTicketManager, mStaffManager);
 		movieMenu = new MovieGoerMoviesMenu(sc, mMovieManager, mCinemaManager, mReviewManager, mShowTimeManager, mTicketManager, mStaffManager);
 		searchMenu = new MovieGoerSearchMenu(sc, mMovieManager, mCinemaManager, mReviewManager, mShowTimeManager, mTicketManager, mStaffManager);
-
+		ticketMenu = new MovieGoerTicketMenu(sc, mMovieManager, mCinemaManager, mReviewManager, mShowTimeManager, mTicketManager, mStaffManager);
 	}
 
 	public void displayMenu() {
@@ -52,7 +53,7 @@ public class MovieGoerMenu extends BaseMenu {
 						this.searchMenu.displayMenu();
 						break;
 					case 3:
-
+						this.ticketMenu.displayMenu();
 						break;
 					case 4: 
 						return; // end this method and go back to previous menu
@@ -67,6 +68,8 @@ public class MovieGoerMenu extends BaseMenu {
 	}
 	
 	public void displayAllMovies(){
+		printHeader("All Movies");
+		
 		ArrayList<Movie> movies = this.mMovieManager.getMovies();
 		
 		println("Movies List.");
