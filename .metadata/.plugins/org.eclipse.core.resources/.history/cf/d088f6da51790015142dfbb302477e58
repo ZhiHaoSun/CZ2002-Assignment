@@ -19,8 +19,6 @@ public class StaffMenu extends BaseMenu {
 	public StaffMenu(Scanner sc, MovieManager mMovieManager, CinemaManager mCinemaManager, ReviewManager mReviewManager,
 			ShowTimeManager mShowTimeManager, TicketManager mTicketManager, StaffManager mStaffManager) {
 		super(sc, mMovieManager, mCinemaManager, mReviewManager, mShowTimeManager, mTicketManager, mStaffManager);
-		
-		mManageMovieMenu = new ManageMovieMenu(sc, mMovieManager, mCinemaManager, mReviewManager, mShowTimeManager, mTicketManager, mStaffManager);
 	}
 
 	public void setLoginUser(Staff user) {

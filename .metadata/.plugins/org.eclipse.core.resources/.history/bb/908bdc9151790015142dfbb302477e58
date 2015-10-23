@@ -63,12 +63,9 @@ public class StaffManager {
 	}
 	
 	public boolean match(Staff staff){
-		for(Staff s : this.mStaffs){
-			if(s.getUsername().equals(staff.getUsername()) && s.getPassword().equals(staff.getPassword())){
-				this.curStaff = staff;
-				return true;
-			}
-				
+		if(match(staff.getUsername() , staff.getPassword())){
+			this.curStaff = staff;
+			return true;
 		}
 		return false;
 	}

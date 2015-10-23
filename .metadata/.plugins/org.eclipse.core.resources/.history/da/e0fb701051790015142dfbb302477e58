@@ -21,14 +21,12 @@ import com.moblima.project.view.staff.StaffMenu;
 
 public class MainMenu extends BaseMenu {
 	private MovieGoerMenu movieGoerMenu;
-	private LoginMenu mLoginMenu;
 	
 	public MainMenu(Scanner sc, MovieManager mMovieManager, CinemaManager mCinemaManager, ReviewManager mReviewManager,
 			ShowTimeManager mShowTimeManager, TicketManager mTicketManager, StaffManager mStaffManager) {
 		super(sc, mMovieManager, mCinemaManager, mReviewManager, mShowTimeManager, mTicketManager, mStaffManager);
 		
 		movieGoerMenu = new MovieGoerMenu(sc,mMovieManager, mCinemaManager, mReviewManager, mShowTimeManager, mTicketManager, mStaffManager);
-		mLoginMenu = new LoginMenu(sc,mMovieManager, mCinemaManager, mReviewManager, mShowTimeManager, mTicketManager, mStaffManager);
 	}
 
 	public void displayMenu() {

@@ -16,22 +16,12 @@ public class StaffManager {
 	private static final String file = "data/staff.json";
 	private ArrayList<Staff> mStaffs;
 	
-	private Staff curStaff = null;
-	
 	public ArrayList<Staff> getmStaffs() {
 		return mStaffs;
 	}
 
 	public void setmStaffs(ArrayList<Staff> mStaffs) {
 		this.mStaffs = mStaffs;
-	}
-
-	public Staff getCurStaff() {
-		return curStaff;
-	}
-
-	public void setCurStaff(Staff curStaff) {
-		this.curStaff = curStaff;
 	}
 
 	public StaffManager() throws IOException, JSONException, ParseException {
@@ -54,22 +44,13 @@ public class StaffManager {
 	
 	public boolean match(String user, String pass){
 		for(Staff s : this.mStaffs){
-			if(s.getUsername().equals(user) && s.getPassword().equals(pass)){
+			if(s.getUsername().equals(user) && s.getPassword().equals(pass))
 				return true;
-			}
-				
 		}
 		return false;
 	}
 	
 	public boolean match(Staff staff){
-		for(Staff s : this.mStaffs){
-			if(s.getUsername().equals(staff.getUsername()) && s.getPassword().equals(staff.getPassword())){
-				this.curStaff = staff;
-				return true;
-			}
-				
-		}
-		return false;
+		return match(staff.getUsername() , staff.getPassword());
 	}
 }

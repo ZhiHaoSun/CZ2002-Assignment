@@ -28,7 +28,6 @@ public class MainMenu extends BaseMenu {
 		super(sc, mMovieManager, mCinemaManager, mReviewManager, mShowTimeManager, mTicketManager, mStaffManager);
 		
 		movieGoerMenu = new MovieGoerMenu(sc,mMovieManager, mCinemaManager, mReviewManager, mShowTimeManager, mTicketManager, mStaffManager);
-		mLoginMenu = new LoginMenu(sc,mMovieManager, mCinemaManager, mReviewManager, mShowTimeManager, mTicketManager, mStaffManager);
 	}
 
 	public void displayMenu() {
