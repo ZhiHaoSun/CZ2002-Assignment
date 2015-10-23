@@ -8,33 +8,38 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.moblima.project.model.Constant.Cineplex;
 import com.moblima.project.model.Constant.ClassType;
 
 public class Cinema extends Model{
 	
 	private int id;
 	private String name;
-	private ClassType classType;
+	private Cineplex cineplex;
 	
 	private ArrayList<ShowTime> showTimes;
 	
-	public Cinema(String name, ClassType classType){
+	public Cinema(){
+		showTimes = new ArrayList<>();
+	}
+	
+	public Cinema(String name, Cineplex cineplex){
 		this.name = name;
-		this.classType = classType;
+		this.cineplex = cineplex;
 		this.showTimes = new ArrayList<>();
 	}
 
-	public Cinema(String name, ClassType classType, ArrayList<ShowTime> showTimes) {
+	public Cinema(String name, Cineplex cineplex, ArrayList<ShowTime> showTimes) {
 		super();
 		this.name = name;
-		this.classType = classType;
+		this.cineplex = cineplex;
 		this.showTimes = showTimes;
 	}
 	
 	public Cinema(JSONObject object) throws JSONException, ParseException{
 		this.id = object.getInt("id");
 		this.name = object.getString("name");
-		this.classType = ClassType.valueOf(object.getString("classType"));
+		this.cineplex = Cineplex.valueOf(object.getString("cineplex"));
 		
 		ArrayList<ShowTime> shows = new ArrayList<>();
 		JSONArray array = object.getJSONArray("showTimes");
@@ -55,12 +60,12 @@ public class Cinema extends Model{
 		this.name = name;
 	}
 
-	public ClassType getClassType() {
-		return classType;
+	public Cineplex getCineplex() {
+		return cineplex;
 	}
 
-	public void setClassType(ClassType classType) {
-		this.classType = classType;
+	public void setCineplex(Cineplex cineplex) {
+		this.cineplex = cineplex;
 	}
 
 	public ArrayList<ShowTime> getShowTimes() {
@@ -80,7 +85,7 @@ public class Cinema extends Model{
 		JSONObject object = new JSONObject();
 		object.put("id", this.id);
 		object.put("name",this.name);
-		object.put("classType",this.classType.toString());
+		object.put("cineplex",this.cineplex.toString());
 		
 		JSONArray array = new JSONArray();
 		for(ShowTime showTime: this.showTimes){
@@ -92,7 +97,7 @@ public class Cinema extends Model{
 
 	@Override
 	public String toDisplay() {
-		return this.id + "  " + this.name  + "  " + this.classType.toString(); 
+		return this.id + "  " + this.name  + "  " + this.cineplex.toString(); 
 	}
 
 }

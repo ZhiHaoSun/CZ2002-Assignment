@@ -27,16 +27,11 @@ public class Movie extends Model{
 	private Rating   rating;
 	private Language language;
 	private int overallRating; // Overall Reviewer's Rating
-	
-	// For opening date
-	private SimpleDateFormat sdf, sdp;
 
 	public Movie() {
 		casts = new ArrayList<>();
-//		sdf   = new SimpleDateFormat("dd MMM yyyy");
-//		sdp   = new SimpleDateFormat("dd/MM/yyyy");
-		status = Status.valueOf("NONE");
-		rating = Rating.valueOf("NO");
+		status = Status.valueOf("COMING_SOON");
+		rating = Rating.valueOf("NA");
 		language = Language.valueOf("ENGLISH");
 	}
 	

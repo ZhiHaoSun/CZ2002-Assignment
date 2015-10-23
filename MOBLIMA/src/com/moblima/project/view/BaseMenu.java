@@ -144,11 +144,14 @@ public abstract class BaseMenu {
 	
 	protected ShowTime chooseShowTime() throws ExitException {
 		ArrayList<ShowTime> showTimes = this.mShowTimeManager.getmShowTimes();
+		ShowTime time;
 		
 		println("Choose Show Times:");						
 		
-		for (int i=0, j=1; i<showTimes.size(); i++,j++)
-			println(" "+j+". "+showTimes.get(i).getDateTimeStr());
+		for (int i=0, j=1; i<showTimes.size(); i++,j++){
+			time = showTimes.get(i);
+			println(" "+j+". "+time.getCinemaId() + "  " + time.getMovieId() + "  " + time.getDateTimeStr());
+		}
 		
 		println(" "+(showTimes.size()+1)+". Back");
 		println("");
@@ -201,6 +204,21 @@ public abstract class BaseMenu {
 		
 		int index = readChoice(1, length+1) -1;
 		return Status.values()[index];
+	}
+	
+	protected Cineplex chooseCineplex() throws ExitException {
+		int length = Status.values().length;
+		
+		println("Choose Cineplex:");						
+		
+		for (int i=0, j=1; i<length; i++,j++)
+			println(" "+j+". "+Cineplex.values()[i].toString());
+		
+		println(" "+(length+1)+". Back");
+		println("");
+		
+		int index = readChoice(1, length+1) -1;
+		return Cineplex.values()[index];
 	}
 	
 	// Exception Class

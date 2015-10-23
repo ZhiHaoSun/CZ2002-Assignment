@@ -62,15 +62,15 @@ public class ManageMovieMenu extends BaseMenu {
 	}
 	
 	private void createMovie() throws ParseException, ExitException, JSONException {
-		movie = new Movie();
 		
 		printHeader("Create Movie");
+		movie = new Movie();
 		
 		movie.setTitle(read("Title: "));
 		movie.setSynopsis(read("SYNOPSIS: "));
 		
 		movie.setDirector(read("Director: "));
-		movie.setCasts(read("Casts (separate by COMMA): "));
+		movie.setCasts(read("Casts (separate by ','): "));
 		
 		movie.setLanguage(chooseLanguage());
 		movie.setRating(chooseMovieRating());

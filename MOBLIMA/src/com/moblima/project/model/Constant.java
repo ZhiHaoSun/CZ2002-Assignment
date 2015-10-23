@@ -8,7 +8,8 @@ public class Constant {
 	public static SimpleDateFormat dateFormat1 = new SimpleDateFormat("MM/dd/yyyy");
 	public static SimpleDateFormat dateFormat = new SimpleDateFormat("MM dd yyyy");
 
-	public static DateFormat dateTimeFormat = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.MEDIUM);
+	//Date Time format : DD/MM/YY hh:mm PM
+	public static DateFormat dateTimeFormat = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT);
 	
 	public static enum Cineplex {
 		THE_CATHAY_CINEPLEX, CATHAY_CINEPLEX_CINELEISURE_ORCHARD, CATHAY_CINEPLEX_DOWNTOWN_EAST,NONE
@@ -41,7 +42,7 @@ public class Constant {
 	}
 	
 	public static enum Rating {
-		G, PG, PG13, NC16, M18, R21,NO
+		G, PG, PG13, NC16, M18, R21,NA
 	}
 	
 	public static enum ClassType{

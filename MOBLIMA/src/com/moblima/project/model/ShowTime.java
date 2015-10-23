@@ -31,6 +31,8 @@ public class ShowTime extends Model {
 		this.dateTime = Constant.dateTimeFormat.parse(object.getString("dateTime"));
 	}
 	
+	public ShowTime() {}
+
 	public int getMovieId() {
 		return movieId;
 	}
@@ -57,6 +59,10 @@ public class ShowTime extends Model {
 
 	public void setDateTime(Date dateTime) {
 		this.dateTime = dateTime;
+	}
+	
+	public void setDateTime(String time) throws ParseException{
+		this.dateTime = Constant.dateTimeFormat.parse(time);
 	}
 
 	@Override

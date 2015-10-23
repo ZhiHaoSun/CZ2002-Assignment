@@ -15,12 +15,14 @@ public class StaffMenu extends BaseMenu {
 	
 	private Staff mLoginUser;
 	private ManageMovieMenu mManageMovieMenu;
+	private ManageCinemaMenu mManageCinemaMenu;
 
 	public StaffMenu(Scanner sc, MovieManager mMovieManager, CinemaManager mCinemaManager, ReviewManager mReviewManager,
 			ShowTimeManager mShowTimeManager, TicketManager mTicketManager, StaffManager mStaffManager) {
 		super(sc, mMovieManager, mCinemaManager, mReviewManager, mShowTimeManager, mTicketManager, mStaffManager);
 		
 		mManageMovieMenu = new ManageMovieMenu(sc, mMovieManager, mCinemaManager, mReviewManager, mShowTimeManager, mTicketManager, mStaffManager);
+		mManageCinemaMenu = new ManageCinemaMenu(sc, mMovieManager, mCinemaManager, mReviewManager, mShowTimeManager, mTicketManager, mStaffManager);
 	}
 
 	public void setLoginUser(Staff user) {
@@ -44,6 +46,7 @@ public class StaffMenu extends BaseMenu {
 						mManageMovieMenu.displayMenu();
 						break;
 					case 2:
+						mManageCinemaMenu.displayMenu();
 						break;
 					case 3:
 						System.out.println("Programme is shutting down.");
