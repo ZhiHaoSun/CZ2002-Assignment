@@ -5,7 +5,9 @@ import java.text.SimpleDateFormat;
 
 public class Constant {
 	
-	public static SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
+	public static SimpleDateFormat dateFormat1 = new SimpleDateFormat("MM/dd/yyyy");
+	public static SimpleDateFormat dateFormat = new SimpleDateFormat("MM dd yyyy");
+
 	public static DateFormat dateTimeFormat = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.MEDIUM);
 	
 	public static enum Cineplex {

@@ -33,8 +33,8 @@ public class Movie extends Model{
 
 	public Movie() {
 		casts = new ArrayList<>();
-		sdf   = new SimpleDateFormat("dd MMM yyyy");
-		sdp   = new SimpleDateFormat("dd/MM/yyyy");
+//		sdf   = new SimpleDateFormat("dd MMM yyyy");
+//		sdp   = new SimpleDateFormat("dd/MM/yyyy");
 		status = Status.valueOf("NONE");
 		rating = Rating.valueOf("NO");
 		language = Language.valueOf("ENGLISH");
@@ -94,6 +94,18 @@ public class Movie extends Model{
 		return casts;
 	}
 	
+	public String getCastsStr(){
+		StringBuilder builder = new StringBuilder();
+		
+		for(String cast: this.casts){
+			builder.append(cast + " ,");
+		}
+		
+		builder.deleteCharAt(builder.length()-1);
+		
+		return builder.toString();
+	}
+	
 	public void setCasts(String casts) {
 		String[] names = casts.split(",");
 		
@@ -142,8 +154,8 @@ public class Movie extends Model{
 	public void setOpening(String opening) throws ParseException {
 		if (opening.equals("TBA")) this.opening = opening;
 		else {
-			Date date = sdp.parse(opening);
-			this.opening = sdf.format(date);
+			Date date = Constant.dateFormat1.parse(opening);
+			this.opening = Constant.dateFormat.format(date);
 		}
 	}
 

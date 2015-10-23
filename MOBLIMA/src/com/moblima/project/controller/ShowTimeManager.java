@@ -45,7 +45,7 @@ public class ShowTimeManager extends Manager{
 
 	@Override
 	public boolean create(Model instance) throws JSONException {
-		if(instance.getClass() != ShowTime.class)
+		if(((ShowTime)instance).getClass() != ShowTime.class)
 			return false;
 		
 		instance.setId(this.idCounter + 1);
@@ -59,9 +59,9 @@ public class ShowTimeManager extends Manager{
 
 	@Override
 	public boolean update(Model instance) throws JSONException {
-		if(instance.getClass() != ShowTime.class)
+		if(((ShowTime)instance).getClass() != ShowTime.class)
 			return false;
-		if(instance.getId() == 0 || instance.getId() > this.idCounter)
+		if(instance.getId() > this.idCounter)
 			return false;
 		
 		ShowTime showTime;
@@ -80,9 +80,9 @@ public class ShowTimeManager extends Manager{
 
 	@Override
 	public boolean delete(Model instance) {
-		if(instance.getClass() != ShowTime.class)
+		if(((ShowTime)instance).getClass() != ShowTime.class)
 			return false;
-		if(instance.getId() == 0 || instance.getId() > this.idCounter)
+		if(instance.getId() > this.idCounter)
 			return false;
 		
 		ShowTime showTime;

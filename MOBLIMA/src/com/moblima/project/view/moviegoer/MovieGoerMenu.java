@@ -18,11 +18,14 @@ import com.moblima.project.view.BaseMenu.ExitException;
 public class MovieGoerMenu extends BaseMenu {
 	
 	private MovieGoerMoviesMenu movieMenu;
+	private MovieGoerSearchMenu searchMenu;
 	
 	public MovieGoerMenu(Scanner sc, MovieManager mMovieManager, CinemaManager mCinemaManager,
 			ReviewManager mReviewManager, ShowTimeManager mShowTimeManager, TicketManager mTicketManager, StaffManager mStaffManager) {
 		super(sc, mMovieManager, mCinemaManager, mReviewManager, mShowTimeManager, mTicketManager, mStaffManager);
 		movieMenu = new MovieGoerMoviesMenu(sc, mMovieManager, mCinemaManager, mReviewManager, mShowTimeManager, mTicketManager, mStaffManager);
+		searchMenu = new MovieGoerSearchMenu(sc, mMovieManager, mCinemaManager, mReviewManager, mShowTimeManager, mTicketManager, mStaffManager);
+
 	}
 
 	public void displayMenu() {
@@ -32,19 +35,21 @@ public class MovieGoerMenu extends BaseMenu {
 			printHeader("Welcome to MOBLIMA");
 			println(" 1. Movie Listing");
 			println(" 2. Search");
-			println(" 3. Remove Movie");
-			println(" 4. Back");
+			println(" 3. Book Ticket");
+			println(" 4. View Book History");
+			println(" 5. Back");
 			println("");
 			
 			try {
-				choice = readChoice(1, 4);
+				choice = readChoice(1, 5);
 				
 				switch (choice) {
 					case 1:
-
+						this.displayAllMovies();
+						this.movieMenu.displayMenu();
 						break;
 					case 2:
-
+						this.searchMenu.displayMenu();
 						break;
 					case 3:
 
@@ -58,15 +63,15 @@ public class MovieGoerMenu extends BaseMenu {
 			} catch (Exception e) {
 				break;
 			}
-		} while (choice != 4);
+		} while (choice != 5);
 	}
 	
 	public void displayAllMovies(){
 		ArrayList<Movie> movies = this.mMovieManager.getMovies();
 		
-		println("Id    Title    Opening     Runtime    Director");
+		println("Movies List.");
 		for(int i=0;i<movies.size();i++){
-			println(movies.get(i).toDisplay());
+			println(movies.get(i).getTitle());
 		}
 	}
 	
@@ -76,15 +81,6 @@ public class MovieGoerMenu extends BaseMenu {
 		println("Id    Title    Opening     Runtime    Director");
 		for(int i=0;i<cinemas.size();i++){
 			println(cinemas.get(i).toDisplay());
-		}
-	}
-	
-	public void displayAllReviews(){
-		ArrayList<Review> reviews = this.mReviewManager.getReviews();
-		
-		println("Id    Rating    Description            Date");
-		for(int i=0;i<reviews.size();i++){
-			println(reviews.get(i).toDisplay());
 		}
 	}
 }

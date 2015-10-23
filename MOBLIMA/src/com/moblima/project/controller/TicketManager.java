@@ -45,7 +45,7 @@ public class TicketManager extends Manager {
 
 	@Override
 	public boolean create(Model instance) throws JSONException {
-		if(instance.getClass() != Ticket.class)
+		if(((Ticket)instance).getClass() != Ticket.class)
 			return false;
 		
 		instance.setId(this.idCounter + 1);
@@ -59,9 +59,9 @@ public class TicketManager extends Manager {
 
 	@Override
 	public boolean update(Model instance) throws JSONException {
-		if(instance.getClass() != Ticket.class)
+		if(((Ticket)instance).getClass() != Ticket.class)
 			return false;
-		if(instance.getId() == 0 || instance.getId() > this.idCounter)
+		if(instance.getId() > this.idCounter)
 			return false;
 		
 		Ticket ticket;
@@ -80,9 +80,9 @@ public class TicketManager extends Manager {
 
 	@Override
 	public boolean delete(Model instance) {
-		if(instance.getClass() != Ticket.class)
+		if(((Ticket)instance).getClass() != Ticket.class)
 			return false;
-		if(instance.getId() == 0 || instance.getId() > this.idCounter)
+		if(instance.getId() > this.idCounter)
 			return false;
 		
 		Ticket ticket;

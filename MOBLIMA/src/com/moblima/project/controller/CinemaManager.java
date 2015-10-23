@@ -43,7 +43,7 @@ public class CinemaManager extends Manager {
 
 	@Override
 	public boolean create(Model instance) throws JSONException {
-		if(instance.getClass() != Cinema.class)
+		if(((Cinema)instance).getClass() != Cinema.class)
 			return false;
 		
 		instance.setId(this.idCounter + 1);
@@ -57,9 +57,9 @@ public class CinemaManager extends Manager {
 
 	@Override
 	public boolean update(Model instance) throws JSONException {
-		if(instance.getClass() != Cinema.class)
+		if(((Cinema)instance).getClass() != Cinema.class)
 			return false;
-		if(instance.getId() == 0 || instance.getId() > this.idCounter)
+		if(instance.getId() > this.idCounter)
 			return false;
 		
 		Cinema cinema;
@@ -78,9 +78,9 @@ public class CinemaManager extends Manager {
 
 	@Override
 	public boolean delete(Model instance) {
-		if(instance.getClass() != Cinema.class)
+		if(((Cinema)instance).getClass() != Cinema.class)
 			return false;
-		if(instance.getId() == 0 || instance.getId() > this.idCounter)
+		if(instance.getId() > this.idCounter)
 			return false;
 		
 		Cinema cinema;

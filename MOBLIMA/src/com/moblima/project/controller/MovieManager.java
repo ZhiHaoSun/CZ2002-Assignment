@@ -43,7 +43,7 @@ public class MovieManager extends Manager {
 
 	@Override
 	public boolean create(Model instance) throws JSONException {
-		if(instance.getClass() != Movie.class)
+		if(((Movie)instance).getClass() != Movie.class)
 			return false;
 		
 		instance.setId(this.idCounter + 1);
@@ -57,9 +57,9 @@ public class MovieManager extends Manager {
 
 	@Override
 	public boolean update(Model instance) throws JSONException {
-		if(instance.getClass() != Movie.class)
+		if(((Movie)instance).getClass() != Movie.class)
 			return false;
-		if(instance.getId() == 0 || instance.getId() > this.idCounter)
+		if(instance.getId() > this.idCounter)
 			return false;
 		
 		Movie movie;
@@ -78,9 +78,9 @@ public class MovieManager extends Manager {
 
 	@Override
 	public boolean delete(Model instance) {
-		if(instance.getClass() != Movie.class)
+		if(((Movie)instance).getClass() != Movie.class)
 			return false;
-		if(instance.getId() == 0 || instance.getId() > this.idCounter)
+		if(instance.getId() > this.idCounter)
 			return false;
 		
 		Movie movie;

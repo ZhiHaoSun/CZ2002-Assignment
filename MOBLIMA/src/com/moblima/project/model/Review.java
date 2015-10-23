@@ -94,7 +94,7 @@ public class Review extends Model {
 
 	@Override
 	public String toDisplay() {
-		return id + "  " + rating.toString() + "  " + description + "  " + date;
+		return rating.toString() + "  " + description + "  " + date;
 	}
 
 }

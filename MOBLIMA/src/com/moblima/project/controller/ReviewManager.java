@@ -45,7 +45,7 @@ private static final String file = "data/review.json";
 
 	@Override
 	public boolean create(Model instance) throws JSONException {
-		if(instance.getClass() != Review.class)
+		if(((Review)instance).getClass() != Review.class)
 			return false;
 		
 		instance.setId(this.idCounter + 1);
@@ -59,9 +59,9 @@ private static final String file = "data/review.json";
 
 	@Override
 	public boolean update(Model instance) throws JSONException {
-		if(instance.getClass() != Review.class)
+		if(((Review)instance).getClass() != Review.class)
 			return false;
-		if(instance.getId() == 0 || instance.getId() > this.idCounter)
+		if(instance.getId() > this.idCounter)
 			return false;
 		
 		Review review;
@@ -80,9 +80,9 @@ private static final String file = "data/review.json";
 
 	@Override
 	public boolean delete(Model instance) {
-		if(instance.getClass() != Review.class)
+		if(((Review)instance).getClass() != Review.class)
 			return false;
-		if(instance.getId() == 0 || instance.getId() > this.idCounter)
+		if(instance.getId() > this.idCounter)
 			return false;
 		
 		Review review;

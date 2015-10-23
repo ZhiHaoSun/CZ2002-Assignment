@@ -15,6 +15,8 @@ import com.moblima.project.controller.ShowTimeManager;
 import com.moblima.project.controller.StaffManager;
 import com.moblima.project.controller.TicketManager;
 import com.moblima.project.model.Movie;
+import com.moblima.project.model.ShowTime;
+import com.moblima.project.model.Cinema;
 import com.moblima.project.model.Constant.*;
 
 public abstract class BaseMenu {
@@ -122,6 +124,38 @@ public abstract class BaseMenu {
 		int index = readChoice(1, movies.size()+1)-1;
 		
 		return movies.get(index);
+	}
+	
+	protected Cinema chooseCinema() throws ExitException {
+		ArrayList<Cinema> cinemas = this.mCinemaManager.getmCinemas();
+		
+		println("Choose Cinema:");						
+		
+		for (int i=0, j=1; i<cinemas.size(); i++,j++)
+			println(" "+j+". "+cinemas.get(i).getName());
+		
+		println(" "+(cinemas.size()+1)+". Back");
+		println("");
+		
+		int index = readChoice(1, cinemas.size()+1)-1;
+		
+		return cinemas.get(index);
+	}
+	
+	protected ShowTime chooseShowTime() throws ExitException {
+		ArrayList<ShowTime> showTimes = this.mShowTimeManager.getmShowTimes();
+		
+		println("Choose Show Times:");						
+		
+		for (int i=0, j=1; i<showTimes.size(); i++,j++)
+			println(" "+j+". "+showTimes.get(i).getDateTimeStr());
+		
+		println(" "+(showTimes.size()+1)+". Back");
+		println("");
+		
+		int index = readChoice(1, showTimes.size()+1)-1;
+		
+		return showTimes.get(index);
 	}
 	
 	protected Language chooseLanguage() throws ExitException {
