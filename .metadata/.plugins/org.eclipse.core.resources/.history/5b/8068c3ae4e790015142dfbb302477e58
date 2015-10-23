@@ -59,7 +59,6 @@ public class MovieGoerMenu extends BaseMenu {
 				break;
 			}
 		} while (choice != 4);
-	}
 	
 	public void displayAllMovies(){
 		ArrayList<Movie> movies = this.mMovieManager.getMovies();
@@ -86,6 +85,9 @@ public class MovieGoerMenu extends BaseMenu {
 		for(int i=0;i<reviews.size();i++){
 			println(reviews.get(i).toDisplay());
 		}
+=======
+	
+>>>>>>> origin/master
 	}
 }
 
