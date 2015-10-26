@@ -2,11 +2,9 @@ package com.moblima.project.view;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.Date;
 import java.util.Scanner;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import com.moblima.project.controller.CinemaManager;
 import com.moblima.project.controller.MovieManager;
@@ -14,13 +12,6 @@ import com.moblima.project.controller.ReviewManager;
 import com.moblima.project.controller.ShowTimeManager;
 import com.moblima.project.controller.StaffManager;
 import com.moblima.project.controller.TicketManager;
-import com.moblima.project.model.Ticket;
-import com.moblima.project.model.Cinema;
-import com.moblima.project.model.Constant;
-import com.moblima.project.model.Constant.Rating;
-import com.moblima.project.model.Movie;
-import com.moblima.project.model.Review;
-import com.moblima.project.model.ShowTime;
 
 public class Moblima {
 	
