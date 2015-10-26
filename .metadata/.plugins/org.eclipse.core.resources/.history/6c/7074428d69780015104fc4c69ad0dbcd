@@ -1,0 +1,46 @@
+package com.moblima.project.view.moviegoer;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+import com.moblima.project.controller.MovieManager;
+import com.moblima.project.model.Cinema;
+import com.moblima.project.model.Movie;
+import com.moblima.project.view.BaseMenu;
+
+public class MovieGoerMenu extends BaseMenu {
+
+	public MovieGoerMenu(Scanner sc) {
+		super(sc);
+		
+		mMovieManager = new MovieManager();
+	}
+	
+	public void displayMenu() {
+		
+	}
+	
+	public void displayMovies(){
+		ArrayList<Movie> movies = Movie.instances;
+		
+		println("Id    Title    Opening     Runtime    Director");
+		for(int i=0;i<movies.size();i++){
+			println(movies.get(i).toDisplay());
+		}
+	}
+	
+	public void displayCinemas(){
+		ArrayList<Cinema> cinemas = Cinema.instances;
+		
+		println("Id    Title    Opening     Runtime    Director");
+		for(int i=0;i<cinemas.size();i++){
+			println(cinemas.get(i).toDisplay());
+		}
+	}
+	
+	public void displayAllReviews(){
+		
+	}
+}
+
+

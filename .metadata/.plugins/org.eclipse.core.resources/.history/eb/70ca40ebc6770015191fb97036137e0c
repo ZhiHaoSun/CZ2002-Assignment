@@ -1,0 +1,74 @@
+package com.moblima.project.model;
+
+import java.util.ArrayList;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.moblima.project.model.Constant.ClassType;
+
+public class Cinema extends Model{
+	
+	private int id;
+	private String name;
+	private ClassType classType;
+	
+	private ArrayList<ShowTime> showTimes;
+	
+	public static ArrayList<Cinema> instances;
+	public static int curMaxID;
+	
+	public Cinema(String name, ClassType classType){
+		this.id = Cinema.curMaxID+1;
+		this.name = name;
+		this.classType = classType;
+		this.showTimes = new ArrayList<>();
+	}
+
+	public Cinema(String name, ClassType classType, ArrayList<ShowTime> showTimes) {
+		super();
+		this.id = Cinema.curMaxID + 1;
+		this.name = name;
+		this.classType = classType;
+		this.showTimes = showTimes;
+	}
+	
+	public Cinema(JSONObject object) throws JSONException{
+		this.id = object.getInt("id");
+		this.name = object.getString("name");
+		this.classType = ClassType.valueOf(object.getString("classType"));
+		
+		ArrayList<ShowTime> shows = new ArrayList<>();
+		JSONArray array = object.getJSONArray("showTimes");
+		
+		int len = array.length();
+		for(int i=0;i<len;i++){
+			shows.add(new ShowTime(array.get(i)));
+		}
+		
+		this.showTimes = shows;
+	}
+
+	@Override
+	public JSONObject toJSONObject() throws JSONException {
+		JSONObject object = new JSONObject();
+		object.put("id", this.id);
+		object.put("name",this.name);
+		object.put("classType",this.classType.toString());
+		
+		JSONArray array = new JSONArray();
+		for(ShowTime showTime: this.showTimes){
+			array.put(showTime.toJSONObject());
+		}
+		
+		return null;
+	}
+
+	@Override
+	public String toDisplay() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="com.moblima.project.model.Constant.ClassType"/>
+<fullyQualifiedTypeName name="java.text.SimpleDateFormat"/>
+<fullyQualifiedTypeName name="java.text.DateFormat"/>
+<fullyQualifiedTypeName name="java.sql.Date"/>
+<fullyQualifiedTypeName name="java.util.Date"/>
+<fullyQualifiedTypeName name="com.moblima.project.view.moviegoer.MovieGoerMenu"/>
+<fullyQualifiedTypeName name="com.moblima.project.model.Booking"/>
+<fullyQualifiedTypeName name="com.moblima.project.model.Model"/>
+<fullyQualifiedTypeName name="org.json.JSONArray"/>
+<fullyQualifiedTypeName name="com.moblima.project.controller.MovieManager"/>
+<fullyQualifiedTypeName name="com.moblima.project.controller.CinemaManager"/>
+<fullyQualifiedTypeName name="com.moblima.project.controller.ReviewManager"/>
+<fullyQualifiedTypeName name="com.moblima.project.controller.ShowTimeManager"/>
+<fullyQualifiedTypeName name="org.json.JSONObject"/>
+<fullyQualifiedTypeName name="com.moblima.project.model.Ticket"/>
+<fullyQualifiedTypeName name="com.moblima.project.view.BaseMenu"/>
+<fullyQualifiedTypeName name="com.moblima.project.controller.TicketManager"/>
+<fullyQualifiedTypeName name="com.moblima.project.model.Staff"/>
+<fullyQualifiedTypeName name="com.moblima.project.controller.StaffManager"/>
+<fullyQualifiedTypeName name="com.moblima.project.model.Constant"/>
+<fullyQualifiedTypeName name="com.moblima.project.model.Review"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="com.moblima.project.model.Constant.Rating"/>
+<fullyQualifiedTypeName name="com.moblima.project.model.ShowTime"/>
+<fullyQualifiedTypeName name="com.moblima.project.model.Movie"/>
+<fullyQualifiedTypeName name="com.moblima.project.model.Constant.Cineplex"/>
+<fullyQualifiedTypeName name="com.moblima.project.model.Cinema"/>
+</qualifiedTypeNameHistroy>

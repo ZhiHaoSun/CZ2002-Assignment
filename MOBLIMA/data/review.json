@@ -1,0 +1,23 @@
+[  
+   {  
+      "date":"10 22 2015",
+      "rating":"G",
+      "description":"This is a good movie",
+      "movieId":0,
+      "id":0
+   },
+   {  
+      "date":"10 22 2015",
+      "rating":"M18",
+      "description":"This is a bad movie",
+      "movieId":0,
+      "id":1
+   },
+   {  
+      "date":"10 22 2015",
+      "rating":"NC16",
+      "description":"This is a normal movie",
+      "movieId":0,
+      "id":2
+   }
+]

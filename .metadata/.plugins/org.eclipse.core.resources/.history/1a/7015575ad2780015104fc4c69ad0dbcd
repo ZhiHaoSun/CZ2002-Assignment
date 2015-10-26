@@ -1,0 +1,41 @@
+package com.moblima.project.controller;
+
+import java.io.IOException;
+import java.util.ArrayList;
+
+import org.json.JSONException;
+
+import com.moblima.project.model.Model;
+import com.moblima.project.model.Movie;
+
+public class MovieManager extends Manager {
+	private static final String path = "data/movie.json";
+	
+	private ArrayList<Movie> mMovies;
+	
+	public MovieManager() {
+		load();
+	}
+
+	@Override
+	protected void load() {
+		
+	}
+
+	@Override
+	public boolean create(Model instance) {
+		return false;
+	}
+
+	@Override
+	public boolean update(Model instance) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean delete(Model instance) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+}

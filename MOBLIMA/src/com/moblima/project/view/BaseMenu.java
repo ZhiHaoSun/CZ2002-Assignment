@@ -4,22 +4,42 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import com.moblima.project.controller.CinemaManager;
 import com.moblima.project.controller.MovieManager;
+import com.moblima.project.controller.ReviewManager;
+import com.moblima.project.controller.ShowTimeManager;
+import com.moblima.project.controller.StaffManager;
+import com.moblima.project.controller.TicketManager;
+import com.moblima.project.model.Cinema;
+import com.moblima.project.model.Constant.Cineplex;
 import com.moblima.project.model.Constant.Language;
 import com.moblima.project.model.Constant.Rating;
 import com.moblima.project.model.Constant.Status;
-import com.moblima.project.model.Movie;	
+import com.moblima.project.model.Movie;
+import com.moblima.project.model.ShowTime;
 
 public abstract class BaseMenu {
 	private Scanner sc;
 	protected int choice;
 	
-	protected MovieManager mMovieManager;
+	public MovieManager mMovieManager = null;
+	public CinemaManager mCinemaManager = null;
+	public ReviewManager mReviewManager = null;
+	public ShowTimeManager mShowTimeManager = null;
+	public TicketManager mTicketManager = null;
+	public StaffManager mStaffManager = null;
 	
-	public BaseMenu(Scanner sc) {
+	public BaseMenu(Scanner sc, MovieManager mMovieManager, CinemaManager mCinemaManager, ReviewManager mReviewManager,
+			ShowTimeManager mShowTimeManager, TicketManager mTicketManager, StaffManager mStaffManager) {
 		this.sc = sc;
+		this.mMovieManager = mMovieManager;
+		this.mCinemaManager = mCinemaManager;
+		this.mReviewManager = mReviewManager;
+		this.mShowTimeManager = mShowTimeManager;
+		this.mTicketManager = mTicketManager;
+		this.mStaffManager = mStaffManager;
 	}
-	
+
 	public abstract void displayMenu();
 	
 	protected String read(String message) {
@@ -90,7 +110,7 @@ public abstract class BaseMenu {
 	
 	//
 	protected Movie chooseMovie() throws ExitException {
-		ArrayList<Movie> movies = mMovieManager.getMovieListing();
+		ArrayList<Movie> movies = mMovieManager.getMovies();
 		
 		println("Choose Movie:");						
 		
@@ -103,6 +123,41 @@ public abstract class BaseMenu {
 		int index = readChoice(1, movies.size()+1)-1;
 		
 		return movies.get(index);
+	}
+	
+	protected Cinema chooseCinema() throws ExitException {
+		ArrayList<Cinema> cinemas = this.mCinemaManager.getmCinemas();
+		
+		println("Choose Cinema:");						
+		
+		for (int i=0, j=1; i<cinemas.size(); i++,j++)
+			println(" "+j+". "+cinemas.get(i).getName());
+		
+		println(" "+(cinemas.size()+1)+". Back");
+		println("");
+		
+		int index = readChoice(1, cinemas.size()+1)-1;
+		
+		return cinemas.get(index);
+	}
+	
+	protected ShowTime chooseShowTime() throws ExitException {
+		ArrayList<ShowTime> showTimes = this.mShowTimeManager.getmShowTimes();
+		ShowTime time;
+		
+		println("Choose Show Times:");						
+		
+		for (int i=0, j=1; i<showTimes.size(); i++,j++){
+			time = showTimes.get(i);
+			println(" "+j+". "+time.getCinemaId() + "  " + time.getMovieId() + "  " + time.getDateTimeStr());
+		}
+		
+		println(" "+(showTimes.size()+1)+". Back");
+		println("");
+		
+		int index = readChoice(1, showTimes.size()+1)-1;
+		
+		return showTimes.get(index);
 	}
 	
 	protected Language chooseLanguage() throws ExitException {
@@ -148,6 +203,21 @@ public abstract class BaseMenu {
 		
 		int index = readChoice(1, length+1) -1;
 		return Status.values()[index];
+	}
+	
+	protected Cineplex chooseCineplex() throws ExitException {
+		int length = Status.values().length;
+		
+		println("Choose Cineplex:");						
+		
+		for (int i=0, j=1; i<length; i++,j++)
+			println(" "+j+". "+Cineplex.values()[i].toString());
+		
+		println(" "+(length+1)+". Back");
+		println("");
+		
+		int index = readChoice(1, length+1) -1;
+		return Cineplex.values()[index];
 	}
 	
 	// Exception Class

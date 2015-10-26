@@ -1,0 +1,61 @@
+package com.moblima.project.model;
+
+import java.text.ParseException;
+import java.util.Date;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+public class ShowTime extends Model {
+	
+	private int movieId;
+	private int cinemaId;
+	
+	private Date dateTime;
+
+	public ShowTime(int movieId, int cinemaId, Date dateTime) {
+		super();
+		this.movieId = movieId;
+		this.cinemaId = cinemaId;
+		this.dateTime = dateTime;
+	}
+
+	public ShowTime(JSONObject object) throws JSONException, ParseException {
+		this.movieId = object.getInt("movieId");
+		this.cinemaId = object.getInt("cinemaId");
+		
+		this.dateTime = Constant.dateTimeFormat.parse(object.getString("dateTime"));
+	}
+	
+	public Movie getMovie(){
+		for(Movie m: Movie.instances){
+			if(m.getId() == this.movieId)
+				return m;
+		}
+		
+		return null;
+	}
+	
+	public Cinema getCinema(){
+		for(Cinema cinema: Cinema.instances){
+			if(cinema.getId() == this.cinemaId)
+				return cinema;
+		}
+		
+		return null;
+	}
+
+	@Override
+	public JSONObject toJSONObject() throws JSONException {
+		JSONObject object = new JSONObject();
+		
+		
+		return null;
+	}
+
+	@Override
+	public String toDisplay() {
+		return null;
+	}
+
+}

@@ -2,21 +2,30 @@ package com.moblima.project.view.staff;
 
 import java.util.Scanner;
 
-import com.moblima.project.model.User;
+import com.moblima.project.controller.CinemaManager;
+import com.moblima.project.controller.MovieManager;
+import com.moblima.project.controller.ReviewManager;
+import com.moblima.project.controller.ShowTimeManager;
+import com.moblima.project.controller.StaffManager;
+import com.moblima.project.controller.TicketManager;
+import com.moblima.project.model.Staff;
 import com.moblima.project.view.BaseMenu;
 
 public class StaffMenu extends BaseMenu {
-
-	private User mLoginUser;
+	
+	private Staff mLoginUser;
 	private ManageMovieMenu mManageMovieMenu;
-	
-	public StaffMenu(Scanner sc) {
-		super(sc);
+	private ManageCinemaMenu mManageCinemaMenu;
+
+	public StaffMenu(Scanner sc, MovieManager mMovieManager, CinemaManager mCinemaManager, ReviewManager mReviewManager,
+			ShowTimeManager mShowTimeManager, TicketManager mTicketManager, StaffManager mStaffManager) {
+		super(sc, mMovieManager, mCinemaManager, mReviewManager, mShowTimeManager, mTicketManager, mStaffManager);
 		
-		mManageMovieMenu = new ManageMovieMenu(sc);
+		mManageMovieMenu = new ManageMovieMenu(sc, mMovieManager, mCinemaManager, mReviewManager, mShowTimeManager, mTicketManager, mStaffManager);
+		mManageCinemaMenu = new ManageCinemaMenu(sc, mMovieManager, mCinemaManager, mReviewManager, mShowTimeManager, mTicketManager, mStaffManager);
 	}
-	
-	public void setLoginUser(User user) {
+
+	public void setLoginUser(Staff user) {
 		mLoginUser = user;
 	}
 
@@ -37,6 +46,7 @@ public class StaffMenu extends BaseMenu {
 						mManageMovieMenu.displayMenu();
 						break;
 					case 2:
+						mManageCinemaMenu.displayMenu();
 						break;
 					case 3:
 						System.out.println("Programme is shutting down.");

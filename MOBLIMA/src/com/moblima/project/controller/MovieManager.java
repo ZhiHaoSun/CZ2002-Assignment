@@ -1,122 +1,130 @@
 package com.moblima.project.controller;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 
+import com.moblima.project.model.Model;
 import com.moblima.project.model.Movie;
 
 public class MovieManager extends Manager {
-	private static final String JSON_FILE_PATH = "data/movie.json";
+	private static final String file = "data/movie.json";
 	
-	private int mCounter; 
 	private ArrayList<Movie> mMovies;
 	
-	public MovieManager() {
-		getMovieListing();
-	}
-	public String generateMovieID() throws JSONException {
-		mCounter = jdata.getInt("counter");
-		jdata.put("counter", ++mCounter);
-		return "M" + String.format("%05d", mCounter);
+	public MovieManager() throws IOException, JSONException, ParseException {
+		super();
 	}
 	
-	public boolean create(Movie movie) { 
-		try {
-			movie.setID(generateMovieID());
-			jitems.put(movie.toJSONObject());
-			
-			// update the json file
-			if (writeFile(JSON_FILE_PATH)) {
-				mMovies.add(movie);
-				return true;
-			} else {
-				jitems.remove(jitems.length()-1);
-			}
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
+	public ArrayList<Movie> getMovies() {
+		return mMovies;
+	}
+
+	public void setMovies(ArrayList<Movie> mMovies) {
+		this.mMovies = mMovies;
+	}
+
+	@Override
+	protected void load() throws IOException, JSONException {
+		JSONArray array = this.getData(file);
+		mMovies = new ArrayList<>();
+		idCounter = 0;
+		Movie movie;
 		
-		return false; 	
-	}
-	
-	public Movie getMovieDetails(String movieID) {
-		for (Movie movie:mMovies) 
-			if (movie.match(movieID))
-				return movie;
-				
-		return null;
-	}
-	
-	public boolean update(Movie movie) { 
-		try {
-			String id;
-			for (int i=0; i<jitems.length(); i++) {
-				id = jitems.getJSONObject(i).getString("id");
-				
-				if (movie.match(id)) {
-					// remove the current movie
-					jitems.remove(i);
-					
-					// add the updated movie
-					jitems.put(movie.toJSONObject());
-					
-					// write to the json file
-					if (writeFile(JSON_FILE_PATH)) 
-						return true;
-					
-					break;
-				}
-			}
-		} catch (JSONException e) {
-			e.printStackTrace();
+		for(int i=0;i<array.length();i++){
+			movie = new Movie(array.getJSONObject(i));
+			mMovies.add(movie);
+			idCounter = movie.getId();
 		}
-		return false; 
 	}
-	
-	public boolean remove(Movie movie) { 
-		try {
-			String id;
-			for (int i=0; i<jitems.length(); i++) {
-				id = jitems.getJSONObject(i).getString("id");
-				
-				if (movie.match(id)) {
-					jitems.remove(i);
-					
-					if (writeFile(JSON_FILE_PATH)) {
-						mMovies.remove(i);
-						return true;
-					}
-					break;
-				}
+
+	@Override
+	public boolean create(Model instance) throws JSONException {
+		if(((Movie)instance).getClass() != Movie.class)
+			return false;
+		
+		instance.setId(this.idCounter + 1);
+		this.idCounter++;
+		mMovies.add((Movie)instance);
+		jdata.put(instance.toJSONObject());
+		
+		this.writeFile(file);
+		return true;
+	}
+
+	@Override
+	public boolean update(Model instance) throws JSONException {
+		if(((Movie)instance).getClass() != Movie.class)
+			return false;
+		if(instance.getId() > this.idCounter)
+			return false;
+		
+		Movie movie;
+		
+		for(int i=0;i<this.mMovies.size();i++){
+			movie = this.mMovies.get(i);
+			if(movie.getId() == instance.getId()){
+				this.mMovies.set(i, (Movie) instance);
+				jdata.put(i,instance.toJSONObject());
+				this.writeFile(file);
+				return true;
 			}
-			
-			// update the json file
-		} catch (JSONException e) {
-			e.printStackTrace();
+		}
+		return false;
+	}
+
+	@Override
+	public boolean delete(Model instance) {
+		if(((Movie)instance).getClass() != Movie.class)
+			return false;
+		if(instance.getId() > this.idCounter)
+			return false;
+		
+		Movie movie;
+		
+		for(int i=0;i<this.mMovies.size();i++){
+			movie = this.mMovies.get(i);
+			if(movie.getId() == instance.getId()){
+				this.mMovies.remove(i);
+				jdata.remove(i);
+				this.writeFile(file);
+				
+				return true;
+			}
 		}
 		return false;
 	}
 	
-	public ArrayList<Movie> getMovieListing() {
-		mMovies = new ArrayList<>();
-
-		try {
-			jitems = getData(JSON_FILE_PATH, "movies");
-			
-			for (int i=0; i<jitems.length(); i++) {
-				jitem = jitems.getJSONObject(i);
-				mMovies.add(new Movie(jitem));
+	@Override
+	public boolean deleteById(int id) throws JSONException {
+		if(this.idCounter < id)
+			return false;
+		
+		Movie movie;
+		
+		for(int i=0;i<this.mMovies.size();i++){
+			movie = this.mMovies.get(i);
+			if(movie.getId() == id){
+				this.mMovies.remove(i);
+				jdata.remove(i);
+				this.writeFile(file);
+				
+				return true;
 			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 		
-		return mMovies;
+		return false;
+	}
+
+	@Override
+	public Model getInstanceById(int id) {
+		for(Movie movie : mMovies){
+			if(movie.getId() == id)
+				return movie;
+		}
+		return null;
 	}
 }

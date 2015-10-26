@@ -1,0 +1,122 @@
+package com.moblima.project.controller;
+
+import java.io.IOException;
+import java.util.ArrayList;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import com.moblima.project.model.Cinema;
+import com.moblima.project.model.Model;
+import com.moblima.project.model.Movie;
+
+public class CinemaManager extends Manager {
+	private static final String file = "data/cinema.json";
+	
+	private ArrayList<Cinema> mCinemas;
+	
+	public CinemaManager() throws IOException, JSONException {
+		super();
+	}
+	
+	@Override
+	protected void load() throws IOException, JSONException {
+		JSONArray array = this.getData(file);
+		mCinemas = new ArrayList<>();
+		idCounter = 0;
+		Cinema cinema;
+		
+		for(int i=0;i<array.length();i++){
+			cinema = new Cinema(array.getJSONObject(i));
+			mCinemas.add(cinema);
+			idCounter = cinema.getId();
+		}
+	}
+
+	@Override
+	public boolean create(Model instance) throws JSONException {
+		if(instance.getClass() != Movie.class)
+			return false;
+		
+		instance.setId(this.idCounter + 1);
+		this.idCounter++;
+		mMovies.add((Movie)instance);
+		jdata.put(instance.toJSONObject());
+		
+		this.writeFile(file);
+		return true;
+	}
+
+	@Override
+	public boolean update(Model instance) throws JSONException {
+		if(instance.getClass() != Movie.class)
+			return false;
+		if(instance.getId() == 0 || instance.getId() > this.idCounter)
+			return false;
+		
+		Movie movie;
+		
+		for(int i=0;i<this.mMovies.size();i++){
+			movie = this.mMovies.get(i);
+			if(movie.getId() == instance.getId()){
+				this.mMovies.set(i, (Movie) instance);
+				jdata.put(i,instance.toJSONObject());
+				this.writeFile(file);
+				return true;
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public boolean delete(Model instance) {
+		if(instance.getClass() != Movie.class)
+			return false;
+		if(instance.getId() == 0 || instance.getId() > this.idCounter)
+			return false;
+		
+		Movie movie;
+		
+		for(int i=0;i<this.mMovies.size();i++){
+			movie = this.mMovies.get(i);
+			if(movie.getId() == instance.getId()){
+				this.mMovies.remove(i);
+				jdata.remove(i);
+				this.writeFile(file);
+				
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	@Override
+	public boolean deleteById(int id) throws JSONException {
+		if(this.idCounter < id)
+			return false;
+		
+		Movie movie;
+		
+		for(int i=0;i<this.mMovies.size();i++){
+			movie = this.mMovies.get(i);
+			if(movie.getId() == id){
+				this.mMovies.remove(i);
+				jdata.remove(i);
+				this.writeFile(file);
+				
+				return true;
+			}
+		}
+		
+		return false;
+	}
+
+	@Override
+	public Model getInstanceById(int id) {
+		for(Movie movie : mMovies){
+			if(movie.getId() == id)
+				return movie;
+		}
+		return null;
+	}
+}

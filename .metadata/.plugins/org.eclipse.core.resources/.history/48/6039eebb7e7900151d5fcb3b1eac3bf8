@@ -1,0 +1,34 @@
+package com.moblima.project.view.staff;
+
+import java.util.Scanner;
+
+import com.moblima.project.controller.CinemaManager;
+import com.moblima.project.controller.MovieManager;
+import com.moblima.project.controller.ReviewManager;
+import com.moblima.project.controller.ShowTimeManager;
+import com.moblima.project.controller.StaffManager;
+import com.moblima.project.controller.TicketManager;
+import com.moblima.project.model.Cinema;
+import com.moblima.project.model.Movie;
+import com.moblima.project.model.ShowTime;
+import com.moblima.project.view.BaseMenu;
+
+public class ManageShowTimeMenu extends BaseMenu {
+
+	public ManageShowTimeMenu(Scanner sc, MovieManager mMovieManager, CinemaManager mCinemaManager,
+			ReviewManager mReviewManager, ShowTimeManager mShowTimeManager, TicketManager mTicketManager,
+			StaffManager mStaffManager) {
+		super(sc, mMovieManager, mCinemaManager, mReviewManager, mShowTimeManager, mTicketManager, mStaffManager);
+
+	}
+	
+	private ShowTime showTime;
+	private Cinema cinema;
+	private Movie movie;
+
+	@Override
+	public void displayMenu() {
+
+	}
+
+}

@@ -3,24 +3,30 @@ package com.moblima.project.view.staff;
 import java.text.ParseException;
 import java.util.Scanner;
 
+import org.json.JSONException;
+
+import com.moblima.project.controller.CinemaManager;
 import com.moblima.project.controller.MovieManager;
+import com.moblima.project.controller.ReviewManager;
+import com.moblima.project.controller.ShowTimeManager;
+import com.moblima.project.controller.StaffManager;
+import com.moblima.project.controller.TicketManager;
 import com.moblima.project.model.Movie;
 import com.moblima.project.view.BaseMenu;
 
 public class ManageMovieMenu extends BaseMenu {
 
-	private Movie movie;
-	
-	public ManageMovieMenu(Scanner sc) {
-		super(sc);
+	public ManageMovieMenu(Scanner sc, MovieManager mMovieManager, CinemaManager mCinemaManager,
+			ReviewManager mReviewManager, ShowTimeManager mShowTimeManager, TicketManager mTicketManager, StaffManager mStaffManager) {
+		super(sc, mMovieManager, mCinemaManager, mReviewManager, mShowTimeManager, mTicketManager, mStaffManager);
 	}
+
+	private Movie movie;
 
 	@Override 
 	public void displayMenu() {
 		choice = 0; // each menu manage their own choice integer
-		
-		mMovieManager = new MovieManager();
-		
+				
 		do {
 			printHeader("Manage Movie Listing");
 			println(" 1. Create Movie");
@@ -54,16 +60,16 @@ public class ManageMovieMenu extends BaseMenu {
 		} while (choice != 4);
 	}
 	
-	private void createMovie() throws ParseException, ExitException {
-		movie = new Movie();
+	private void createMovie() throws ParseException, ExitException, JSONException {
 		
 		printHeader("Create Movie");
+		movie = new Movie();
 		
 		movie.setTitle(read("Title: "));
 		movie.setSynopsis(read("SYNOPSIS: "));
 		
 		movie.setDirector(read("Director: "));
-		movie.setCasts(read("Casts (separate by COMMA): "));
+		movie.setCasts(read("Casts (separate by ','): "));
 		
 		movie.setLanguage(chooseLanguage());
 		movie.setRating(chooseMovieRating());
@@ -78,7 +84,7 @@ public class ManageMovieMenu extends BaseMenu {
 			System.out.println("Create Unsuccessful");
 	}
 	
-	private void updateMovie() throws ExitException, ParseException {
+	private void updateMovie() throws ExitException, ParseException, JSONException {
 		printHeader("Update Movie");
 	
 		movie = chooseMovie();
@@ -121,7 +127,7 @@ public class ManageMovieMenu extends BaseMenu {
 		
 		movie = chooseMovie();
 		
-		if (mMovieManager.remove(movie))
+		if (mMovieManager.delete(movie))
 			println("Remove Successful");
 		else
 			println("Remove Unsuccessful");

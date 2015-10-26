@@ -1,19 +1,36 @@
 package com.moblima.project.view;
 
+import java.io.IOException;
+import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
+import org.json.JSONException;
+
+import com.moblima.project.controller.CinemaManager;
+import com.moblima.project.controller.MovieManager;
+import com.moblima.project.controller.ReviewManager;
+import com.moblima.project.controller.ShowTimeManager;
+import com.moblima.project.controller.StaffManager;
+import com.moblima.project.controller.TicketManager;
+import com.moblima.project.model.Cinema;
+import com.moblima.project.model.Movie;
+import com.moblima.project.view.moviegoer.MovieGoerMenu;
 import com.moblima.project.view.staff.LoginMenu;
 import com.moblima.project.view.staff.StaffMenu;
 
 public class MainMenu extends BaseMenu {
+	private MovieGoerMenu movieGoerMenu;
 	private LoginMenu mLoginMenu;
 	
-	public MainMenu(Scanner sc) {
-		super(sc);
+	public MainMenu(Scanner sc, MovieManager mMovieManager, CinemaManager mCinemaManager, ReviewManager mReviewManager,
+			ShowTimeManager mShowTimeManager, TicketManager mTicketManager, StaffManager mStaffManager) {
+		super(sc, mMovieManager, mCinemaManager, mReviewManager, mShowTimeManager, mTicketManager, mStaffManager);
 		
-		mLoginMenu = new LoginMenu(sc);
+		movieGoerMenu = new MovieGoerMenu(sc,mMovieManager, mCinemaManager, mReviewManager, mShowTimeManager, mTicketManager, mStaffManager);
+		mLoginMenu = new LoginMenu(sc,mMovieManager, mCinemaManager, mReviewManager, mShowTimeManager, mTicketManager, mStaffManager);
 	}
-	
+
 	public void displayMenu() {
 		int choice = 0; // each menu manage their own choice integer
 
@@ -32,6 +49,7 @@ public class MainMenu extends BaseMenu {
 						mLoginMenu.displayMenu();
 						break;
 					case 2:
+						movieGoerMenu.displayMenu();
 						break;
 				}			
 			} catch (ExitException e) {
@@ -40,5 +58,8 @@ public class MainMenu extends BaseMenu {
 			}
 		} while (choice != 3);
 	}
+	
+	
+	
 	
 }

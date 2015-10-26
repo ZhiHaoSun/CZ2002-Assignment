@@ -13,63 +13,17 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public abstract class Model {
+	protected int id;
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public abstract JSONObject toJSONObject() throws JSONException;
-	public static String file;
-	public static ArrayList<Model> instances;
-	
-	public static ArrayList<JSONObject> readFile() throws IOException, JSONException{
-		BufferedReader reader = new BufferedReader(new FileReader(file));
-		String line;
-		StringBuilder builder = new StringBuilder();
-		while((line = reader.readLine()) != null){
-			builder.append(line);
-		}
-		reader.close();
-		return load(builder.toString());
-	}
-	
-	protected static void writeFile(String data) throws IOException, JSONException{
-		
-		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-		
-		writer.write(data);
-		writer.flush();
-		writer.close();
-	}
-	
-	public static ArrayList<JSONObject> load(String content) throws JSONException {
-		JSONArray json = new JSONArray(content);
-		int len = json.length();
-		ArrayList<JSONObject> objects = new ArrayList<>();
-		
-		if(json != null && len >0){
-			for(int i=0;i<len;i++){
-				objects.add(json.getJSONObject(i));
-			}
-			return objects;
-		}
-		
-		return null;
-	}
-	public static void save(String content) throws JSONException, IOException{
-		String data = Model.getData();
-		writeFile(data);
-	}
-	
-	protected static String getData() throws JSONException{
-		if(instances != null && instances.size() > 0){
-			int len = instances.size();
-			JSONArray objects = new JSONArray();
-			JSONObject object;
-			for(int i=0;i<len;i++){
-				object = instances.get(i).toJSONObject();
-				objects.put(object);
-			}
-			
-			return objects.toString();
-		}else
-			return null;
-	}
 	
 	public String toString(){
 		try {
@@ -81,4 +35,6 @@ public abstract class Model {
 		
 		return null;
 	}
+	
+	public abstract String toDisplay();
 }

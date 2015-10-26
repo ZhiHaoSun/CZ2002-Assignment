@@ -1,18 +1,34 @@
 package com.moblima.project.view.moviegoer;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
+import com.moblima.project.controller.CinemaManager;
 import com.moblima.project.controller.MovieManager;
+import com.moblima.project.controller.ReviewManager;
+import com.moblima.project.controller.ShowTimeManager;
+import com.moblima.project.controller.StaffManager;
+import com.moblima.project.controller.TicketManager;
+import com.moblima.project.model.Cinema;
+import com.moblima.project.model.Movie;
+import com.moblima.project.model.Review;
 import com.moblima.project.view.BaseMenu;
+import com.moblima.project.view.BaseMenu.ExitException;
 
 public class MovieGoerMenu extends BaseMenu {
-
-	public MovieGoerMenu(Scanner sc) {
-		super(sc);
-		
-		mMovieManager = new MovieManager();
-	}
 	
+	private MovieGoerMoviesMenu movieMenu;
+	private MovieGoerSearchMenu searchMenu;
+	private MovieGoerTicketMenu ticketMenu;
+	
+	public MovieGoerMenu(Scanner sc, MovieManager mMovieManager, CinemaManager mCinemaManager,
+			ReviewManager mReviewManager, ShowTimeManager mShowTimeManager, TicketManager mTicketManager, StaffManager mStaffManager) {
+		super(sc, mMovieManager, mCinemaManager, mReviewManager, mShowTimeManager, mTicketManager, mStaffManager);
+		movieMenu = new MovieGoerMoviesMenu(sc, mMovieManager, mCinemaManager, mReviewManager, mShowTimeManager, mTicketManager, mStaffManager);
+		searchMenu = new MovieGoerSearchMenu(sc, mMovieManager, mCinemaManager, mReviewManager, mShowTimeManager, mTicketManager, mStaffManager);
+		ticketMenu = new MovieGoerTicketMenu(sc, mMovieManager, mCinemaManager, mReviewManager, mShowTimeManager, mTicketManager, mStaffManager);
+	}
+
 	public void displayMenu() {
 		choice = 0; // each menu manage their own choice integer
 		
@@ -20,22 +36,24 @@ public class MovieGoerMenu extends BaseMenu {
 			printHeader("Welcome to MOBLIMA");
 			println(" 1. Movie Listing");
 			println(" 2. Search");
-			println(" 3. Remove Movie");
-			println(" 4. Back");
+			println(" 3. Book Ticket");
+			println(" 4. View Book History");
+			println(" 5. Back");
 			println("");
 			
 			try {
-				choice = readChoice(1, 4);
+				choice = readChoice(1, 5);
 				
 				switch (choice) {
 					case 1:
-
+						this.displayAllMovies();
+						this.movieMenu.displayMenu();
 						break;
 					case 2:
-
+						this.searchMenu.displayMenu();
 						break;
 					case 3:
-
+						this.ticketMenu.displayMenu();
 						break;
 					case 4: 
 						return; // end this method and go back to previous menu
@@ -46,6 +64,28 @@ public class MovieGoerMenu extends BaseMenu {
 			} catch (Exception e) {
 				break;
 			}
-		} while (choice != 4);
+		} while (choice != 5);
+	}
+	
+	public void displayAllMovies(){
+		printHeader("All Movies");
+		
+		ArrayList<Movie> movies = this.mMovieManager.getMovies();
+		
+		println("Movies List.");
+		for(int i=0;i<movies.size();i++){
+			println(movies.get(i).getTitle());
+		}
+	}
+	
+	public void displayCinemas(){
+		ArrayList<Cinema> cinemas = this.mCinemaManager.getmCinemas();
+		
+		println("Id    Title    Opening     Runtime    Director");
+		for(int i=0;i<cinemas.size();i++){
+			println(cinemas.get(i).toDisplay());
+		}
 	}
 }
+
+

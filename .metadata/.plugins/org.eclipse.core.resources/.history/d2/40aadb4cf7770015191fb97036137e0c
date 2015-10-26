@@ -1,0 +1,48 @@
+package com.moblima.project.model;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.moblima.project.model.Constant.Rating;
+
+public class Review extends Model {
+	
+	private int id;
+	private Rating rating;
+	private Date date;
+	private String description;
+	
+	public static ArrayList<Review> instances;
+	public static int curMaxID;
+	
+	public Review(Rating rating, Date date, String description) {
+		super();
+		this.id = Review.curMaxID + 1;
+		this.rating = rating;
+		this.date = date;
+		this.description = description;
+	}
+	
+	public Review(JSONObject object) throws JSONException, ParseException{
+		this.id = object.getInt("id");
+		this.description = object.getString("description");
+		this.rating = Rating.valueOf(object.getString("rating"));
+		this.date = Constant.dateFormat.parse(object.getString("date"));
+	}
+
+	@Override
+	public JSONObject toJSONObject() throws JSONException {
+		return null;
+	}
+
+	@Override
+	public String toDisplay() {
+		return null;
+	}
+
+}

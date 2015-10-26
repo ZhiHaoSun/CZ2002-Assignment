@@ -1,0 +1,13 @@
+package com.moblima.project.view.staff;
+
+import com.moblima.project.view.BaseMenu;
+
+public class ManageCinemaMenu extends BaseMenu {
+
+	@Override
+	public void displayMenu() {
+		// TODO Auto-generated method stub
+
+	}
+
+}

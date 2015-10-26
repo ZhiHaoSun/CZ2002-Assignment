@@ -14,7 +14,7 @@ import com.moblima.project.model.Constant.Rating;
 import com.moblima.project.model.Constant.Status;
 
 public class Movie extends Model{
-	private String id;
+	private int id;
 	private String title;
 	private String synopsis;
 	
@@ -28,23 +28,18 @@ public class Movie extends Model{
 	private Rating   rating;
 	private Language language;
 	private int overallRating; // Overall Reviewer's Rating
-	
-	// For opening date
-	private SimpleDateFormat sdf, sdp;
 
 	public Movie() {
 		casts = new ArrayList<>();
-		sdf   = new SimpleDateFormat("dd MMM yyyy");
-		sdp   = new SimpleDateFormat("dd/MM/yyyy");
-		status = Status.valueOf("NONE");
-		rating = Rating.valueOf("NO");
+		status = Status.valueOf("COMING_SOON");
+		rating = Rating.valueOf("NA");
 		language = Language.valueOf("ENGLISH");
 	}
 	
 	public Movie(JSONObject jObj) throws JSONException {
 		casts = new ArrayList<>();
 
-		id 		 = jObj.getString("id");
+		id 		 = jObj.getInt("id");
 		title 	 = jObj.getString("title");
 		synopsis = jObj.getString("synopsis");
 		director = jObj.getString("director");
@@ -57,14 +52,6 @@ public class Movie extends Model{
 		
 		for (int i=0; i<jcasts.length(); i++)
 			casts.add(jcasts.getString(i));
-	}
-
-	public String getID() {
-		return id;
-	}
-
-	public void setID(String id) {
-		this.id = id;
 	}
 
 	public String getTitle() {
@@ -101,6 +88,18 @@ public class Movie extends Model{
 
 	public ArrayList<String> getCasts() {
 		return casts;
+	}
+	
+	public String getCastsStr(){
+		StringBuilder builder = new StringBuilder();
+		
+		for(String cast: this.casts){
+			builder.append(cast + " ,");
+		}
+		
+		builder.deleteCharAt(builder.length()-1);
+		
+		return builder.toString();
 	}
 	
 	public void setCasts(String casts) {
@@ -151,8 +150,8 @@ public class Movie extends Model{
 	public void setOpening(String opening) throws ParseException {
 		if (opening.equals("TBA")) this.opening = opening;
 		else {
-			Date date = sdp.parse(opening);
-			this.opening = sdf.format(date);
+			Date date = Constant.dateFormat1.parse(opening);
+			this.opening = Constant.dateFormat.format(date);
 		}
 	}
 
@@ -189,5 +188,10 @@ public class Movie extends Model{
 		jobj.put("overall rating", 0);
 		
 		return jobj;
+	}
+
+	@Override
+	public String toDisplay() {
+		return this.id + "  " + this.title + "  " + this.opening + "  " +this.runtime + "  " + this.director;
 	}	
 }

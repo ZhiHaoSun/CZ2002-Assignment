@@ -1,0 +1,27 @@
+package com.moblima.project.view.moviegoer;
+
+import java.util.Scanner;
+
+import com.moblima.project.controller.CinemaManager;
+import com.moblima.project.controller.MovieManager;
+import com.moblima.project.controller.ReviewManager;
+import com.moblima.project.controller.ShowTimeManager;
+import com.moblima.project.view.BaseMenu;
+
+public class MovieGoerMoviesMenu extends BaseMenu{
+	
+	public MovieGoerMoviesMenu(Scanner sc) {
+		super(sc);
+	}
+
+	public MovieGoerMoviesMenu(Scanner sc, MovieManager mMovieManager, CinemaManager mCinemaManager,
+			ReviewManager mReviewManager, ShowTimeManager mShowTimeManager) {
+		super(sc, mMovieManager, mCinemaManager, mReviewManager, mShowTimeManager);
+	}
+
+	@Override
+	public void displayMenu() {
+		
+	}
+
+}

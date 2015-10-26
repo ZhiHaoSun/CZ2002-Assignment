@@ -1,0 +1,21 @@
+package com.moblima.project.controller;
+
+import java.io.IOException;
+import java.text.ParseException;
+
+import org.json.JSONException;
+
+import com.moblima.project.model.Model;
+
+public class StaffManager {
+	private static final String file = "data/staff.json";
+	
+
+	public StaffManager() throws IOException, JSONException, ParseException {
+		super();
+	}
+
+	protected void load() throws IOException, JSONException, ParseException {
+
+	}
+}
