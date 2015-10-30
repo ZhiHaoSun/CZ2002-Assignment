@@ -33,8 +33,8 @@ public class ManageCinemaMenu extends BaseMenu {
 		do {
 			printHeader("Manage Cinema Listing");
 			println(" 1. Create Cinema");
-			println(" 2. Manage Cinema Show Times");
 			println(" 3. Update Cinema");
+			println(" 2. Manage Cinema Show Times");
 			println(" 4. Back");
 			println("");
 			
@@ -46,18 +46,22 @@ public class ManageCinemaMenu extends BaseMenu {
 						this.createCinema();
 						break;
 					case 2:
-						this.mManageShowTimeMenu.displayMenu();
-						break;
-					case 3:
 						this.updateCinema();
 						break;
+					case 3:
+						this.mManageShowTimeMenu.displayMenu();
+						break;
+					
 					case 4: 
 						return; // end this method and go back to previous menu
 					default:
 						println("Invalid choice! Please select again!!!");
 						break;
 				}			
-			} catch (Exception e) {
+			} catch (ExitException e) {
+				break;
+			} catch (JSONException e) {
+				println("FAIL");
 				break;
 			}
 		} while (choice != 4);
@@ -68,8 +72,10 @@ public class ManageCinemaMenu extends BaseMenu {
 		
 		printHeader("Create Cinema");
 		
+		cinema.setCode(read("Cinema Code: "));
 		cinema.setName(read("Cinema Name: "));
-		cinema.setCineplex(this.chooseCineplex());
+		cinema.setCineplex(chooseCineplex());
+		cinema.setPlatinum(confirm("Is this cinema Platinum Suite?"));
 		
 		if (this.mCinemaManager.create(cinema))
 			System.out.println("Create Successful");

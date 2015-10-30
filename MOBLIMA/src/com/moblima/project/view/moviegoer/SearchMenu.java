@@ -16,9 +16,9 @@ import com.moblima.project.model.ShowTime;
 import com.moblima.project.view.BaseMenu;
 import com.moblima.project.view.BaseMenu.ExitException;
 
-public class MovieGoerSearchMenu extends BaseMenu{
+public class SearchMenu extends BaseMenu{
 
-	public MovieGoerSearchMenu(Scanner sc, MovieManager mMovieManager, CinemaManager mCinemaManager,
+	public SearchMenu(Scanner sc, MovieManager mMovieManager, CinemaManager mCinemaManager,
 			ReviewManager mReviewManager, ShowTimeManager mShowTimeManager, TicketManager mTicketManager, StaffManager mStaffManager) {
 		super(sc, mMovieManager, mCinemaManager, mReviewManager, mShowTimeManager, mTicketManager, mStaffManager);
 	}

@@ -43,79 +43,90 @@ public class CinemaManager extends Manager {
 
 	@Override
 	public boolean create(Model instance) throws JSONException {
-		if(((Cinema)instance).getClass() != Cinema.class)
-			return false;
-		
-		instance.setId(this.idCounter + 1);
-		this.idCounter++;
-		mCinemas.add((Cinema)instance);
-		jdata.put(instance.toJSONObject());
-		
-		this.writeFile(file);
-		return true;
-	}
-
-	@Override
-	public boolean update(Model instance) throws JSONException {
-		if(((Cinema)instance).getClass() != Cinema.class)
-			return false;
-		if(instance.getId() > this.idCounter)
-			return false;
-		
-		Cinema cinema;
-		
-		for(int i=0;i<this.mCinemas.size();i++){
-			cinema = this.mCinemas.get(i);
-			if(cinema.getId() == instance.getId()){
-				this.mCinemas.set(i, (Cinema) instance);
-				jdata.put(i,instance.toJSONObject());
-				this.writeFile(file);
-				return true;
-			}
+		if (instance instanceof Cinema) {
+			mCinemas.add((Cinema)instance);
+			jdata.put(instance.toJSONObject());
+			
+			writeFile(file);
+			return true;
 		}
+			
 		return false;
 	}
 
 	@Override
-	public boolean delete(Model instance) {
-		if(((Cinema)instance).getClass() != Cinema.class)
-			return false;
-		if(instance.getId() > this.idCounter)
-			return false;
-		
-		Cinema cinema;
-		
-		for(int i=0;i<this.mCinemas.size();i++){
-			cinema = this.mCinemas.get(i);
-			if(cinema.getId() == instance.getId()){
-				this.mCinemas.remove(i);
-				jdata.remove(i);
-				this.writeFile(file);
-				
-				return true;
+	public boolean update(Model instance) throws JSONException {
+		if (instance instanceof Cinema) {
+			Cinema cinema = (Cinema) instance;
+			
+			for (Cinema c: mCinemas) {
+				if (cinema.getCode().equals(c.getCode())){
+					int index = mCinemas.indexOf(c);
+					mCinemas.set(index, cinema);
+					jdata.put(index, cinema.toJSONObject());
+					writeFile(file);
+					return true;
+				}
 			}
+			
+			return false;
 		}
+		
+		return false;
+//		if(instance.getId() > this.idCounter)
+//			return false;
+		
+//		for(int i=0;i<this.mCinemas.size();i++){
+//			cinema = this.mCinemas.get(i);
+//			if(cinema.getId() == instance.getId()){
+//				this.mCinemas.set(i, (Cinema) instance);
+//				jdata.put(i,instance.toJSONObject());
+//				this.writeFile(file);
+//				return true;
+//			}
+//		}
+	}
+
+	@Override
+	public boolean delete(Model instance) {
+//		if(((Cinema)instance).getClass() != Cinema.class)
+//			return false;
+//		if(instance.getId() > this.idCounter)
+//			return false;
+//		
+//		Cinema cinema;
+//		
+//		for(int i=0;i<this.mCinemas.size();i++){
+//			cinema = this.mCinemas.get(i);
+//			if(cinema.getId() == instance.getId()){
+//				this.mCinemas.remove(i);
+//				jdata.remove(i);
+//				this.writeFile(file);
+//				
+//				return true;
+//			}
+//		}
 		return false;
 	}
 	
 	@Override
 	public boolean deleteById(int id) throws JSONException {
-		if(this.idCounter < id)
-			return false;
-		
-		Cinema cinema;
-		
-		for(int i=0;i<this.mCinemas.size();i++){
-			cinema = this.mCinemas.get(i);
-			if(cinema.getId() == id){
-				this.mCinemas.remove(i);
-				jdata.remove(i);
-				this.writeFile(file);
-				
-				return true;
-			}
-		}
-		
+//		if(this.idCounter < id)
+//			return false;
+//		
+//		Cinema cinema;
+//		
+//		for(int i=0;i<this.mCinemas.size();i++){
+//			cinema = this.mCinemas.get(i);
+//			if(cinema.getId() == id){
+//				this.mCinemas.remove(i);
+//				jdata.remove(i);
+//				this.writeFile(file);
+//				
+//				return true;
+//			}
+//		}
+//		
 		return false;
 	}
 

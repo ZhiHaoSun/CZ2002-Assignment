@@ -29,15 +29,22 @@ public abstract class BaseMenu {
 	public TicketManager mTicketManager = null;
 	public StaffManager mStaffManager = null;
 	
+	public BaseMenu(Scanner sc) {
+		this.sc = sc;
+	}
+	
+	public BaseMenu(Scanner sc, StaffManager mStaffManager) {
+		this(sc);
+		this.mStaffManager = mStaffManager;
+	}
 	public BaseMenu(Scanner sc, MovieManager mMovieManager, CinemaManager mCinemaManager, ReviewManager mReviewManager,
 			ShowTimeManager mShowTimeManager, TicketManager mTicketManager, StaffManager mStaffManager) {
-		this.sc = sc;
+		this(sc, mStaffManager);
 		this.mMovieManager = mMovieManager;
 		this.mCinemaManager = mCinemaManager;
 		this.mReviewManager = mReviewManager;
 		this.mShowTimeManager = mShowTimeManager;
 		this.mTicketManager = mTicketManager;
-		this.mStaffManager = mStaffManager;
 	}
 
 	public abstract void displayMenu();
@@ -52,17 +59,22 @@ public abstract class BaseMenu {
 		return sc.nextInt();
 	}
 	
-	//
-	protected int readChoice(int min, int max) throws ExitException {		
+	protected int readInt(String label, int min, int max) throws ExitException {		
 		int c = 0;
 		
 		do {
 			try {
-				c = readInt("Choice ("+min+"~"+max+"): ");
+				c = readInt(label+" ("+min+"~"+max+"):  ");
 			} catch (InputMismatchException ime) {
 				sc.nextLine();
 			}
 		} while(!(c >= min && c <= max));
+		
+		return c;
+	}
+	
+	protected int readChoice(int min, int max) throws ExitException {
+		int c = readInt("Choice ", min, max);
 		
 		if (c == max) throw new ExitException();
 		
@@ -96,6 +108,15 @@ public abstract class BaseMenu {
 		println("");
 	}
 
+	// Method to print header with default style
+	protected void printSubHeader(String title){
+		println("");
+		println("    "+title);
+		for (int i=0; i<title.length()+8; i++)
+			print("-");
+		println("");
+	}
+		
 	// This method was created to replace System.out.print
 	// for Better Readability
 	protected void print(String message) {
@@ -108,11 +129,14 @@ public abstract class BaseMenu {
 		System.out.println(message);
 	}
 	
-	//
 	protected Movie chooseMovie() throws ExitException {
+		return chooseMovie("Choose Movie:");
+	}
+	
+	protected Movie chooseMovie(String title) throws ExitException {
 		ArrayList<Movie> movies = mMovieManager.getMovies();
 		
-		println("Choose Movie:");						
+		println(title);						
 		
 		for (int i=0, j=1; i<movies.size(); i++,j++)
 			println(" "+j+". "+movies.get(i).getTitle());
@@ -211,7 +235,7 @@ public abstract class BaseMenu {
 		println("Choose Cineplex:");						
 		
 		for (int i=0, j=1; i<length; i++,j++)
-			println(" "+j+". "+Cineplex.values()[i].toString());
+			println(" "+j+". "+Cineplex.values()[i].value());
 		
 		println(" "+(length+1)+". Back");
 		println("");

@@ -17,15 +17,15 @@ import com.moblima.project.view.BaseMenu.ExitException;
 
 public class MovieGoerMenu extends BaseMenu {
 	
-	private MovieGoerMoviesMenu movieMenu;
-	private MovieGoerSearchMenu searchMenu;
+	private MoviesMenu movieMenu;
+	private SearchMenu searchMenu;
 	private MovieGoerTicketMenu ticketMenu;
 	
 	public MovieGoerMenu(Scanner sc, MovieManager mMovieManager, CinemaManager mCinemaManager,
 			ReviewManager mReviewManager, ShowTimeManager mShowTimeManager, TicketManager mTicketManager, StaffManager mStaffManager) {
 		super(sc, mMovieManager, mCinemaManager, mReviewManager, mShowTimeManager, mTicketManager, mStaffManager);
-		movieMenu = new MovieGoerMoviesMenu(sc, mMovieManager, mCinemaManager, mReviewManager, mShowTimeManager, mTicketManager, mStaffManager);
-		searchMenu = new MovieGoerSearchMenu(sc, mMovieManager, mCinemaManager, mReviewManager, mShowTimeManager, mTicketManager, mStaffManager);
+		movieMenu = new MoviesMenu(sc, mMovieManager, mCinemaManager, mReviewManager, mShowTimeManager, mTicketManager, mStaffManager);
+		searchMenu = new SearchMenu(sc, mMovieManager, mCinemaManager, mReviewManager, mShowTimeManager, mTicketManager, mStaffManager);
 		ticketMenu = new MovieGoerTicketMenu(sc, mMovieManager, mCinemaManager, mReviewManager, mShowTimeManager, mTicketManager, mStaffManager);
 	}
 
@@ -36,35 +36,35 @@ public class MovieGoerMenu extends BaseMenu {
 			printHeader("Welcome to MOBLIMA");
 			println(" 1. Movie Listing");
 			println(" 2. Search");
-			println(" 3. Book Ticket");
-			println(" 4. View Book History");
-			println(" 5. Back");
+			println(" 3. View Book History");
+			println(" 4. Back");
+//			println(" 3. Book Ticket"); // tgt with movie listing
 			println("");
 			
 			try {
-				choice = readChoice(1, 5);
+				choice = readChoice(1, 4);
 				
 				switch (choice) {
 					case 1:
-						this.displayAllMovies();
-						this.movieMenu.displayMenu();
+						displayMovieListing();
 						break;
 					case 2:
 						this.searchMenu.displayMenu();
 						break;
 					case 3:
+						//** View Book History 
 						this.ticketMenu.displayMenu();
-						break;
-					case 4: 
-						return; // end this method and go back to previous menu
-					default:
-						println("Invalid choice! Please select again!!!");
 						break;
 				}			
 			} catch (Exception e) {
 				break;
 			}
 		} while (choice != 5);
+	}
+	
+	public void displayMovieListing() throws ExitException {
+		printHeader("Movies");
+		movieMenu.displayMenu(chooseMovie(""));
 	}
 	
 	public void displayAllMovies(){

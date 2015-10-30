@@ -28,7 +28,7 @@ public class MovieManager extends Manager {
 	}
 
 	@Override
-	protected void load() throws IOException, JSONException {
+	protected void load() throws IOException, JSONException, ParseException {
 		JSONArray array = this.getData(file);
 		mMovies = new ArrayList<>();
 		idCounter = 0;

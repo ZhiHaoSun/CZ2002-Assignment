@@ -29,16 +29,20 @@ public class Movie extends Model{
 	private Language language;
 	private int overallRating; // Overall Reviewer's Rating
 
+	private ArrayList<Review> reviews;
+	
 	public Movie() {
-		casts = new ArrayList<>();
-		status = Status.valueOf("COMING_SOON");
-		rating = Rating.valueOf("NA");
+		casts    = new ArrayList<>();
+		reviews  = new ArrayList<>();
+		status   = Status.valueOf("COMING_SOON");
+		rating   = Rating.valueOf("NA");
 		language = Language.valueOf("ENGLISH");
 	}
 	
-	public Movie(JSONObject jObj) throws JSONException {
-		casts = new ArrayList<>();
-
+	public Movie(JSONObject jObj) throws JSONException, ParseException {
+		casts    = new ArrayList<>();
+		reviews  = new ArrayList<>();
+		
 		id 		 = jObj.getInt("id");
 		title 	 = jObj.getString("title");
 		synopsis = jObj.getString("synopsis");
@@ -48,10 +52,22 @@ public class Movie extends Model{
 		rating 	 = Rating.valueOf(jObj.getString("rating"));
 		language = Language.valueOf(jObj.getString("language"));
 		
+		opening = jObj.getString("opening");
+		runtime = jObj.getString("runtime");
+
+		overallRating = jObj.getInt("overall rating");
+		
 		JSONArray jcasts = jObj.getJSONArray("casts");
 		
 		for (int i=0; i<jcasts.length(); i++)
 			casts.add(jcasts.getString(i));
+		
+		if (jObj.has("reviews")) {
+			JSONArray jreviews = jObj.getJSONArray("reviews");
+			
+			for (int i=0; i<jreviews.length(); i++)
+				reviews.add(new Review(jreviews.getJSONObject(i)));
+		}
 	}
 
 	public String getTitle() {
@@ -163,6 +179,22 @@ public class Movie extends Model{
 		this.runtime = runtime;
 	}
 	
+	public ArrayList<Review> getReviews() {
+		return reviews;
+	}
+
+	public void addReview(Review review) {
+		int total;
+		
+		total = overallRating * reviews.size();
+		total += review.getRating();
+		
+		reviews.add(review);
+		
+		overallRating = (int) (total/reviews.size());
+		
+	}
+
 	public boolean match(String id) {
 		return id.equals(this.id);
 	}
@@ -185,7 +217,13 @@ public class Movie extends Model{
 		jobj.put("rating", rating.name());
 		jobj.put("language", language.name());
 		
-		jobj.put("overall rating", 0);
+		jobj.put("overall rating", overallRating);
+		
+		jobj.put("reviews", reviews);
+
+		JSONArray jreviews = new JSONArray();
+		for (Review r: reviews)
+			jreviews.put(r.toJSONObject());
 		
 		return jobj;
 	}

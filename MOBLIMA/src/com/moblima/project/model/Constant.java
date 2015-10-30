@@ -7,12 +7,20 @@ public class Constant {
 	
 	public static SimpleDateFormat dateFormat1 = new SimpleDateFormat("MM/dd/yyyy");
 	public static SimpleDateFormat dateFormat = new SimpleDateFormat("MM dd yyyy");
+//	public static SimpleDateFormat dateFormat = new SimpleDateFormat("MM dd yyyy");
+	public static SimpleDateFormat datetimeFormat = new SimpleDateFormat("dd MMM yyyy, hh:mma");
 
 	//Date Time format : DD/MM/YY hh:mm PM
 	public static DateFormat dateTimeFormat = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT);
 	
 	public static enum Cineplex {
-		THE_CATHAY_CINEPLEX, CATHAY_CINEPLEX_CINELEISURE_ORCHARD, CATHAY_CINEPLEX_DOWNTOWN_EAST,NONE
+		THE_CATHAY_CINEPLEX("The Cathay Cineplex"), 
+		CATHAY_CINEPLEX_CINELEISURE_ORCHARD("Cathay Cineplex Cineleisure Orchard"), 
+		CATHAY_CINEPLEX_DOWNTOWN_EAST("Cathay Cineplex Downtown East");
+		
+		private String value;
+		Cineplex(String value) { this.value = value; }
+		public String value() { return value; }
 	}
 	
 	public static enum Status {

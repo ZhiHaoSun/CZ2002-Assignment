@@ -10,7 +10,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class ShowTime extends Model {
-	
+
 	private int movieId;
 	private int cinemaId;
 	
