@@ -13,6 +13,7 @@ import com.moblima.project.controller.TicketManager;
 import com.moblima.project.model.Cinema;
 import com.moblima.project.model.Constant;
 import com.moblima.project.model.Constant.Cineplex;
+import com.moblima.project.model.Constant.ClassType;
 import com.moblima.project.model.Constant.Language;
 import com.moblima.project.model.Constant.Rating;
 import com.moblima.project.model.Constant.Status;
@@ -219,6 +220,21 @@ public abstract class BaseMenu {
 		
 		int index = readChoice(1, length+1) -1;
 		return Rating.values()[index];
+	}
+	
+	protected ClassType chooseMovieType() throws ExitException {
+		int length = ClassType.values().length;
+		
+		println("Choose Movie Type:");						
+		
+		for (int i=0, j=1; i<length; i++,j++)
+			println(" "+j+". "+ClassType.values()[i]);
+		
+		println(" "+(length+1)+". Back");
+		println("");
+		
+		int index = readChoice(1, length+1) -1;
+		return ClassType.values()[index];
 	}
 	
 	protected Status chooseMovieStatus() throws ExitException {

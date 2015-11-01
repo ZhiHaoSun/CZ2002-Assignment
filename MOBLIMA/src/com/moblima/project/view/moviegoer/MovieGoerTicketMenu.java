@@ -89,7 +89,9 @@ public class MovieGoerTicketMenu extends BaseMenu {
 		ticket.setDate(new Date());
 		
 		ticket.setSeat(chooseSeat(time));
-		ticket.setPrice(mShowTimeManager.getMovie(time, mMovieManager).getPrice());
+		
+		int age = readInt("Enter your age: ");
+		ticket.setPrice(this.mTicketManager.getPriceAfterDiscount(ticket, age, mShowTimeManager, mMovieManager, mCinemaManager));
 		
 		if(mTicketManager.create(ticket))
 			System.out.println("Booking Successful");
@@ -111,6 +113,7 @@ public class MovieGoerTicketMenu extends BaseMenu {
 			println("Movie: " + movie.getTitle());
 			println("Cinema: " + cinema.getName());
 			println("Time Started: " + time.getDateTimeStr());
+			println("Ticket Price: " + t.getPrice());
 			println("Book Time: " + t.getDateStr());
 			println("");
 			println("Your Recorded Info.");

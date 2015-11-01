@@ -5,11 +5,13 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 
 import com.moblima.project.model.Cinema;
+import com.moblima.project.model.Discount;
 import com.moblima.project.model.Model;
 import com.moblima.project.model.Movie;
 import com.moblima.project.model.Seat;
@@ -188,12 +190,31 @@ public class TicketManager extends Manager {
 		return tickets;
 	}
 	
-	public int getPriceAfterDiscount(Ticket ticket){
-		Date date = new Date();
+	public int getPriceAfterDiscount(Ticket ticket, int age, ShowTimeManager showTimeManager, MovieManager movieManager, CinemaManager cinemaManager) throws JSONException{
+		Movie movie = showTimeManager.getMovie(ticket.getShowTime(), movieManager);
+		Cinema cinema = showTimeManager.getCinema(ticket.getShowTime(), cinemaManager);
+		int price = movie.getPrice();
 		
+		Date date = new Date();
+		Locale.setDefault(Locale.CHINA);
 		Calendar cal = Calendar.getInstance();
 	    cal.setTime(date);
+	    
+	    if(cal.get(Calendar.DAY_OF_WEEK) == 1 || cal.get(Calendar.DAY_OF_WEEK) == 7){
+	    	price += Discount.discounts.getJSONObject("holiday").getInt("weekends");
+	    }
+	    
+	    if(age <= 12){
+	    	price += Discount.discounts.getJSONObject("age").getInt("below12");
+	    } else if(age >= 60){
+	    	price += Discount.discounts.getJSONObject("age").getInt("above60");
+	    }
+	    
+	    price += Discount.discounts.getJSONObject("classType").getInt(movie.getClassType().name());
 		
-		return ticket.getPrice();
+	    if(cinema.isPlatinum())
+	    	price += Discount.discounts.getJSONObject("cinemaClass").getInt("platinum");
+	    
+		return price;
 	}
 }

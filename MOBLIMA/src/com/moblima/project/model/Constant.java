@@ -57,6 +57,6 @@ public class Constant {
 	}
 	
 	public static enum ClassType{
-		VIP,FIRST,SECONDARY,NORMAL
+		THREED, BLOCKBUSTER, NORMAL 
 	}
 }

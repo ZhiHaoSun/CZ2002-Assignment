@@ -13,6 +13,8 @@ import com.moblima.project.controller.ReviewManager;
 import com.moblima.project.controller.ShowTimeManager;
 import com.moblima.project.controller.StaffManager;
 import com.moblima.project.controller.TicketManager;
+import com.moblima.project.model.Constant.ClassType;
+import com.moblima.project.model.Discount;
 import com.moblima.project.model.Model;
 import com.moblima.project.model.ShowTime;
 import com.moblima.project.model.Ticket;
@@ -28,7 +30,6 @@ public class ManageSystemMenu extends BaseMenu {
 			ReviewManager mReviewManager, ShowTimeManager mShowTimeManager, TicketManager mTicketManager,
 			StaffManager mStaffManager) {
 		super(sc, mMovieManager, mCinemaManager, mReviewManager, mShowTimeManager, mTicketManager, mStaffManager);
-		
 	}
 
 	@Override
@@ -38,7 +39,7 @@ public class ManageSystemMenu extends BaseMenu {
 		do {
 			printHeader("Manage Tickets Sale");
 			println(" 1. View Tickets Sale");
-			println(" 2. Change ticket price and discount setting");
+			println(" 2.Change Discount setting");
 			println(" 3. Back");
 			println("");
 			
@@ -60,6 +61,8 @@ public class ManageSystemMenu extends BaseMenu {
 				}			
 			} catch (ExitException e) {
 				break;
+			} catch (JSONException e) {
+				e.printStackTrace();
 			}
 		} while (choice != 3);
 	}
@@ -75,7 +78,49 @@ public class ManageSystemMenu extends BaseMenu {
 		
 	}
 	
-	public void configureSetting(){
+	public void configureSetting() throws ExitException, JSONException{
+		printHeader("Discount Setting");
 		
+		println("Which one to change?");
+		println(" 1. Age Discount");
+		println(" 2. Hoiday Discount");
+		println(" 3. Movie Type Discount");
+		println(" 4. Cinema Class Discount");
+		println(" 5. Back");
+		
+		int choice = readChoice(1, 5);
+		
+		switch(choice){
+			case 1:
+				if(confirm("Change Age Below 12 Discount?"))
+					Discount.discounts.getJSONObject("age").put("below12", readInt("New Discount Value: "));
+				
+				if(confirm("Change Age Above 60 Discount?"))
+					Discount.discounts.getJSONObject("age").put("above60", readInt("New Discount Value: "));
+				
+				break;
+			case 2:
+				if(confirm("Change weekends Plus?"))
+					Discount.discounts.getJSONObject("holiday").put("weekends", readInt("New Discount Value: "));
+				break;
+			case 3:
+				ClassType type = chooseMovieType();
+				if(confirm("Change " + type.name() +" Discount?"))
+					Discount.discounts.getJSONObject("classType").put(type.name(), readInt("New Discount Value: "));
+				
+				break;
+			case 4:
+				if(confirm("Change platinum Discount?"))
+					Discount.discounts.getJSONObject("cinemaClass").put("platinum", readInt("New Discount Value: "));
+				break;
+			case 5:
+				return;
+		}
+		
+		if(Discount.save()){
+			println("Discount Update Successfully!");
+		} else{
+			println("Discount Update Unsuccessfully.");
+		}
 	}
 }

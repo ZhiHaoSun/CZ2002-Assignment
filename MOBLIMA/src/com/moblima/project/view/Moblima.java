@@ -14,6 +14,7 @@ import com.moblima.project.controller.ReviewManager;
 import com.moblima.project.controller.ShowTimeManager;
 import com.moblima.project.controller.StaffManager;
 import com.moblima.project.controller.TicketManager;
+import com.moblima.project.model.Discount;
 
 public class Moblima {
 	public static MovieManager movieManager;
@@ -33,6 +34,10 @@ public class Moblima {
 		reviewManager = new ReviewManager();
 		staffManager = new StaffManager();
 		ticketManager = new TicketManager();
+		
+		//To initialize the data
+		//Discount.startData();
+		Discount.initialize();
 		
 		MainMenu main = new MainMenu(sc, movieManager, cinemaManager, reviewManager, showTimeManager, ticketManager, staffManager);
 		

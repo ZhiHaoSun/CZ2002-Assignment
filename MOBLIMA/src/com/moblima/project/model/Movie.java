@@ -9,6 +9,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.moblima.project.model.Constant.ClassType;
 import com.moblima.project.model.Constant.Language;
 import com.moblima.project.model.Constant.Rating;
 import com.moblima.project.model.Constant.Status;
@@ -27,6 +28,7 @@ public class Movie extends Model{
 	private Status   status;
 	private Rating   rating;
 	private Language language;
+	private ClassType classType;
 	private int overallRating; // Overall Reviewer's Rating
 
 	private ArrayList<Review> reviews;
@@ -37,6 +39,7 @@ public class Movie extends Model{
 		status   = Status.valueOf("COMING_SOON");
 		rating   = Rating.valueOf("NA");
 		language = Language.valueOf("ENGLISH");
+		classType = ClassType.valueOf("NORMAL");
 	}
 	
 	public Movie(JSONObject jObj) throws JSONException, ParseException {
@@ -52,6 +55,7 @@ public class Movie extends Model{
 		status 	 = Status.valueOf(jObj.getString("status").toUpperCase());
 		rating 	 = Rating.valueOf(jObj.getString("rating"));
 		language = Language.valueOf(jObj.getString("language"));
+		classType = ClassType.valueOf(jObj.getString("classType"));
 		
 		opening = jObj.getString("opening");
 		runtime = jObj.getString("runtime");
@@ -93,6 +97,14 @@ public class Movie extends Model{
 
 	public void setStatus(Status status) {
 		this.status = status;
+	}
+
+	public ClassType getClassType() {
+		return classType;
+	}
+
+	public void setClassType(ClassType classType) {
+		this.classType = classType;
 	}
 
 	public String getSynopsis() {
@@ -226,6 +238,7 @@ public class Movie extends Model{
 		jobj.put("status", status.name());
 		jobj.put("rating", rating.name());
 		jobj.put("language", language.name());
+		jobj.put("classType", classType.name());
 		
 		jobj.put("overall rating", overallRating);
 		

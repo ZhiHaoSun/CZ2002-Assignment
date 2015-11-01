@@ -1,1 +1,61 @@
-[{"director":"Nawapol Thamrongrattanarit","rating":"PG13","runtime":"TBA","language":"THAI","synopsis":"This is a funny movie","title":"Heart Attack","opening":"TBA","casts":["Sunny Suwanmethanont","Davika Hoorne"],"reviews":[{"date":"31 Oct 2015, 05:53AM","name":"Jun Wei","rating":4,"description":"Not Bad","id":0}],"price":14,"id":0,"overall rating":4,"status":"NOW_SHOWING"},{"director":"Sibi","rating":"G","runtime":"180","language":"ENGLISH","synopsis":"This is the end of the world!","title":"World end","opening":"TBA","casts":["Crazy Man","Fool Real"],"reviews":[{"date":"01 Nov 2015, 09:13PM","name":"szh","rating":4,"description":"This is a scary movie"},{"date":"01 Nov 2015, 09:13PM","name":"szh","rating":1,"description":"This is a very bad movie."}],"price":12,"id":1,"overall rating":2,"status":"COMING_SOON"}]
+[  
+   {  
+      "director":"Nawapol Thamrongrattanarit",
+      "rating":"PG13",
+      "runtime":"TBA",
+      "language":"THAI",
+      "synopsis":"This is a funny movie",
+      "title":"Heart Attack",
+      "opening":"TBA",
+      "classType":"NORMAL",
+      "casts":[  
+         "Sunny Suwanmethanont",
+         "Davika Hoorne"
+      ],
+      "reviews":[  
+         {  
+            "date":"31 Oct 2015, 05:53AM",
+            "name":"Jun Wei",
+            "rating":4,
+            "description":"Not Bad",
+            "id":0
+         }
+      ],
+      "price":14,
+      "id":0,
+      "overall rating":4,
+      "status":"NOW_SHOWING"
+   },
+   {  
+      "director":"Sibi",
+      "rating":"G",
+      "runtime":"180",
+      "language":"ENGLISH",
+      "synopsis":"This is the end of the world!",
+      "title":"World end",
+      "opening":"TBA",
+      "classType":"NORMAL",
+      "casts":[  
+         "Crazy Man",
+         "Fool Real"
+      ],
+      "reviews":[  
+         {  
+            "date":"01 Nov 2015, 09:13PM",
+            "name":"szh",
+            "rating":4,
+            "description":"This is a scary movie"
+         },
+         {  
+            "date":"01 Nov 2015, 09:13PM",
+            "name":"szh",
+            "rating":1,
+            "description":"This is a very bad movie."
+         }
+      ],
+      "price":12,
+      "id":1,
+      "overall rating":2,
+      "status":"COMING_SOON"
+   }
+]
