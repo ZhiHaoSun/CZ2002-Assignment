@@ -13,6 +13,9 @@ public class Constant {
 	//Date Time format : DD/MM/YY hh:mm PM
 	public static DateFormat dateTimeFormat = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT);
 	
+	public static final int colNumber = 10;
+	public static final int rowNumber = 5;
+	
 	public static enum Cineplex {
 		THE_CATHAY_CINEPLEX("The Cathay Cineplex"), 
 		CATHAY_CINEPLEX_CINELEISURE_ORCHARD("Cathay Cineplex Cineleisure Orchard"), 

@@ -11,11 +11,13 @@ import com.moblima.project.controller.ShowTimeManager;
 import com.moblima.project.controller.StaffManager;
 import com.moblima.project.controller.TicketManager;
 import com.moblima.project.model.Cinema;
+import com.moblima.project.model.Constant;
 import com.moblima.project.model.Constant.Cineplex;
 import com.moblima.project.model.Constant.Language;
 import com.moblima.project.model.Constant.Rating;
 import com.moblima.project.model.Constant.Status;
 import com.moblima.project.model.Movie;
+import com.moblima.project.model.Seat;
 import com.moblima.project.model.ShowTime;
 
 public abstract class BaseMenu {
@@ -173,7 +175,7 @@ public abstract class BaseMenu {
 		
 		for (int i=0, j=1; i<showTimes.size(); i++,j++){
 			time = showTimes.get(i);
-			println(" "+j+". "+time.getCinemaId() + "  " + time.getMovieId() + "  " + time.getDateTimeStr());
+			println(" "+j+". "+ ((Cinema)mCinemaManager.getInstanceById(time.getCinemaId())).getName() + "  " + ((Movie)mMovieManager.getInstanceById(time.getMovieId())).getTitle() + "  " + time.getDateTimeStr());
 		}
 		
 		println(" "+(showTimes.size()+1)+". Back");
@@ -242,6 +244,56 @@ public abstract class BaseMenu {
 		
 		int index = readChoice(1, length+1) -1;
 		return Cineplex.values()[index];
+	}
+	
+	protected void displaySeats(Boolean[][] seats){
+		int i,j;
+		StringBuilder builder = new StringBuilder("   ");
+		
+		for(j=1;j<=Constant.colNumber;j++){
+			builder.append("" + j +" ");
+		}
+		builder.append("\n");
+		
+		for(i=1;i<=Constant.rowNumber;i++){
+			builder.append("" + i + "  ");
+			for(j=1;j<=Constant.colNumber;j++){
+				if(seats[i][j]){
+					builder.append("# ");
+				}else{
+					builder.append("_ ");
+				}
+			}
+			builder.append("\n");
+		}
+		
+		printHeader("Seat Arrangement");
+		
+		println(builder.toString());
+		println("");
+	}
+	
+	protected Seat chooseSeat(ShowTime time) throws ExitException {
+		Seat seat;
+		int row, col;
+		Boolean[][] seats = mShowTimeManager.getSeats(time, mTicketManager);
+		
+		printHeader("Choose An Empty Seat:");
+		println("");
+		
+		this.displaySeats(seats);
+		
+		println("Please choose an empty seat. (# means taken. _ means empty)");
+		
+		do{
+			row = readInt("Please select row number: " , 1, Constant.rowNumber + 1);
+			col = readInt("Please select col number: " , 1, Constant.colNumber + 1);
+		}while(seats[row][col]);
+		
+		println("Seat (" + row + "," + col + ") is selected.");
+		
+		seat = new Seat(col , row, time);
+		return seat;
 	}
 	
 	// Exception Class

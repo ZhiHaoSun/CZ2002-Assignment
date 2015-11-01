@@ -72,6 +72,8 @@ public class ManageMovieMenu extends BaseMenu {
 		movie.setDirector(read("Director: "));
 		movie.setCasts(read("Casts (separate by ','): "));
 		
+		movie.setPrice(Integer.valueOf(read("Price: ")));
+		
 		movie.setLanguage(chooseLanguage());
 		movie.setRating(chooseMovieRating());
 		movie.setStatus(chooseMovieStatus());
@@ -101,6 +103,9 @@ public class ManageMovieMenu extends BaseMenu {
 
 		if (confirm("Change Casts"))
 			movie.setCasts(read("New Casts: "));
+		
+		if (confirm("Change Price"))
+			movie.setPrice(Integer.valueOf(read("Price: ")));
 		
 		if (confirm("Change Language?"))
 			movie.setLanguage(chooseLanguage());

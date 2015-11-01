@@ -56,6 +56,8 @@ public class MovieGoerTicketMenu extends BaseMenu {
 						this.displayTicketsByEmail(email);
 						break;
 					case 3:
+						time = chooseShowTime();
+						this.displaySeats(mShowTimeManager.getSeats(time, mTicketManager));
 						break;
 				}			
 			} catch (ExitException e) {
@@ -70,10 +72,12 @@ public class MovieGoerTicketMenu extends BaseMenu {
 	public void createTicket() throws ExitException, JSONException{
 		ticket = new Ticket();
 		customer = new Customer();
+		ShowTime time;
 		
 		printHeader("Book new Ticket");
 		
-		ticket.setShowTime(this.chooseShowTime());
+		time = this.chooseShowTime();
+		ticket.setShowTime(time);
 		customer.setName(read("Your name: "));
 		customer.setEmail(read("Your email address: "));
 		customer.setPhone(read("Your phone number: "));
@@ -81,7 +85,10 @@ public class MovieGoerTicketMenu extends BaseMenu {
 		ticket.setCustomer(customer);
 		ticket.setDate(new Date());
 		
-		if(this.mTicketManager.create(ticket))
+		ticket.setSeat(chooseSeat(time));
+		ticket.setPrice(mShowTimeManager.getMovie(time, mMovieManager).getPrice());
+		
+		if(mTicketManager.create(ticket))
 			System.out.println("Booking Successful");
 		else
 			System.out.println("Booking Unsuccessful");
@@ -90,7 +97,8 @@ public class MovieGoerTicketMenu extends BaseMenu {
 	public void displayTicketsByEmail(String email){
 		printHeader("Display Your Tickts");
 		
-		for(Ticket t: this.mTicketManager.getTickets()){
+		for(Ticket t: mTicketManager.getTicketsByEmail(email)){
+
 			time = t.getShowTime();
 			cinema = (Cinema) this.mCinemaManager.getInstanceById(time.getCinemaId());
 			movie = (Movie)this.mMovieManager.getInstanceById(time.getMovieId());

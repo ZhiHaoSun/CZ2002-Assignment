@@ -2,20 +2,20 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="ShowTime" key="selection"/>
+		<item value="reviews" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="reviews"/>
+			<item value="date"/>
 			<item value="showTime"/>
 			<item value="cineplex"/>
 			<item value="sdf"/>
 			<item value="choose"/>
 			<item value="choosemov"/>
 			<item value="choosemoi"/>
-			<item value="idCounter"/>
-			<item value="movie"/>
 		</list>
 		<list key="replacehistory">
 		</list>

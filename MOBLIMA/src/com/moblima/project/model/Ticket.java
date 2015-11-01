@@ -13,6 +13,7 @@ public class Ticket extends Model {
 	
 	private ShowTime showTime;
 	private Customer customer;
+	private int price;
 	private Seat seat;
 	private Date date;
 	
@@ -37,6 +38,17 @@ public class Ticket extends Model {
 		this.showTime = new ShowTime(object.getJSONObject("showTime"));
 		this.date = Constant.dateFormat.parse(object.getString("date"));
 		this.customer = new Customer(object.getJSONObject("customer"));
+		this.price = object.getInt("price");
+		this.seat = new Seat(object.getJSONObject("seat"));
+		this.seat.setShowTime(this.showTime);
+	}
+
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
 	}
 
 	public ShowTime getShowTime() {
@@ -82,13 +94,13 @@ public class Ticket extends Model {
 		object.put("showTime", showTime.toJSONObject());
 		object.put("customer", customer.toJSONObject());
 		object.put("date", Constant.dateFormat.format(date));
+		object.put("seat", this.seat.toJSONObject());
+		object.put("price" , price);
 		return object;
 	}
 
 	@Override
 	public String toDisplay() {
-//		return showTime.getCinema().getName() + "  " + showTime.getMovie().getTitle() +
-//				"  " + showTime.getDateTimeStr() + "  " + email + "  " + this.getDateStr();
-		return "";
+		return this.getDateStr();
 	}
 }

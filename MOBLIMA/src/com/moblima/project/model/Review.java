@@ -35,7 +35,7 @@ public class Review extends Model implements Comparable<Review> {
 		name 		= object.getString("name");
 		description = object.getString("description");
 		rating 		= object.getInt("rating");
-		date 		= Constant.datetimeFormat.parse(object.getString("date posted"));
+		date 		= Constant.datetimeFormat.parse(object.getString("date"));
 	}
 
 	public String getName() {
@@ -75,7 +75,7 @@ public class Review extends Model implements Comparable<Review> {
 		object.put("name", name);
 		object.put("rating", rating);
 		object.put("description", description);
-		object.put("date posted", getPostedDate());
+		object.put("date", getPostedDate());
 		
 		return object;
 	}

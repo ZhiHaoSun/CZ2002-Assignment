@@ -1,5 +1,10 @@
 package com.moblima.project.model;
 
+import java.util.Collection;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Seat {
 	private int col;
 	private int row;
@@ -10,6 +15,11 @@ public class Seat {
 		this.col = col;
 		this.row = row;
 		this.showTime = showTime;
+	}
+
+	public Seat(JSONObject object) throws JSONException {
+		this.row = object.getInt("row");
+		this.col = object.getInt("col");
 	}
 
 	public int getCol() {
@@ -34,6 +44,21 @@ public class Seat {
 
 	public void setShowTime(ShowTime showTime) {
 		this.showTime = showTime;
+	}
+
+	public JSONObject toJSONObject() throws JSONException {
+		JSONObject object = new JSONObject();
+		object.put("row" , row);
+		object.put("col", col);
+		
+		return object;
+	}
+
+	public boolean equals(Seat seat) {
+		if(seat.getCol() == this.col && seat.getRow() == this.row)
+			return true;
+		else
+			return false;
 	}
 	
 	

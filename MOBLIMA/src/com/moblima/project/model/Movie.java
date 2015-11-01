@@ -17,6 +17,7 @@ public class Movie extends Model{
 	private int id;
 	private String title;
 	private String synopsis;
+	private int price;
 	
 	private String opening;
 	private String runtime;
@@ -45,6 +46,7 @@ public class Movie extends Model{
 		
 		id 		 = jObj.getInt("id");
 		title 	 = jObj.getString("title");
+		price 	= 	jObj.getInt("price"); 
 		synopsis = jObj.getString("synopsis");
 		director = jObj.getString("director");
 		
@@ -76,6 +78,14 @@ public class Movie extends Model{
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
 	}
 
 	public Status getStatus() {
@@ -230,6 +240,6 @@ public class Movie extends Model{
 
 	@Override
 	public String toDisplay() {
-		return this.id + "  " + this.title + "  " + this.opening + "  " +this.runtime + "  " + this.director;
+		return this.title + "  " + this.opening + "  " +this.runtime + "  " + this.director;
 	}	
 }

@@ -15,6 +15,7 @@ import com.moblima.project.controller.StaffManager;
 import com.moblima.project.controller.TicketManager;
 import com.moblima.project.model.Cinema;
 import com.moblima.project.model.Movie;
+import com.moblima.project.model.Ticket;
 import com.moblima.project.view.moviegoer.MovieGoerMenu;
 import com.moblima.project.view.staff.LoginMenu;
 import com.moblima.project.view.staff.StaffMenu;
@@ -42,7 +43,9 @@ public class MainMenu extends BaseMenu {
 			println("");
 			
 			try {
+				
 				choice = readChoice(1, 3);
+				
 				
 				switch (choice) {
 					case 1:

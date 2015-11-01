@@ -1,1 +1,48 @@
-[{"casts":["Sunny Suwanmethanont","Davika Hoorne"],"reviews":[{"name":"Jun Wei","rating":4,"description":"Not Bad","id":0,"postedDate":"31 Oct 2015, 05:53AM"}],"director":"Nawapol Thamrongrattanarit","rating":"PG13","runtime":"TBA","language":"THAI","id":4,"synopsis":"Yoon\u201d (Sunny Suwanmethanont) is the busiest 30-year-old freelance graphic designer and retoucher in Thailand. After staying up working for 5 days straight, strange rashes start to appear on Yoon\u2019s body. Yoon eventually relents and brings himself to a public hospital. There, he meets \u201cDoctor Imm\u201d (Davika Hoorne).","overall rating":4,"title":"Heart Attack","opening":"TBA","status":"NOW_SHOWING"}]
+[  
+   {  
+      "director":"Nawapol Thamrongrattanarit",
+      "rating":"PG13",
+      "runtime":"TBA",
+      "language":"THAI",
+      "synopsis":"This is a funny movie",
+      "title":"Heart Attack",
+      "opening":"TBA",
+      "casts":[  
+         "Sunny Suwanmethanont",
+         "Davika Hoorne"
+      ],
+      "reviews":[  
+         {  
+            "date":"31 Oct 2015, 05:53AM",
+            "name":"Jun Wei",
+            "rating":4,
+            "description":"Not Bad",
+            "id":0
+         }
+      ],
+      "price":14,
+      "id":0,
+      "overall rating":4,
+      "status":"NOW_SHOWING"
+   },
+   {  
+      "casts":[  
+         "Crazy Man",
+         "Fool Real"
+      ],
+      "reviews":[  
+
+      ],
+      "director":"Sibi",
+      "rating":"G",
+      "runtime":"180",
+      "language":"ENGLISH",
+      "price":12,
+      "id":1,
+      "synopsis":"This is the end of the world!",
+      "overall rating":0,
+      "title":"World end",
+      "opening":"TBA",
+      "status":"COMING_SOON"
+   }
+]

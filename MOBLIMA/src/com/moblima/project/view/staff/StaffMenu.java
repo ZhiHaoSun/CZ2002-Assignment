@@ -16,6 +16,7 @@ public class StaffMenu extends BaseMenu {
 	private Staff mLoginUser;
 	private ManageMovieMenu mManageMovieMenu;
 	private ManageCinemaMenu mManageCinemaMenu;
+	private ManageSystemMenu mManageTicketMenu;
 
 	public StaffMenu(Scanner sc, MovieManager mMovieManager, CinemaManager mCinemaManager, ReviewManager mReviewManager,
 			ShowTimeManager mShowTimeManager, TicketManager mTicketManager, StaffManager mStaffManager) {
@@ -23,6 +24,7 @@ public class StaffMenu extends BaseMenu {
 		
 		mManageMovieMenu = new ManageMovieMenu(sc, mMovieManager, mCinemaManager, mReviewManager, mShowTimeManager, mTicketManager, mStaffManager);
 		mManageCinemaMenu = new ManageCinemaMenu(sc, mMovieManager, mCinemaManager, mReviewManager, mShowTimeManager, mTicketManager, mStaffManager);
+		mManageTicketMenu = new ManageSystemMenu(sc, mMovieManager, mCinemaManager, mReviewManager, mShowTimeManager, mTicketManager, mStaffManager);
 	}
 
 	public void setLoginUser(Staff user) {
@@ -40,7 +42,7 @@ public class StaffMenu extends BaseMenu {
 			println("");
 			
 			try {
-				choice = readChoice(1, 4);
+				choice = readChoice(1, 5);
 				switch (choice) {
 					case 1:
 						mManageMovieMenu.displayMenu();
@@ -49,8 +51,8 @@ public class StaffMenu extends BaseMenu {
 						mManageCinemaMenu.displayMenu();
 						break;
 					case 3:
-						System.out.println("Programme is shutting down.");
-						return;
+						mManageTicketMenu.displayMenu();
+						break;
 					case 4: 
 						return;
 					default:

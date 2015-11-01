@@ -30,8 +30,9 @@ public class Moblima {
 		movieManager = new MovieManager();
 		cinemaManager = new CinemaManager();
 		showTimeManager = new ShowTimeManager();
-//		reviewManager = new ReviewManager();
+		reviewManager = new ReviewManager();
 		staffManager = new StaffManager();
+		ticketManager = new TicketManager();
 		
 		MainMenu main = new MainMenu(sc, movieManager, cinemaManager, reviewManager, showTimeManager, ticketManager, staffManager);
 		

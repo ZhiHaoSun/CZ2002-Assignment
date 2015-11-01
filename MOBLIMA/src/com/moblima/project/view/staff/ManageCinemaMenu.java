@@ -33,8 +33,8 @@ public class ManageCinemaMenu extends BaseMenu {
 		do {
 			printHeader("Manage Cinema Listing");
 			println(" 1. Create Cinema");
-			println(" 3. Update Cinema");
-			println(" 2. Manage Cinema Show Times");
+			println(" 2. Update Cinema");
+			println(" 3. Manage Cinema Show Times");
 			println(" 4. Back");
 			println("");
 			

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;com.moblima.project.view.staff.ManageTicketMenu&apos; to &apos;ManageSystemMenu&apos;&#x0A;- Original project: &apos;MOBLIMA&apos;&#x0A;- Original element: &apos;com.moblima.project.view.staff.ManageTicketMenu&apos;&#x0A;- Renamed element: &apos;com.moblima.project.view.staff.ManageSystemMenu&apos;&#x0A;- Update references to refactored element&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;ManageTicketMenu&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;com.moblima.project.view.staff{ManageTicketMenu.java[ManageTicketMenu" matchStrategy="1" name="ManageSystemMenu" qualified="false" references="true" similarDeclarations="false" stamp="1446365753760" textual="false" version="1.0"/>
+</session>
