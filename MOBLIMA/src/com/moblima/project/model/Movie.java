@@ -14,7 +14,6 @@ import com.moblima.project.model.Constant.Rating;
 import com.moblima.project.model.Constant.Status;
 
 public class Movie extends Model{
-	private int id;
 	private String title;
 	private String synopsis;
 	private int price;
@@ -222,6 +221,7 @@ public class Movie extends Model{
 		
 		jobj.put("runtime", runtime);
 		jobj.put("opening", opening);
+		jobj.put("price", price);
 	
 		jobj.put("status", status.name());
 		jobj.put("rating", rating.name());
@@ -229,11 +229,12 @@ public class Movie extends Model{
 		
 		jobj.put("overall rating", overallRating);
 		
-		jobj.put("reviews", reviews);
+//		jobj.put("reviews", reviews);
 
 		JSONArray jreviews = new JSONArray();
 		for (Review r: reviews)
 			jreviews.put(r.toJSONObject());
+		jobj.put("reviews", jreviews);
 		
 		return jobj;
 	}

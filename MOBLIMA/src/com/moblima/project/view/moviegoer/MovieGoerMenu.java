@@ -35,22 +35,18 @@ public class MovieGoerMenu extends BaseMenu {
 		do {
 			printHeader("Welcome to MOBLIMA");
 			println(" 1. Movie Listing");
-			println(" 2. Search Movie");
-			println(" 3. Ticket Booking");
-			println(" 4. Back");
+			println(" 2. Ticket Booking");
+			println(" 3. Back");
 			println("");
 			
 			try {
-				choice = readChoice(1, 4);
+				choice = readChoice(1, 3);
 				
 				switch (choice) {
 					case 1:
 						movieMenu.displayMenu();
 						break;
 					case 2:
-//						this.searchMenu.displayMenu();
-						break;
-					case 3:
 						//** View Book History 
 						this.ticketMenu.displayMenu();
 						break;
@@ -58,24 +54,12 @@ public class MovieGoerMenu extends BaseMenu {
 			} catch (Exception e) {
 				break;
 			}
-		} while (choice != 4);
+		} while (choice != 3);
 	}
 	
 	public void displayMovieListing() throws ExitException {
 		printHeader("Movies");
 //		movieMenu.displayMenu(chooseMovie(""));
-	}
-	
-	public void displayAllMovies(){
-		printHeader("All Movies");
-		
-		ArrayList<Movie> movies = this.mMovieManager.getMovies();
-		
-		println("Movies List.");
-		
-		for(Movie movie : movies){
-			println(movie.getTitle());
-		}
 	}
 	
 	public void displayCinemas(){

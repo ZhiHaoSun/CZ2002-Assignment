@@ -58,7 +58,7 @@ public class MainMenu extends BaseMenu {
 			} catch (ExitException e) {
 				println("Program is exiting.");
 				break;
-			}
+			} 
 		} while (choice != 3);
 	}
 	

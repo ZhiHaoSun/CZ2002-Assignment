@@ -65,6 +65,9 @@ public class MovieGoerTicketMenu extends BaseMenu {
 				break;
 			} catch (JSONException e) {
 				e.printStackTrace();
+			} catch(Exception e){
+				println(e.getMessage());
+				break;
 			}
 		} while (choice != 4);
 	}
@@ -100,9 +103,22 @@ public class MovieGoerTicketMenu extends BaseMenu {
 		for(Ticket t: mTicketManager.getTicketsByEmail(email)){
 
 			time = t.getShowTime();
-			cinema = (Cinema) this.mCinemaManager.getInstanceById(time.getCinemaId());
-			movie = (Movie)this.mMovieManager.getInstanceById(time.getMovieId());
-			println(cinema.getName() + "  " + movie.getTitle() + "  " + time.getDateTimeStr() + "  " + ticket.getDateStr());
+			
+			cinema = (Cinema)(this.mCinemaManager.getInstanceById(time.getCinemaId()));
+			movie = (Movie)(this.mMovieManager.getInstanceById(time.getMovieId()));
+			
+			println("Transaction Code: " + mTicketManager.getTicketCode(t, mShowTimeManager, mMovieManager, mCinemaManager));
+			println("Movie: " + movie.getTitle());
+			println("Cinema: " + cinema.getName());
+			println("Time Started: " + time.getDateTimeStr());
+			println("Book Time: " + t.getDateStr());
+			println("");
+			println("Your Recorded Info.");
+			println("Your Name: " + t.getCustomer().getName());
+			println("Your Email: " + t.getCustomer().getEmail());
+			println("Tour Phone: " + t.getCustomer().getPhone());
+			println("");
+			
 		}
 	}
 }

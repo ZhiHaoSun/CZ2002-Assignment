@@ -3,6 +3,8 @@ package com.moblima.project.controller;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,13 +34,14 @@ public class MovieManager extends Manager {
 		JSONArray array = this.getData(file);
 		mMovies = new ArrayList<>();
 		idCounter = 0;
-		Movie movie;
+		
 		
 		for(int i=0;i<array.length();i++){
-			movie = new Movie(array.getJSONObject(i));
+			Movie movie = new Movie(array.getJSONObject(i));
 			mMovies.add(movie);
 			idCounter = movie.getId();
 		}
+		
 	}
 
 	@Override
@@ -126,5 +129,25 @@ public class MovieManager extends Manager {
 				return movie;
 		}
 		return null;
+	}
+
+	public ArrayList<Movie> getTopMovies() {
+		ArrayList<Movie> movies = (ArrayList<Movie>) this.mMovies.clone();
+		
+		Collections.sort(movies, new Comparator<Movie>(){
+
+			@Override
+			public int compare(Movie o1, Movie o2) {
+				if(o1.getOverallRating() > o2.getOverallRating())
+					return -1;
+				else if(o1.getOverallRating() < o2.getOverallRating())
+					return 1;
+				else
+					return 0;
+			}
+			
+		});
+		
+		return movies;
 	}
 }

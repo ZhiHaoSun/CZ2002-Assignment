@@ -170,12 +170,17 @@ public abstract class BaseMenu {
 	protected ShowTime chooseShowTime() throws ExitException {
 		ArrayList<ShowTime> showTimes = this.mShowTimeManager.getmShowTimes();
 		ShowTime time;
+		Cinema cinema;
+		Movie movie;
 		
 		println("Choose Show Times:");						
 		
-		for (int i=0, j=1; i<showTimes.size(); i++,j++){
+		for (int i=0; i<showTimes.size(); i++){
 			time = showTimes.get(i);
-			println(" "+j+". "+ ((Cinema)mCinemaManager.getInstanceById(time.getCinemaId())).getName() + "  " + ((Movie)mMovieManager.getInstanceById(time.getMovieId())).getTitle() + "  " + time.getDateTimeStr());
+			cinema = (Cinema)(this.mCinemaManager.getInstanceById(time.getCinemaId()));
+			movie =  (Movie)(mMovieManager.getInstanceById(time.getMovieId()));
+			println(" " + (i+1) + "  " + cinema.getName() + "  " + movie.getTitle() + "  " + time.getDateTimeStr());
+
 		}
 		
 		println(" "+(showTimes.size()+1)+". Back");

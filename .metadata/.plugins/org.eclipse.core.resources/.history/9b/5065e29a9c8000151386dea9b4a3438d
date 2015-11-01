@@ -1,0 +1,13 @@
+package com.moblima.project.view.moviegoer;
+
+import com.moblima.project.view.BaseMenu;
+
+public class MovieGoerSearchMenu extends BaseMenu {
+
+	@Override
+	public void displayMenu() {
+		// TODO Auto-generated method stub
+
+	}
+
+}

@@ -1,0 +1,85 @@
+package com.moblima.project.view.moviegoer;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+import com.moblima.project.controller.CinemaManager;
+import com.moblima.project.controller.MovieManager;
+import com.moblima.project.controller.ReviewManager;
+import com.moblima.project.controller.ShowTimeManager;
+import com.moblima.project.controller.StaffManager;
+import com.moblima.project.controller.TicketManager;
+import com.moblima.project.model.Movie;
+import com.moblima.project.view.BaseMenu;
+
+public class MovieGoerMovieMenu extends BaseMenu {
+	
+	private Movie movie;
+
+	public MovieGoerMovieMenu(Scanner sc, MovieManager mMovieManager, CinemaManager mCinemaManager,
+			ReviewManager mReviewManager, ShowTimeManager mShowTimeManager, TicketManager mTicketManager,
+			StaffManager mStaffManager) {
+		super(sc, mMovieManager, mCinemaManager, mReviewManager, mShowTimeManager, mTicketManager, mStaffManager);
+	}
+
+	@Override
+	public void displayMenu() {
+		choice = 0; // each menu manage their own choice integer
+		
+		do {
+			printHeader("Movie Listing");
+			println(" 1. List all Movies");
+			println(" 2. View Movie Details");
+			println(" 3. Back");
+			println("");
+			
+			try {
+				choice = readChoice(1, 3);
+				
+				switch (choice) {
+					case 1:
+						displayAllMovies();
+						break;
+					case 2:
+						movie = chooseMovie();
+						
+						displayMovieDetails(movie);
+						break;
+					case 3:
+						return;
+				}			
+			} catch (Exception e) {
+				break;
+			}
+		} while (choice != 3);
+	}
+
+	public void displayAllMovies(){
+		printHeader("All Movies");
+		
+		ArrayList<Movie> movies = this.mMovieManager.getMovies();
+		
+		println("Movies List.");
+		
+		for(Movie movie : movies){
+			println(movie.getTitle());
+		}
+	}
+	
+	public void displayMovieDetails(Movie movie){
+		printHeader("Details of " + movie.getTitle());
+		
+		println("Movie Title: " + movie.getTitle());
+		println("Movie Synopsis: " + movie.getSynopsis());
+		println("Movie Director: " + movie.getDirector());
+		println("Movie Casts: " + movie.getCastsStr());
+		println("Movie Opening: " + (movie.getOpening().equals("TBA") ? "To Be Announced" : movie.getOpening()));
+		println("Movie Run Time: " + (movie.getRunTime().equals("TBA") ? "To Be Announced" : movie.getRunTime()));
+		println("Movie Overall Rating: " + movie.getOverallRating());
+		println("Movie Normal Price" + movie.getPrice());
+		println("Movie Status: " + movie.getStatus());
+		println("Movie Level: " + movie.getRating());
+		println("Movie Language" + movie.getLanguage());
+		
+	}
+}

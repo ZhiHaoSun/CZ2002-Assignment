@@ -1,0 +1,7 @@
+package com.moblima.project.model;
+
+public class Discount {
+	public static int ageDiscount;
+	public static int cinemaClassDiscount;
+	public static int movieTypeDiscount;
+}
