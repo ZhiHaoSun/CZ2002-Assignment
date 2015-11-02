@@ -17,7 +17,6 @@ import com.moblima.project.model.Movie;
 import com.moblima.project.model.ShowTime;
 import com.moblima.project.model.Ticket;
 import com.moblima.project.view.BaseMenu;
-import com.moblima.project.view.BaseMenu.ExitException;
 
 public class MovieGoerTicketMenu extends BaseMenu {
 
@@ -56,6 +55,7 @@ public class MovieGoerTicketMenu extends BaseMenu {
 						this.displayTicketsByEmail(email);
 						break;
 					case 3:
+						//Display the seat arrangement of the show time.
 						time = chooseShowTime();
 						this.displaySeats(mShowTimeManager.getSeats(time, mTicketManager));
 						break;
@@ -72,6 +72,7 @@ public class MovieGoerTicketMenu extends BaseMenu {
 		} while (choice != 4);
 	}
 	
+	//Book a new tickets.
 	public void createTicket() throws ExitException, JSONException{
 		ticket = new Ticket();
 		customer = new Customer();
@@ -92,6 +93,7 @@ public class MovieGoerTicketMenu extends BaseMenu {
 		
 		int age = readInt("Enter your age: ");
 		ticket.setPrice(this.mTicketManager.getPriceAfterDiscount(ticket, age, mShowTimeManager, mMovieManager, mCinemaManager));
+		println("Your final ticket price is: " + ticket.getPrice());
 		
 		if(mTicketManager.create(ticket))
 			System.out.println("Booking Successful");
@@ -99,6 +101,7 @@ public class MovieGoerTicketMenu extends BaseMenu {
 			System.out.println("Booking Unsuccessful");
 	}
 	
+	//Display the tickets belongs to this email.
 	public void displayTicketsByEmail(String email){
 		printHeader("Display Your Tickts");
 		

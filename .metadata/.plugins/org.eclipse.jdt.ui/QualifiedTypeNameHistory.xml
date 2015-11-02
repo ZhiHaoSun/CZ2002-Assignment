@@ -36,6 +36,6 @@
 <fullyQualifiedTypeName name="java.util.Date"/>
 <fullyQualifiedTypeName name="java.util.Calendar"/>
 <fullyQualifiedTypeName name="java.util.Locale"/>
-<fullyQualifiedTypeName name="com.moblima.project.model.Constant.ClassType"/>
 <fullyQualifiedTypeName name="com.moblima.project.model.Discount"/>
+<fullyQualifiedTypeName name="com.moblima.project.model.Constant.ClassType"/>
 </qualifiedTypeNameHistroy>

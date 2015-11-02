@@ -101,7 +101,7 @@ public class MovieGoerMovieMenu extends BaseMenu {
 		println("Movie Casts: " + movie.getCastsStr());
 		println("Movie Opening: " + (movie.getOpening().equals("TBA") ? "To Be Announced" : movie.getOpening()));
 		println("Movie Run Time: " + (movie.getRunTime().equals("TBA") ? "To Be Announced" : movie.getRunTime()));
-		println("Movie Overall Rating: " + movie.getOverallRating());
+		println("Movie Overall Rating: " + (movie.getReviews().size() > 1 ? movie.getOverallRating() : "NA"));
 		println("Movie Normal Price" + movie.getPrice());
 		println("Movie Status: " + movie.getStatus());
 		println("Movie Level: " + movie.getRating());

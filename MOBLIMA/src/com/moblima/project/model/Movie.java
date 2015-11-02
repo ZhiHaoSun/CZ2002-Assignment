@@ -17,7 +17,8 @@ import com.moblima.project.model.Constant.Status;
 public class Movie extends Model{
 	private String title;
 	private String synopsis;
-	private int price;
+	private int price; //This price is a base price of the movie. Discounts need to be 
+					  // added to this to get final ticket price
 	
 	private String opening;
 	private String runtime;
@@ -28,7 +29,7 @@ public class Movie extends Model{
 	private Status   status;
 	private Rating   rating;
 	private Language language;
-	private ClassType classType;
+	private ClassType classType;  //The ClassType is the type of the move, like 3D, Blockbulster
 	private int overallRating; // Overall Reviewer's Rating
 
 	private ArrayList<Review> reviews;

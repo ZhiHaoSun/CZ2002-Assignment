@@ -28,6 +28,7 @@ public class Moblima {
 		Scanner sc = new Scanner(System.in);
 		sc.useDelimiter("\\n");
                 
+		//Initialize all the managers and load all the data
 		movieManager = new MovieManager();
 		cinemaManager = new CinemaManager();
 		showTimeManager = new ShowTimeManager();
@@ -39,6 +40,7 @@ public class Moblima {
 		//Discount.startData();
 		Discount.initialize();
 		
+		//Pass the managers to the next menu to keep all the data
 		MainMenu main = new MainMenu(sc, movieManager, cinemaManager, reviewManager, showTimeManager, ticketManager, staffManager);
 		
 		main.displayMenu();

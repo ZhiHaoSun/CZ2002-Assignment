@@ -133,6 +133,7 @@ public class ShowTimeManager extends Manager{
 		return null;
 	}
 	
+	//Get the ShowTimes of the particular movie and cinema 
 	public ArrayList<ShowTime> getShowTimes(int movieId, int cinemaId){
 		ArrayList<ShowTime> showTimes = new ArrayList<ShowTime>();
 		
@@ -145,15 +146,30 @@ public class ShowTimeManager extends Manager{
 		return showTimes;
 	}
 	
+	//Get the movie of the ShowTime. Need the help of MovieManager.
 	public Movie getMovie(ShowTime time, MovieManager movieManager){
 		return (Movie) movieManager.getInstanceById(time.getMovieId());
 	}
 	
+	//Get the cinema of the ShowTime. Need the help of CinemaManager.
 	public Cinema getCinema(ShowTime time, CinemaManager cinemaM){
 		return (Cinema) cinemaM.getInstanceById(time.getCinemaId());
 	}
 	
-	//Note the seats start from 1.
+	//Get the total ticket sale of the ShowTime. Here the sale is after discount.
+	public int getTotalSale(ShowTime time, TicketManager ticketManager){
+		int total = 0;
+		
+		for(Ticket ticket: ticketManager.getTickets()){
+			if(time.equals(ticket.getShowTime())){
+				total += ticket.getPrice();
+			}
+		}
+		
+		return total;
+	}
+	
+	//Note the seats row and column both start from 1.
 	public Boolean[][] getSeats(ShowTime time, TicketManager ticketManager){
 		Boolean[][] seats = new Boolean[Constant.rowNumber+1][Constant.colNumber+1];
 		int i,j;

@@ -50,6 +50,8 @@ public class ManageSystemMenu extends BaseMenu {
 					case 1:
 						viewTicketSale();
 						break;
+						
+					//Here is to configure the discount setting only.
 					case 2:
 						configureSetting();
 						break;
@@ -67,17 +69,21 @@ public class ManageSystemMenu extends BaseMenu {
 		} while (choice != 3);
 	}
 	
+	//View the amount of Ticket Sale of a ShowTime
 	public void viewTicketSale() throws ExitException{
 		printHeader("View Ticket Sale");
-		int i,j;
+		int totalSale;
 		
 		showTime = this.chooseShowTime();
 		Boolean[][] seats = this.mShowTimeManager.getSeats(showTime, mTicketManager);
 		
 		this.displaySeats(seats);
+		totalSale = this.mShowTimeManager.getTotalSale(showTime, mTicketManager);
 		
+		println("The total sale of the show time is: " + totalSale);
 	}
 	
+	//Configure the discount rate of each type of discounts.
 	public void configureSetting() throws ExitException, JSONException{
 		printHeader("Discount Setting");
 		
