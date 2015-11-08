@@ -13,7 +13,7 @@ import com.moblima.project.model.Constant.MovieType;
 import com.moblima.project.model.Constant.Rating;
 import com.moblima.project.model.Constant.Status;
 
-public class Movie extends Model{
+public class Movie extends Model {
 	private String title;
 	private String synopsis;
 	
@@ -31,10 +31,14 @@ public class Movie extends Model{
 	private Language language;
 	private double   overallRating;    // Overall Reviewer's Rating
 
+	private int ticketSales;
+	
 	private ArrayList<Review> reviews;
 	private ArrayList<ShowTime> showtimes;
 	
 	public Movie() {
+		ticketSales = 0;
+		
 		casts     = new ArrayList<>();
 		reviews   = new ArrayList<>();
 		showtimes = new ArrayList<>();
@@ -47,7 +51,7 @@ public class Movie extends Model{
 	
 	public Movie(JSONObject jObj) throws JSONException, ParseException {
 		this(jObj.getInt("id"));
-		
+
 		title 	 = jObj.getString("title");
 		synopsis = jObj.getString("synopsis");
 		director = jObj.getString("director");
@@ -186,6 +190,18 @@ public class Movie extends Model{
 		return orate;
 	}
 	
+	public int getTicketSales() {
+		return ticketSales;
+	}
+
+	public void addTicketSales(int ticketSales) {
+		this.ticketSales += ticketSales;
+	}
+	
+	public void setTicketSales(int ticketSales) {
+		this.ticketSales = ticketSales;
+	}
+
 	public double getOverallRating() {
 		return overallRating;
 	}
@@ -197,7 +213,7 @@ public class Movie extends Model{
 	public String getOpening() {
 		return opening;
 	}
-
+	
 	public void setOpening(String opening) throws ParseException {
 		if (opening.equals("TBA")) this.opening = opening;
 		else {
@@ -240,28 +256,6 @@ public class Movie extends Model{
 	
 	public void setShowtimes(ArrayList<ShowTime> showtimes) {
 		this.showtimes = showtimes;
-	}
-
-	public void copy(Movie copyInstance) {
-		id 	  	 = copyInstance.id;
-		title 	 = copyInstance.title;
-		synopsis = copyInstance.synopsis;
-
-		casts    = copyInstance.casts;
-		director = copyInstance.director;
-
-		type	 = copyInstance.type;
-		status 	 = copyInstance.status;
-		rating   = copyInstance.rating;
-		language = copyInstance.language;
-
-		opening  = copyInstance.opening;
-		runtime  = copyInstance.runtime;
-		reviews  = copyInstance.reviews;
-		
-		showtimes = copyInstance.showtimes;
-		isBlockBuster = copyInstance.isBlockBuster;
-		overallRating = copyInstance.overallRating;
 	}
 	
 	public Movie clone() {

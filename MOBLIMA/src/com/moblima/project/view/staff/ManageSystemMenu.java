@@ -8,11 +8,15 @@ import com.moblima.project.model.Holiday;
 import com.moblima.project.model.Movie;
 import com.moblima.project.model.Ticket;
 import com.moblima.project.view.BaseMenu;
+import com.moblima.project.view.TopRankingMenu;
 
 public class ManageSystemMenu extends BaseMenu {
 
+	private TopRankingMenu mTopRankingMenu;
 	public ManageSystemMenu(CineplexManager mCineplexManager) {
 		super(mCineplexManager);
+		
+		mTopRankingMenu = new TopRankingMenu(mCineplexManager);
 	}
 	
 	@Override
@@ -21,7 +25,7 @@ public class ManageSystemMenu extends BaseMenu {
 		
 		do {
 			printHeader("System Setting");
-			println(" 1. View Top 5 Ranking Movies");
+			println(" 1. Top 5 Movies");
 			println(" 2. View Ticket Price");
 			println(" 3. Change Ticket Price");
 			println(" 4. Manage Public Holiday");

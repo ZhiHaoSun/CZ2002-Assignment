@@ -366,9 +366,9 @@ public abstract class BaseMenu {
 				// when prevDate is empty (no date had been printed yet)
 				// or 	prevDate is not equal to the current ShowTime's date 
 				// (which mean the current showtime is another date)
-				if (prevDate.isEmpty() || !prevDate.equals(showtime.getDate())) {
+				if (prevDate.isEmpty() || !prevDate.equals(showtime.getFormattedDate())) {
 					// store the showtime date
-					prevDate = showtime.getDate();
+					prevDate = showtime.getFormattedDate();
 					
 					if (pos != 0) println("");			
 					
@@ -380,7 +380,7 @@ public abstract class BaseMenu {
 				}
 				
 				// display time of the movie
-				print("    ("+row+") "+showtime.getTime());
+				print("    ("+row+") "+showtime.getFormattedTime());
 				
 				// pre-increment the col counter 
 				// and reset the col counter

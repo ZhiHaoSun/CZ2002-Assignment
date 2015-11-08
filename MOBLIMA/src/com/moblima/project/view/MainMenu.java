@@ -2,10 +2,12 @@ package com.moblima.project.view;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.ArrayList;
 
 import org.json.JSONException;
 
 import com.moblima.project.controller.CineplexManager;
+import com.moblima.project.model.Movie;
 import com.moblima.project.view.moviegoer.MovieGoerMenu;
 import com.moblima.project.view.staff.StaffMenu;
 
@@ -30,7 +32,7 @@ public class MainMenu extends BaseMenu {
 
 	public void displayMenu() {
 		int choice = 0; // each menu manage their own choice integer
-
+	
 		do {
 			printHeader("MOvie Booking and LIsting Management Application (MOBLIMA)");
 			println(" 1. Staff Login");

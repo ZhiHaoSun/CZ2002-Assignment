@@ -50,6 +50,9 @@ public class Holiday extends Model implements Comparable<Holiday> {
 		if (obj instanceof Holiday) {
 			Holiday h = (Holiday) obj;
 			return h.id == id;
+		} else if (obj instanceof ShowTime) {
+			ShowTime st = (ShowTime) obj;
+			return st.getDate().equals(date);
 		}
 		return super.equals(obj);
 	}

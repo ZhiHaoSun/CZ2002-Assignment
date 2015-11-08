@@ -3,6 +3,8 @@ package com.moblima.project.controller;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,7 +33,10 @@ public class CineplexManager extends Manager {
 	
 	// to store the original data from json
 	private ArrayList<Staff>    mStaffs;
+	
 	private ArrayList<Movie>    mMovies;
+	private ArrayList<Movie>    mCurrentMovies;
+	
 	private ArrayList<Cinema>   mCinemas;
 	private ArrayList<ShowTime> mShowTimes;
 	private ArrayList<Customer> mCustomers;
@@ -79,7 +84,41 @@ public class CineplexManager extends Manager {
 		return mTicketPrices;
 	}
 	
+	public ArrayList<Movie> getTopFiveMovies(boolean byOverallRating) {
+		// create new list to prevent from affecting the original copy
+		ArrayList<Movie> movies = new ArrayList<>(mMovies);
+		
+		if (byOverallRating) {
+			Collections.sort(movies, new Comparator<Movie>() {
+				@Override
+				public int compare(Movie m1, Movie m2) {
+					// 
+					if (m1.getOverallRating() < m2.getOverallRating())
+						return 1;
+					else if (m1.getOverallRating() > m2.getOverallRating())
+						return -1;
+					else 
+						return m1.getTitle().compareTo(m2.getTitle());
+				}
+			});
+		} else {
+			Collections.sort(movies, new Comparator<Movie>() {
+				@Override
+				public int compare(Movie m1, Movie m2) {
+					if (m1.getTicketSales() < m2.getTicketSales())
+						return 1;
+					else if (m1.getTicketSales() > m2.getTicketSales())
+						return -1;
+					else 
+						return m1.getTitle().compareTo(m2.getTitle());
+				}
+			});
+		}
+		return movies;
+	}
+	
 	public String generateTicketSales(Movie movie) {
+		
 		StringBuilder sb = new StringBuilder();
 		
 		int    sold = 0;
@@ -96,6 +135,10 @@ public class CineplexManager extends Manager {
 		sb.append("Total Ticket Sales: "+String.format("$%.2f", sale));
 		
 		return sb.toString();
+	}
+	
+	public Ticket getTicketPrice(ShowTime showtime, boolean isStudent, boolean isSeniorCitizen) {
+		return mTicketManager.getTicketPrice(showtime, isStudent, isSeniorCitizen);
 	}
 	
 	/**
@@ -128,6 +171,7 @@ public class CineplexManager extends Manager {
 		mShowTimes = new ArrayList<>();
 		mCustomers = new ArrayList<>();
 		
+		mCurrentMovies  = new ArrayList<>();
 		mBookingRecords = new ArrayList<>();
 	}
 	
@@ -164,6 +208,7 @@ public class CineplexManager extends Manager {
 		if (array.length()!=0) {
 			for(pos=0;pos<array.length();pos++) {
 				movie = new Movie(array.getJSONObject(pos));
+				
 				mMovies.add(movie);
 			}
 			
@@ -229,6 +274,9 @@ public class CineplexManager extends Manager {
 				booking.setCustomer(customer);
 				booking.setShowtime(showtime);
 								
+				movie = showtime.getMovie();
+				movie.addTicketSales(booking.getSeats().size());
+
 				mBookingRecords.add(booking);
 			}
 		}
@@ -351,14 +399,9 @@ public class CineplexManager extends Manager {
 				index = mBookingRecords.indexOf(model);
 				return mBookingRecords.get(index);
 			}
-		} else if (model instanceof Ticket) {
-			if (mTicketPrices.contains(model)) {
-				index = mTicketPrices.indexOf(model);
-				return mTicketPrices.get(index);
-			}
-		}
+		} 
 		
-		return null;
+		return mTicketManager.getInstance(model);
 	}
 
 }

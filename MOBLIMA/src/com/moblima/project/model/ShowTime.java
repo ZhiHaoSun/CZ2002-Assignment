@@ -47,17 +47,27 @@ public class ShowTime extends Model implements Comparable<ShowTime> {
 		this.time = time;
 	}
 
-	public String getDateTime() {
-		return getDate() +", "+ getTime();
+	public Date getDate() {
+		return date;
+	}
+
+	public Date getTime() {
+		return time;
 	}
 	
-	public String getDate() {
+	public String getDateTime() {
+		return getFormattedDate() +", "+ getFormattedTime();
+	}
+	
+	public String getFormattedDate() {
 		return Constant.dateFormatLong.format(date);
 	}
 
-	public String getTime() {
+	public String getFormattedTime() {
 		return Constant.timeFormat.format(time);
 	}
+	
+	
 	
 	public Movie getMovie() {
 		return movie;
@@ -97,8 +107,8 @@ public class ShowTime extends Model implements Comparable<ShowTime> {
 		object.put("id",id);
 		object.put("movieId", movie.getId());
 		object.put("cinemaCode",cinema.getCode());
-		object.put("date", getDate());
-		object.put("time", getTime());
+		object.put("date", getFormattedDate());
+		object.put("time", getFormattedTime());
 		
 		return object;
 	}

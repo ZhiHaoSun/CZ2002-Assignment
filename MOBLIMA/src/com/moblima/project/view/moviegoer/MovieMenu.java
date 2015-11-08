@@ -3,6 +3,7 @@ package com.moblima.project.view.moviegoer;
 import java.util.ArrayList;
 
 import com.moblima.project.controller.CineplexManager;
+import com.moblima.project.model.Booking;
 import com.moblima.project.model.Cinema;
 import com.moblima.project.model.Constant;
 import com.moblima.project.model.Customer;
@@ -10,13 +11,14 @@ import com.moblima.project.model.Movie;
 import com.moblima.project.model.Review;
 import com.moblima.project.model.Seat;
 import com.moblima.project.model.ShowTime;
-import com.moblima.project.model.Booking;
+import com.moblima.project.model.Ticket;
 import com.moblima.project.view.BaseMenu;
+import com.moblima.project.view.BaseMenu.ExitException;
 
-public class MoviesMenu extends BaseMenu{
+public class MovieMenu extends BaseMenu{
 	private Movie movie;
 
-	public MoviesMenu(CineplexManager mCineplexManager) {
+	public MovieMenu(CineplexManager mCineplexManager) {
 		super(mCineplexManager);
 	}
 	
@@ -97,21 +99,26 @@ public class MoviesMenu extends BaseMenu{
 						displaySeats(showtime, chooseSeats(showtime));
 						
 						if (confirm("Do you want to book the selected seats?")) {
+							
 							printShowTimeInfo(showtime);
 							println("Please fill in the following details: ");
+							
 							Customer customer = new Customer();
 							customer.setName(read("Your name: "));
 							customer.setEmail(read("Your email address: "));
 							customer.setPhone(read("Your phone number: "));
-							
+
 							if (mCineplexManager.getCustomers().contains(customer)) 
 								customer = (Customer) mCineplexManager.getInstance(customer);
 							else
 								mCineplexManager.create(customer);
 						
-							Booking booking = new Booking(customer, showtime);
-							booking.setSeats(selectedSeats);	
-							if (mCineplexManager.create(booking)) {
+							Booking record = new Booking(customer, showtime);
+							record.setSeats(selectedSeats);	
+							
+							generateFinalPrice(record);
+
+							if (mCineplexManager.create(record)) {
 								println("Successful booked the selected seats");
 							} else {
 								println("Unable to book the selected seats.");
@@ -121,6 +128,52 @@ public class MoviesMenu extends BaseMenu{
 				}			
 			} while (choice != 3);
 		} catch (ExitException e) {}
+	}
+		
+	public double generateFinalPrice(Booking record) {
+		double finalPrice = 0;
+		int numOfTicket = selectedSeats.size();
+		int num = 0;
+		Ticket tprice;
+		
+		if (!showtime.getCinema().isPlatinum()) {
+			if (confirm("Are there students watching?")) {
+				num = readInt("Enter number of student watching", 0, numOfTicket);
+				
+				if (num != 0) {
+					tprice = mCineplexManager.getTicketPrice(showtime, true, false);
+					
+					finalPrice  += (tprice.getPrice()*num);
+					numOfTicket -= num;
+				} 
+			}
+			
+			if (numOfTicket != 0) {
+				if (confirm("Are there students watching?")) {
+					num = readInt("Enter number of senior citizen watching", 0, numOfTicket);
+					if (num != 0) {
+						tprice = mCineplexManager.getTicketPrice(showtime, false, true);
+
+						finalPrice  += (tprice.getPrice()*num);
+						numOfTicket -= num;
+					} 
+				}
+			}
+		}
+		
+		if (numOfTicket != 0) {
+			tprice = mCineplexManager.getTicketPrice(showtime, false, false);
+
+			finalPrice  += (tprice.getPrice()*numOfTicket);
+		}
+		
+		// add $1 when the movie is a blockbuster 
+		if (record.getShowtime().getMovie().isBlockBuster()) finalPrice ++;
+		
+		record.setTotalPrice(finalPrice);
+		println("Your final ticket price is: " + String.format("$%.2f", finalPrice));
+		
+		return finalPrice;
 	}
 	
 	public void printShowTimeInfo(ShowTime st) {
@@ -132,7 +185,11 @@ public class MoviesMenu extends BaseMenu{
 		// AMK Hub - SCREEN 1
 		println(m.getTitle()+" ("+m.getRating().name()+")");		
 		println("Showing on "+st.getDateTime());
-		println(c.getCineplex().value() +" - "+ c.getName());
+		print(c.getCineplex().value() +" - "+ c.getName());
+		if (c.isPlatinum())
+			print(" (Platinum)\n");
+		else
+			println("");
 	}
 	
 	// Show Times Option #1: Select Seats (Book For Seats)
@@ -153,15 +210,8 @@ public class MoviesMenu extends BaseMenu{
 		displaySeats(showtime, selectedSeats);
 	}
 	
-	protected void displaySeats(ShowTime st, ArrayList<Seat> selectedSeats) {
-		Movie  movie  = st.getMovie();
-		Cinema cinema = st.getCinema();
-		
-		println("");
-		println(movie.getTitle()+" ("+movie.getRating()+")");
-		println("Showing on "+st.getDateTime());
-		println(cinema.getCineplex().value()+" - "+cinema.getName());
-		
+	protected void displaySeats(ShowTime st, ArrayList<Seat> selectedSeats) {		
+		printShowTimeInfo(st);
 		println("");
 		println(" Select Seats");
 		println("**************");
@@ -266,17 +316,17 @@ public class MoviesMenu extends BaseMenu{
 	}
 	
 	// Review Option #1: Write Your Review
-		public void giveReview() throws ExitException {
-			Review review = new Review();
-			review.setName(read("Your name: "));
-			review.setDescription(read("Your content: "));
-			review.setRating(readInt("Your rating", 1, 5));
-			
-			movie.addReview(review);
-			
-			if (mCineplexManager.update(movie))
-				println("Your review has been posted");
-			else
-				println("Unable to add your review, please contact the admin.");
-		}
+	public void giveReview() throws ExitException {
+		Review review = new Review();
+		review.setName(read("Your name: "));
+		review.setDescription(read("Your content: "));
+		review.setRating(readInt("Your rating", 1, 5));
+		
+		movie.addReview(review);
+		
+		if (mCineplexManager.update(movie))
+			println("Your review has been posted");
+		else
+			println("Unable to add your review, please contact the admin.");
+	}
 }

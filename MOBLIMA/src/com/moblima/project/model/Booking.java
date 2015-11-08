@@ -13,13 +13,13 @@ public class Booking extends Model {
 
 	private String tid;
 
-	private Date  date;
-	private float totalPrice;
+	private Date   date;
+	private double totalPrice;
 	private Customer customer;
 	private ShowTime showtime;
 	
-	private ArrayList<Seat> seats;
-	
+	private ArrayList<Seat>   seats;
+
 	public Booking() {
 		seats = new ArrayList<>();
 	}
@@ -43,6 +43,7 @@ public class Booking extends Model {
 		this.date = Constant.datetimeFormat.parse(object.getString("date"));
 		this.showtime = new ShowTime(object.getInt("showtimeId"));
 		this.customer = new Customer(object.getInt("customerId"));
+		this.totalPrice = object.getDouble("total price");
 		
 		JSONArray array = object.getJSONArray("seats");
 		
@@ -66,11 +67,11 @@ public class Booking extends Model {
 		this.date = date;
 	}
 
-	public float getTotalPrice() {
+	public double getTotalPrice() {
 		return totalPrice;
 	}
 	
-	public void setTotalPrice(float totalPrice) {
+	public void setTotalPrice(double totalPrice) {
 		this.totalPrice = totalPrice;
 	}
 
@@ -102,7 +103,7 @@ public class Booking extends Model {
 	public void setSeats(ArrayList<Seat> seats) {
 		this.seats = seats;
 	}
-
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof Booking) {
@@ -120,11 +121,12 @@ public class Booking extends Model {
 		object.put("tid", tid);
 		object.put("date", getDate());
 		object.put("total price", String.format("%.2f", totalPrice));
-		
+
 		object.put("seats", new JSONArray(seats.toString()));
 		object.put("showtimeId", showtime.getId());
 		object.put("customerId", customer.getId());
 
+		object.put("total price", String.format("%.2f", totalPrice));
 		return object;
 	}
 

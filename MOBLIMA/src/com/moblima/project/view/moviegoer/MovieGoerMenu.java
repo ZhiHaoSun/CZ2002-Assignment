@@ -5,14 +5,17 @@ import com.moblima.project.model.Booking;
 import com.moblima.project.model.Customer;
 import com.moblima.project.model.Seat;
 import com.moblima.project.view.BaseMenu;
+import com.moblima.project.view.TopRankingMenu;
 
 public class MovieGoerMenu extends BaseMenu {
 	
-	private MoviesMenu mMovieMenu;
+	private MovieMenu mMovieMenu;
+	private TopRankingMenu mTopRankingMenu;
 	
 	public MovieGoerMenu(CineplexManager mCineplexManager) {
 		super(mCineplexManager);
-		mMovieMenu  = new MoviesMenu(mCineplexManager);
+		mMovieMenu  	= new MovieMenu(mCineplexManager);
+		mTopRankingMenu = new TopRankingMenu(mCineplexManager);
 	}
 
 	public void displayMenu() {
@@ -30,9 +33,7 @@ public class MovieGoerMenu extends BaseMenu {
 				
 				switch (choice) {
 					case 1:
-						printHeader("Movies");
-						mMovieMenu.displayMenu(chooseMovie(""));
-						
+						displayMovieListing();
 						break;
 					case 2:
 						//** View Book History 
@@ -45,6 +46,40 @@ public class MovieGoerMenu extends BaseMenu {
 		} while (choice != 3);
 	}
 	
+	// Movie Go-er Option #1: Movie Listing
+	public void displayMovieListing() {
+		choice = 0; // each menu manage their own choice integer
+		
+		do {
+			printHeader("Movie Listing");
+			println(" 1. All Movies");
+			println(" 2. Top 5 Movies");
+			println(" 3. Search Movies");
+			println(" 4. Back");
+			println("");
+			
+			try {
+				choice = readChoice(1, 3);
+				
+				switch (choice) {
+					case 1:
+						printHeader("Movies");
+						mMovieMenu.displayMenu(chooseMovie(""));						
+						break;
+					case 2:
+						mTopRankingMenu.displayMenu();
+						break;
+					case 3:
+						mTopRankingMenu.displayMenu();
+						break;
+				}			
+			} catch (ExitException e) {
+				break;
+			}
+		} while (choice != 3);
+	}
+	
+	// Movie Go-er Option #2: Booking History
 	public void displayBookingHistory() {
 		int choice = 0; // each menu manage their own choice integer
 
@@ -52,7 +87,7 @@ public class MovieGoerMenu extends BaseMenu {
 			printHeader("Display Booking History using:");
 			println(" 1. Booking ID");
 			println(" 2. User Information");
-			println(" 3. Quit");
+			println(" 3. Back");
 			println("");
 			
 			try {
@@ -66,9 +101,6 @@ public class MovieGoerMenu extends BaseMenu {
 						displayBookingRecords();
 						break;
 					case 3:
-						//Display the seat arrangement of the show time.
-//						time = chooseShowTime();
-						//this.displaySeats(mShowTimeManager.getSeats(time, mTicketManager));
 						break;
 				}			
 			} catch (ExitException e) {
@@ -81,6 +113,18 @@ public class MovieGoerMenu extends BaseMenu {
 		} while (choice != 4);
 	}
 	
+	// Booking History Option #1: Display Booking History using User Info
+	public void displayBookingRecord() {
+		Booking record = new Booking(read("Please input the Booking ID: "));
+		
+		record = (Booking) mCineplexManager.getInstance(record);
+		if (record != null) {
+			printHeader("Booking Details");
+			printBookingRecord(record);
+		} else println("No Booking Record Found.");
+	}
+
+	// Booking History Option #2: Display Booking History using User Info
 	public void displayBookingRecords() {
 		// prompt for customer information
 		println("Please input the following details to view your booking");
@@ -102,17 +146,7 @@ public class MovieGoerMenu extends BaseMenu {
 	
 		println("Please inuput the correct customer information");
 	}
-	
-	public void displayBookingRecord() {
-		Booking record = new Booking(read("Please input the Booking ID: "));
-		
-		record = (Booking) mCineplexManager.getInstance(record);
-		if (record != null) {
-			printHeader("Booking Details");
-			printBookingRecord(record);
-		} else println("No Booking Record Found.");
-	}
-	
+
 	public void printBookingRecord(Booking record) {
 		println("Booking ID  : "+ record.getTID() +"\n");
 		
@@ -124,10 +158,6 @@ public class MovieGoerMenu extends BaseMenu {
 		
 		println("\nTotal Price : "+ record.getTotalPrice());
 		println("");
-	}
-	
-	public void displayMovieListing() throws ExitException {
-		printHeader("Movies");
 	}
 }
 
