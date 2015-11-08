@@ -8,7 +8,7 @@ import com.moblima.project.model.Movie;
 public class TopRankingMenu extends BaseMenu {
 
 	public TopRankingMenu(CineplexManager mCineplexManager) {
-		super();
+		super(mCineplexManager);
 	}
 	
 	@Override
@@ -45,29 +45,29 @@ public class TopRankingMenu extends BaseMenu {
 	public void showTopFiveMovies(boolean byOverallRating) {
 		ArrayList<Movie> movies = mCineplexManager.getTopFiveMovies(byOverallRating);
 		
-		int counter = 0;
+		int rank = 1;
 		if (byOverallRating) {
 			printHeader("Top 5 Movies by Overall Rating");
 			
 			for (Movie movie: movies) {
 				String orating = String.format("%.1f", movie.getOverallRating());
 
-				print(String.format("%-15s", movie.getTitle()));				
-				print(String.format("(%-5s)", orating)); 
-
-				if (counter == 5) break;
+				print(rank +". "+ String.format("%-15s", movie.getTitle()));				
+				print("("+orating+") "+ movie.getOverallStarRating()); 
+				println("");
+				
+				if (rank++ == 5) break;
 			}
 		} else {
 			printHeader("Top 5 Movies by Ticket Sales");
 			
 			for (Movie movie: movies) {
-				print(String.format("%-15s", movie.getTitle())); 
-				print(String.format("(%-5s)", movie.getTicketSales())); 
+				print(rank+". "+String.format("%-15s", movie.getTitle())); 
+				print("("+movie.getTicketSales()+")"); 
+				println("");
 
-				if (counter == 5) break;
+				if (rank++ == 5) break;
 			}
 		}
-		
-		
 	}
 }

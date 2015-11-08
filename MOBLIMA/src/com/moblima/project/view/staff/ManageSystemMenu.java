@@ -37,8 +37,7 @@ public class ManageSystemMenu extends BaseMenu {
 				
 				switch (choice) {
 					case 1:
-						// top 5 ranking?
-						optionViewTopFiveRankingMovies();
+						mTopRankingMenu.displayMenu();
 						break;
 					case 2:
 						optionViewTicketPrice();
