@@ -1,8 +1,11 @@
 package com.moblima.project.view.moviegoer;
 
+import java.util.ArrayList;
+
 import com.moblima.project.controller.CineplexManager;
 import com.moblima.project.model.Booking;
 import com.moblima.project.model.Customer;
+import com.moblima.project.model.Movie;
 import com.moblima.project.model.Seat;
 import com.moblima.project.view.BaseMenu;
 import com.moblima.project.view.TopRankingMenu;
@@ -59,7 +62,7 @@ public class MovieGoerMenu extends BaseMenu {
 			println("");
 			
 			try {
-				choice = readChoice(1, 3);
+				choice = readChoice(1, 4);
 				
 				switch (choice) {
 					case 1:
@@ -70,13 +73,13 @@ public class MovieGoerMenu extends BaseMenu {
 						mTopRankingMenu.displayMenu();
 						break;
 					case 3:
-						mTopRankingMenu.displayMenu();
+						searchMovies();
 						break;
 				}			
 			} catch (ExitException e) {
 				break;
 			}
-		} while (choice != 3);
+		} while (choice != 4);
 	}
 	
 	// Movie Go-er Option #2: Booking History
@@ -100,8 +103,6 @@ public class MovieGoerMenu extends BaseMenu {
 					case 2:
 						displayBookingRecords();
 						break;
-					case 3:
-						break;
 				}			
 			} catch (ExitException e) {
 				println("Go back.");
@@ -111,6 +112,29 @@ public class MovieGoerMenu extends BaseMenu {
 				break;
 			}
 		} while (choice != 4);
+	}
+	public void searchMovies() {
+		try {
+			ArrayList<Movie> result;
+			
+			String search = read("Enter search term: ");
+			result = mCineplexManager.searchMovies(search);
+			
+			printHeader("Search Result for '"+search+"'");
+			
+			int index = 1;
+			for (Movie m:result) {
+				println((index++)+". "+m.getTitle());
+			}
+			
+			println(index+". Cancel");
+			index = readChoice("Select Movie", 1, index) -1;
+			
+			mMovieMenu.displayMenu(result.get(index).clone());
+		} catch (ExitException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
 	}
 	
 	// Booking History Option #1: Display Booking History using User Info

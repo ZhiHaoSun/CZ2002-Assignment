@@ -55,60 +55,6 @@ public class ManageSystemMenu extends BaseMenu {
 		} while (choice != 3);
 	}
 	
-	//View the amount of Ticket Sale of a ShowTime
-	public void optionViewTopFiveRankingMovies() throws ExitException{
-		
-		choice = 0; // each menu manage their own choice integer
-		
-		Movie movie = chooseMovie();
-
-		printHeader("Ticket Sales for "+movie.getTitle());
-		println(mCineplexManager.generateTicketSales(movie));
-		
-		do {
-			printHeader("View Top 5 Ranking Movies");
-			println("by Movie's:");
-			println(" 1. Ticket Sales");
-			println(" 2. Overall Rating");
-			println(" 3. Back");
-			println("");
-			
-			try {
-				choice = readChoice(1, 3);
-				
-				switch (choice) {
-					case 1:
-						// top 5 ranking?
-						optionViewTopFiveRankingMovies();
-						break;
-					case 2:
-						optionViewTicketPrice();
-						break;
-					case 3:
-						optionChangeTicketPrice();
-						break;
-					case 4:
-						optionManagePublicHoliday();
-						break;
-				}			
-			} catch (ExitException e) {
-				break;
-			} 
-		} while (choice != 3);
-	
-		
-		
-//		int totalSale;
-//		
-//		showTime = this.chooseShowTime();
-//		boolean[][] seats = this.mShowTimeManager.getSeats(showTime, mTicketManager);
-//		
-//		this.displaySeats(seats);
-//		totalSale = this.mShowTimeManager.getTotalSale(showTime, mTicketManager);
-//		
-//		println("The total sale of the show time is: " + totalSale);
-	}
-	
 	public void optionViewTicketPrice() {
 		String table;
 		

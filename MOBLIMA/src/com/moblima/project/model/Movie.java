@@ -288,7 +288,7 @@ public class Movie extends Model {
 		if (obj instanceof Movie) {
 			Movie m = (Movie) obj;
 			return m.id == id;
-		}
+		} 
 		return super.equals(obj);
 	}
 	

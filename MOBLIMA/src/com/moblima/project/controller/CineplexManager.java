@@ -5,6 +5,8 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -84,10 +86,28 @@ public class CineplexManager extends Manager {
 		return mTicketPrices;
 	}
 	
+	public ArrayList<Movie> searchMovies(String search) {
+		// create new list to prevent from affecting the original copy
+		ArrayList<Movie> mSearchResult = new ArrayList<>();
+		
+		// set to lower case before the search
+		search = search.toLowerCase();
+		
+		for (Movie movie:mMovies) {
+			// set the title to lower case also
+			String title = movie.getTitle().toLowerCase();
+			if (title.contains(search))
+				mSearchResult.add(movie);
+		}
+		
+		return mSearchResult;
+	}
+
+		
 	public ArrayList<Movie> getTopFiveMovies(boolean byOverallRating) {
 		// create new list to prevent from affecting the original copy
 		ArrayList<Movie> movies = new ArrayList<>(mMovies);
-		
+
 		if (byOverallRating) {
 			Collections.sort(movies, new Comparator<Movie>() {
 				@Override
@@ -115,26 +135,6 @@ public class CineplexManager extends Manager {
 			});
 		}
 		return movies;
-	}
-	
-	public String generateTicketSales(Movie movie) {
-		
-		StringBuilder sb = new StringBuilder();
-		
-		int    sold = 0;
-		double sale = 0;
-		
-		for (Booking record :mBookingRecords) {
-			if (record.equals(movie)) {
-				sale += record.getTotalPrice();
-				sold += record.getSeats().size();
-			}
-		}
-		
-		sb.append("Total Tickets Sold: "+sold+"\n");
-		sb.append("Total Ticket Sales: "+String.format("$%.2f", sale));
-		
-		return sb.toString();
 	}
 	
 	public Ticket getTicketPrice(ShowTime showtime, boolean isStudent, boolean isSeniorCitizen) {
@@ -361,11 +361,11 @@ public class CineplexManager extends Manager {
 	@Override
 	public boolean delete(Model model) {
 		if (model instanceof Movie) {
-			mMovies.remove(model);
+			mMovies.remove(getInstance(model));
 			return writeFile(FILE_MOVIE, mMovies.toString());
 			
 		} else if (model instanceof ShowTime) {
-			mShowTimes.remove(model);
+			mShowTimes.remove(getInstance(model));
 			return writeFile(FILE_SHOWTIME, mShowTimes.toString());
 		}
 		
