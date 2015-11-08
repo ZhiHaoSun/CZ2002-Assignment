@@ -3,7 +3,6 @@ package com.moblima.project.model;
 import java.text.ParseException;
 import java.util.ArrayList;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -17,41 +16,34 @@ public class Cinema extends Model {
 	private String code;
 	private boolean isPlatinum;
 
-	private ArrayList<ShowTime> showTimes;
+	private ArrayList<ShowTime> mShowTimes;
 
 	public Cinema() {
-		showTimes = new ArrayList<>();
+		mShowTimes = new ArrayList<>();
+	}
+	
+	public Cinema(String code) {
+		this.code = code;
 	}
 
 	public Cinema(String name, Cineplex cineplex) {
 		this.name = name;
 		this.cineplex = cineplex;
-		this.showTimes = new ArrayList<>();
 	}
 
 	public Cinema(String name, Cineplex cineplex, ArrayList<ShowTime> showTimes) {
 		super();
 		this.name = name;
 		this.cineplex = cineplex;
-		this.showTimes = showTimes;
+		this.mShowTimes = showTimes;
 	}
 
 	public Cinema(JSONObject object) throws JSONException, ParseException {
-		this.id = object.getInt("id");
+		this();
 		this.name = object.getString("name");
 		this.code = object.getString("code");
 		this.isPlatinum = object.getBoolean("platinum suite");
 		this.cineplex = Cineplex.valueOf(object.getString("cineplex"));
-
-		ArrayList<ShowTime> shows = new ArrayList<>();
-		JSONArray array = object.getJSONArray("show times");
-
-		int len = array.length();
-		for (int i = 0; i < len; i++) {
-			shows.add(new ShowTime((JSONObject) array.get(i)));
-		}
-
-		this.showTimes = shows;
 	}
 
 	public String getCode() {
@@ -87,31 +79,66 @@ public class Cinema extends Model {
 	}
 
 	public ArrayList<ShowTime> getShowTimes() {
-		return showTimes;
+		return mShowTimes;
 	}
 
 	public void setShowTimes(ArrayList<ShowTime> showTimes) {
-		this.showTimes = showTimes;
+		this.mShowTimes = showTimes;
 	}
 
 	public void addShowTime(ShowTime showTime) {
-		this.showTimes.add(showTime);
+		this.mShowTimes.add(showTime);
+	}
+	
+	public void copy(Cinema copyInstance) {
+		id 	 = copyInstance.id;
+		name = copyInstance.name;
+		code = copyInstance.code;
+		
+		cineplex   = copyInstance.cineplex;
+		mShowTimes = copyInstance.mShowTimes;
+		isPlatinum = copyInstance.isPlatinum;
+	}
+	
+	public Cinema clone() {
+		Cinema cloned = new Cinema();
+		cloned.id   = id;
+		cloned.name = name;
+		cloned.code = code;
+		
+		cloned.cineplex   = Cineplex.valueOf(cineplex.name());
+		cloned.isPlatinum = isPlatinum;
+		cloned.mShowTimes = mShowTimes;
+		return cloned;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Cinema) {
+			Cinema c = (Cinema) obj;
+			return c.getCode().equals(code);
+		} else if (obj instanceof Cineplex) {
+			return cineplex.equals(obj);
+		} else if (obj instanceof String) {
+			return code.equals(obj);
+		}
+		
+		return super.equals(obj);
 	}
 
 	@Override
 	public JSONObject toJSONObject() throws JSONException {
 		JSONObject object = new JSONObject();
-		object.put("id", id);
 		object.put("code", code);
 		object.put("name", name);
 		object.put("cineplex", cineplex.name());
 		object.put("platinum suite", isPlatinum);
 
-		JSONArray array = new JSONArray();
-		for (ShowTime showTime : this.showTimes) {
-			array.put(showTime.toJSONObject());
-		}
-		object.put("show times", array);
+//		JSONArray array = new JSONArray();
+//		for (ShowTime showTime : this.mShowTimes) {
+//			array.put(showTime.toJSONObject());
+//		}
+//		object.put("show times", array);
 		return object;
 	}
 

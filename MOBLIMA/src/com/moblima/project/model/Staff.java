@@ -34,6 +34,15 @@ public class Staff {
 		this.password = password;
 	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Staff) {
+			Staff staff = (Staff) obj;
+			return staff.username.equals(username) && staff.password.equals(password);
+		}
+		return super.equals(obj);
+	}
+	
 	public JSONObject toJSONObject() throws JSONException {
 		JSONObject juser = new JSONObject();
 		

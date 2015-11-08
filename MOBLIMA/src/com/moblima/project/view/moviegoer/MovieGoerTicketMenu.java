@@ -1,16 +1,8 @@
 package com.moblima.project.view.moviegoer;
 
-import java.util.Date;
-import java.util.Scanner;
-
 import org.json.JSONException;
 
-import com.moblima.project.controller.CinemaManager;
-import com.moblima.project.controller.MovieManager;
-import com.moblima.project.controller.ReviewManager;
-import com.moblima.project.controller.ShowTimeManager;
-import com.moblima.project.controller.StaffManager;
-import com.moblima.project.controller.TicketManager;
+import com.moblima.project.controller.CineplexManager;
 import com.moblima.project.model.Cinema;
 import com.moblima.project.model.Customer;
 import com.moblima.project.model.Movie;
@@ -19,10 +11,9 @@ import com.moblima.project.model.Ticket;
 import com.moblima.project.view.BaseMenu;
 
 public class MovieGoerTicketMenu extends BaseMenu {
-
-	public MovieGoerTicketMenu(Scanner sc, MovieManager mMovieManager, CinemaManager mCinemaManager,
-			ReviewManager mReviewManager, ShowTimeManager mShowTimeManager, TicketManager mTicketManager, StaffManager mStaffManager) {
-		super(sc, mMovieManager, mCinemaManager, mReviewManager, mShowTimeManager, mTicketManager, mStaffManager);
+	
+	public MovieGoerTicketMenu(CineplexManager mCineplexManager) {
+		super(mCineplexManager);
 	}
 	
 	private Ticket ticket;
@@ -57,7 +48,7 @@ public class MovieGoerTicketMenu extends BaseMenu {
 					case 3:
 						//Display the seat arrangement of the show time.
 						time = chooseShowTime();
-						this.displaySeats(mShowTimeManager.getSeats(time, mTicketManager));
+						//this.displaySeats(mShowTimeManager.getSeats(time, mTicketManager));
 						break;
 				}			
 			} catch (ExitException e) {
@@ -81,50 +72,49 @@ public class MovieGoerTicketMenu extends BaseMenu {
 		printHeader("Book new Ticket");
 		
 		time = this.chooseShowTime();
-		ticket.setShowTime(time);
+//		ticket.setShowTime(time);
 		customer.setName(read("Your name: "));
 		customer.setEmail(read("Your email address: "));
 		customer.setPhone(read("Your phone number: "));
 		
-		ticket.setCustomer(customer);
-		ticket.setDate(new Date());
+//		ticket.setCustomer(customer);
 		
-		ticket.setSeat(chooseSeat(time));
+//		ticket.setSeat(chooseSeat(time));
 		
 		int age = readInt("Enter your age: ");
-		ticket.setPrice(this.mTicketManager.getPriceAfterDiscount(ticket, age, mShowTimeManager, mMovieManager, mCinemaManager));
+		//ticket.setPrice(this.mTicketManager.getPriceAfterDiscount(ticket, age, mShowTimeManager, mMovieManager, mCinemaManager));
 		println("Your final ticket price is: " + ticket.getPrice());
 		
-		if(mTicketManager.create(ticket))
-			System.out.println("Booking Successful");
-		else
-			System.out.println("Booking Unsuccessful");
+//		if(mTicketManager.create(ticket))
+//			System.out.println("Booking Successful");
+//		else
+//			System.out.println("Booking Unsuccessful");
 	}
 	
 	//Display the tickets belongs to this email.
 	public void displayTicketsByEmail(String email){
 		printHeader("Display Your Tickts");
 		
-		for(Ticket t: mTicketManager.getTicketsByEmail(email)){
-
-			time = t.getShowTime();
-			
-			cinema = (Cinema)(this.mCinemaManager.getInstanceById(time.getCinemaId()));
-			movie = (Movie)(this.mMovieManager.getInstanceById(time.getMovieId()));
-			
-			println("Transaction Code: " + mTicketManager.getTicketCode(t, mShowTimeManager, mMovieManager, mCinemaManager));
-			println("Movie: " + movie.getTitle());
-			println("Cinema: " + cinema.getName());
-			println("Time Started: " + time.getDateTimeStr());
-			println("Ticket Price: " + t.getPrice());
-			println("Book Time: " + t.getDateStr());
-			println("");
-			println("Your Recorded Info.");
-			println("Your Name: " + t.getCustomer().getName());
-			println("Your Email: " + t.getCustomer().getEmail());
-			println("Tour Phone: " + t.getCustomer().getPhone());
-			println("");
-			
-		}
+//		for(Ticket t: mTicketManager.getTicketsByEmail(email)){
+//
+//			time = t.getShowTime();
+//			
+//			cinema = (Cinema)(this.mCinemaManager.getInstance(time.getCinema()));
+//			movie = (Movie)(this.mMovieManager.getInstanceById(time.getMovie().getId()));
+//			
+//			println("Transaction Code: " + mTicketManager.getTicketCode(t, mShowTimeManager, mMovieManager, mCinemaManager));
+//			println("Movie: " + movie.getTitle());
+//			println("Cinema: " + cinema.getName());
+//			println("Time Started: " + time.getDateTime());
+//			println("Ticket Price: " + t.getPrice());
+//			println("Book Time: " + t.getDateTime());
+//			println("");
+//			println("Your Recorded Info.");
+//			println("Your Name: " + t.getCustomer().getName());
+//			println("Your Email: " + t.getCustomer().getEmail());
+//			println("Tour Phone: " + t.getCustomer().getPhone());
+//			println("");
+//			
+//		}
 	}
 }

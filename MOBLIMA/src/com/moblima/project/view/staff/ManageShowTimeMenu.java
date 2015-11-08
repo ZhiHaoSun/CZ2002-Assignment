@@ -1,33 +1,22 @@
 package com.moblima.project.view.staff;
 
 import java.text.ParseException;
-import java.util.Scanner;
 
 import org.json.JSONException;
 
-import com.moblima.project.controller.CinemaManager;
-import com.moblima.project.controller.MovieManager;
-import com.moblima.project.controller.ReviewManager;
-import com.moblima.project.controller.ShowTimeManager;
-import com.moblima.project.controller.StaffManager;
-import com.moblima.project.controller.TicketManager;
+import com.moblima.project.controller.CineplexManager;
 import com.moblima.project.model.Cinema;
 import com.moblima.project.model.Movie;
 import com.moblima.project.model.ShowTime;
 import com.moblima.project.view.BaseMenu;
 
 public class ManageShowTimeMenu extends BaseMenu {
-
-	public ManageShowTimeMenu(Scanner sc, MovieManager mMovieManager, CinemaManager mCinemaManager,
-			ReviewManager mReviewManager, ShowTimeManager mShowTimeManager, TicketManager mTicketManager,
-			StaffManager mStaffManager) {
-		super(sc, mMovieManager, mCinemaManager, mReviewManager, mShowTimeManager, mTicketManager, mStaffManager);
-
-	}
 	
-	private ShowTime showTime;
-	private Cinema cinema;
-	private Movie movie;
+	private ShowTime showtime;
+
+	public ManageShowTimeMenu (CineplexManager mCineplexManager) {
+		super(mCineplexManager);
+	}
 
 	@Override
 	public void displayMenu() {
@@ -46,18 +35,13 @@ public class ManageShowTimeMenu extends BaseMenu {
 				
 				switch (choice) {
 					case 1:
-						this.createShowTime();
+						createShowTime();
 						break;
 					case 2:
-						this.updateShowTime();
+						updateShowTime();
 						break;
 					case 3:
-						this.deleteShowTime();
-						break;
-					case 4: 
-						return; // end this method and go back to previous menu
-					default:
-						println("Invalid choice! Please select again!!!");
+						deleteShowTime();
 						break;
 				}			
 			} catch (Exception e) {
@@ -67,50 +51,56 @@ public class ManageShowTimeMenu extends BaseMenu {
 	}
 	
 	public void createShowTime() throws ExitException, ParseException, JSONException{
-		showTime = new ShowTime();
+		showtime = new ShowTime();
 		
 		printHeader("Create Show Time");
 		
-		showTime.setCinemaId(chooseCinema().getId());
-		showTime.setMovieId(chooseMovie().getId());
+		showtime.setMovie(chooseMovie());
+		showtime.setCinema(chooseCinema(chooseCineplex()));
+		showtime.setDate(readDate("Please input the DATE of the ShowTime"));
+		showtime.setTime(readTime("Please input the TIME of the ShowTime"));
 		
-		showTime.setDateTime(read("Show Time is (dd/MM/yyyy hh:mm PM)"));
-		
-		if (mShowTimeManager.create(showTime))
+		if (mCineplexManager.create(showtime))
 			System.out.println("Create Successful");
 		else
 			System.out.println("Create Unsuccessful");
 	}
 	
-	public void updateShowTime() throws ExitException, ParseException, JSONException{
+	public void updateShowTime() throws ParseException, JSONException{
 		printHeader("Update Show Time");
-		
-		showTime = this.chooseShowTime();
-		
-		if(confirm("Change Movie?"))
-			showTime.setCinemaId(chooseCinema().getId());
-		
-		if(confirm("Change Cinema?"))
-			showTime.setMovieId(chooseMovie().getId());
+		try {
+			showtime = chooseShowTime();
+					
+			if(confirm("Change Movie?")) 
+				showtime.setMovie(chooseMovie());
 			
-		if(confirm("Change Date and Time?"))
-			showTime.setDateTime(read("Show Time is (dd/MM/yyyy hh:mm PM)"));
-		
-		if (mShowTimeManager.update(showTime))
-			System.out.println("Update Successful");
-		else
-			System.out.println("Update Unsuccessful");
+			if(confirm("Change Cinema?"))
+				showtime.setCinema(chooseCinema(chooseCineplex()));
+			
+			if(confirm("Change Date of the ShowTime?"))
+				showtime.setDate(readDate("New Date"));
+			
+			if(confirm("Change Time of the ShowTime?"))
+				showtime.setTime(readTime("New Time"));
+
+			if (mCineplexManager.update(showtime)) 
+				System.out.println("Update Successful");
+			else 
+				System.out.println("Update Unsuccessful");
+		} catch (ExitException exit) {}
 	}
 	
-	public void deleteShowTime() throws ExitException{
-		printHeader("Update Show Time");
+	public void deleteShowTime() {
+		printHeader("Remove Show Time");
 		
-		showTime = this.chooseShowTime();
-		
-		if (mShowTimeManager.delete(showTime))
-			println("Remove Successful");
-		else
-			println("Remove Unsuccessful");
+		try {
+			showtime = chooseShowTime();
+			
+			if (mCineplexManager.delete(showtime))
+				println("Remove Successful");
+			else
+				println("Remove Unsuccessful");
+		} catch (ExitException exit) {}
 	}
 
 }

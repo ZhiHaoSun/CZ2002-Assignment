@@ -45,6 +45,20 @@ public class Review extends Model implements Comparable<Review> {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	public String getStarRating() {
+		String orate = "";
+		
+		for (int i=0; i<rating; i++) {
+			orate += "★";
+		}
+		
+		for (int i=rating; i<5; i++) {
+			orate += "☆";
+		}
+		
+		return orate;
+	}
 
 	public int getRating() {
 		return rating;

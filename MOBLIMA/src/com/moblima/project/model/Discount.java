@@ -5,14 +5,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import com.moblima.project.model.Constant.ClassType;
 
 public class Discount {
 	
@@ -28,9 +23,9 @@ public class Discount {
 		discounts.put("age",age);
 		
 		JSONObject movieType = new JSONObject();
-		movieType.put(ClassType.NORMAL.name(), 0);
-		movieType.put(ClassType.BLOCKBUSTER.name(), 0);
-		movieType.put(ClassType.THREED.name(), 0);
+//		movieType.put(ClassType.NORMAL.name(), 0);
+//		movieType.put(ClassType.BLOCKBUSTER.name(), 0);
+//		movieType.put(ClassType.THREED.name(), 0);
 		discounts.put("classType", movieType);
 		
 		JSONObject holiday = new JSONObject();

@@ -1,7 +1,6 @@
 package com.moblima.project.model;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -9,16 +8,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.moblima.project.model.Constant.ClassType;
 import com.moblima.project.model.Constant.Language;
+import com.moblima.project.model.Constant.MovieType;
 import com.moblima.project.model.Constant.Rating;
 import com.moblima.project.model.Constant.Status;
 
 public class Movie extends Model{
 	private String title;
 	private String synopsis;
-	private int price; //This price is a base price of the movie. Discounts need to be 
-					  // added to this to get final ticket price
 	
 	private String opening;
 	private String runtime;
@@ -26,42 +23,44 @@ public class Movie extends Model{
 	private String director;
 	private ArrayList<String> casts;
 	
+	private MovieType type;  //The ClassType is the type of the move, like 3D, Blockbulster
+	private boolean isBlockBuster;
+
 	private Status   status;
 	private Rating   rating;
 	private Language language;
-	private ClassType classType;  //The ClassType is the type of the move, like 3D, Blockbulster
-	private int overallRating; // Overall Reviewer's Rating
+	private double   overallRating;    // Overall Reviewer's Rating
 
 	private ArrayList<Review> reviews;
+	private ArrayList<ShowTime> showtimes;
 	
 	public Movie() {
-		casts    = new ArrayList<>();
-		reviews  = new ArrayList<>();
-		status   = Status.valueOf("COMING_SOON");
-		rating   = Rating.valueOf("NA");
-		language = Language.valueOf("ENGLISH");
-		classType = ClassType.valueOf("NORMAL");
+		casts     = new ArrayList<>();
+		reviews   = new ArrayList<>();
+		showtimes = new ArrayList<>();
+	}
+	
+	public Movie(int id) {
+		this();
+		this.id = id;
 	}
 	
 	public Movie(JSONObject jObj) throws JSONException, ParseException {
-		casts    = new ArrayList<>();
-		reviews  = new ArrayList<>();
+		this(jObj.getInt("id"));
 		
-		id 		 = jObj.getInt("id");
 		title 	 = jObj.getString("title");
-		price 	= 	jObj.getInt("price"); 
 		synopsis = jObj.getString("synopsis");
 		director = jObj.getString("director");
 		
-		status 	 = Status.valueOf(jObj.getString("status").toUpperCase());
+		type	 = MovieType.valueOf(jObj.getString("type"));
+		status 	 = Status.valueOf(jObj.getString("status"));
 		rating 	 = Rating.valueOf(jObj.getString("rating"));
 		language = Language.valueOf(jObj.getString("language"));
-		classType = ClassType.valueOf(jObj.getString("classType"));
 		
 		opening = jObj.getString("opening");
 		runtime = jObj.getString("runtime");
 
-		overallRating = jObj.getInt("overall rating");
+		overallRating = jObj.getDouble("overall rating");
 		
 		JSONArray jcasts = jObj.getJSONArray("casts");
 		
@@ -84,14 +83,6 @@ public class Movie extends Model{
 		this.title = title;
 	}
 
-	public int getPrice() {
-		return price;
-	}
-
-	public void setPrice(int price) {
-		this.price = price;
-	}
-
 	public Status getStatus() {
 		return status;
 	}
@@ -100,12 +91,20 @@ public class Movie extends Model{
 		this.status = status;
 	}
 
-	public ClassType getClassType() {
-		return classType;
+	public boolean isBlockBuster() {
+		return isBlockBuster;
 	}
 
-	public void setClassType(ClassType classType) {
-		this.classType = classType;
+	public void setBlockBuster(boolean isBlockBuster) {
+		this.isBlockBuster = isBlockBuster;
+	}
+
+	public MovieType getMovieType() {
+		return type;
+	}
+
+	public void setMovieType(MovieType movieType) {
+		this.type = movieType;
 	}
 
 	public String getSynopsis() {
@@ -173,7 +172,21 @@ public class Movie extends Model{
 		this.language = language;
 	}
 
-	public int getOverallRating() {
+	public String getOverallStarRating() {
+		String orate = "";
+		
+		for (int i=0; i<(int) overallRating; i++) {
+			orate += "★";
+		}
+		
+		for (int i=(int) overallRating; i<5; i++) {
+			orate += "☆";
+		}
+		
+		return orate;
+	}
+	
+	public double getOverallRating() {
 		return overallRating;
 	}
 
@@ -188,8 +201,8 @@ public class Movie extends Model{
 	public void setOpening(String opening) throws ParseException {
 		if (opening.equals("TBA")) this.opening = opening;
 		else {
-			Date date = Constant.dateFormat1.parse(opening);
-			this.opening = Constant.dateFormat.format(date);
+			Date date = Constant.dateFormatShort.parse(opening);
+			this.opening = Constant.dateFormatLong.format(date);
 		}
 	}
 
@@ -206,19 +219,83 @@ public class Movie extends Model{
 	}
 
 	public void addReview(Review review) {
-		int total;
+		double total;
 		
 		total = overallRating * reviews.size();
 		total += review.getRating();
 		
 		reviews.add(review);
 		
-		overallRating = (int) (total/reviews.size());
+		overallRating =  total/reviews.size();
 		
 	}
+	
+	public ArrayList<ShowTime> getShowTimes() {
+		return showtimes;
+	}
 
-	public boolean match(String id) {
-		return id.equals(this.id);
+	public void addShowTime(ShowTime showtime) {
+		this.showtimes.add(showtime);
+	}
+	
+	public void setShowtimes(ArrayList<ShowTime> showtimes) {
+		this.showtimes = showtimes;
+	}
+
+	public void copy(Movie copyInstance) {
+		id 	  	 = copyInstance.id;
+		title 	 = copyInstance.title;
+		synopsis = copyInstance.synopsis;
+
+		casts    = copyInstance.casts;
+		director = copyInstance.director;
+
+		type	 = copyInstance.type;
+		status 	 = copyInstance.status;
+		rating   = copyInstance.rating;
+		language = copyInstance.language;
+
+		opening  = copyInstance.opening;
+		runtime  = copyInstance.runtime;
+		reviews  = copyInstance.reviews;
+		
+		showtimes = copyInstance.showtimes;
+		isBlockBuster = copyInstance.isBlockBuster;
+		overallRating = copyInstance.overallRating;
+	}
+	
+	public Movie clone() {
+		Movie cloned = new Movie();
+		
+		cloned.id 	  	= id;
+		cloned.title 	= title;
+		cloned.synopsis = synopsis;
+
+		cloned.casts    = casts;
+		cloned.director = director;
+
+		cloned.type	 	= type;
+		cloned.status 	= status;
+		cloned.rating   = rating;
+		cloned.language = language;
+
+		cloned.opening  = opening;
+		cloned.runtime  = runtime;
+		cloned.reviews  = reviews;
+		
+		cloned.showtimes = showtimes;
+		cloned.isBlockBuster = isBlockBuster;
+		cloned.overallRating = overallRating;
+		return cloned;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Movie) {
+			Movie m = (Movie) obj;
+			return m.id == id;
+		}
+		return super.equals(obj);
 	}
 	
 	@Override
@@ -234,17 +311,14 @@ public class Movie extends Model{
 		
 		jobj.put("runtime", runtime);
 		jobj.put("opening", opening);
-		jobj.put("price", price);
 	
 		jobj.put("status", status.name());
 		jobj.put("rating", rating.name());
 		jobj.put("language", language.name());
-		jobj.put("classType", classType.name());
+		jobj.put("type", type.name());
 		
-		jobj.put("overall rating", overallRating);
+		jobj.put("overall rating", String.format("%.1f", overallRating));
 		
-//		jobj.put("reviews", reviews);
-
 		JSONArray jreviews = new JSONArray();
 		for (Review r: reviews)
 			jreviews.put(r.toJSONObject());

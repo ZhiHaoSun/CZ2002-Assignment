@@ -9,13 +9,13 @@ import java.text.ParseException;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import com.moblima.project.model.Model;
 
 public abstract class Manager {
+	protected int index, pos;
 	protected int idCounter;
-	protected JSONArray  jdata;
+	protected JSONArray array;
 	
 	public Manager() throws IOException, JSONException, ParseException{
 		load();
@@ -23,15 +23,13 @@ public abstract class Manager {
 	
 	protected JSONArray getData(String filepath) throws IOException, JSONException {
 		String data = new String(Files.readAllBytes(Paths.get(filepath)));
-		
-		jdata = new JSONArray(data);
-		return jdata;
+		return new JSONArray(data);
 	}
 	
-	protected boolean writeFile(String file) {
+	protected boolean writeFile(String file, String json) {
 		try {
 			BufferedWriter bw = new BufferedWriter(new FileWriter(file));
-			bw.write(jdata.toString());
+			bw.write(json);
 			bw.flush();
 			bw.close();
 			return true;
@@ -50,14 +48,10 @@ public abstract class Manager {
 		else
 			return update(instance);
 	}
-	public abstract boolean create(Model instance) throws JSONException;
-	public abstract boolean update(Model instance) throws JSONException;
-	public abstract boolean delete(Model instance) throws JSONException;
-	public abstract boolean deleteById(int id) throws JSONException;
 	
-	public abstract Model getInstanceById(int id);
+	public abstract boolean create(Model model);
+	public abstract boolean update(Model model);
+	public abstract boolean delete(Model model);
 	
-	public String toString(){
-		return jdata.toString();
-	}
+	public abstract Model getInstance(Model model);
 }

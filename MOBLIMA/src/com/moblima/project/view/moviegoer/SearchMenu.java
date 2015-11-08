@@ -1,26 +1,15 @@
 package com.moblima.project.view.moviegoer;
 
-import java.util.ArrayList;
-import java.util.Scanner;
-
-import com.moblima.project.controller.CinemaManager;
-import com.moblima.project.controller.MovieManager;
-import com.moblima.project.controller.ReviewManager;
-import com.moblima.project.controller.ShowTimeManager;
-import com.moblima.project.controller.StaffManager;
-import com.moblima.project.controller.TicketManager;
+import com.moblima.project.controller.CineplexManager;
 import com.moblima.project.model.Cinema;
 import com.moblima.project.model.Constant.Rating;
 import com.moblima.project.model.Movie;
-import com.moblima.project.model.ShowTime;
 import com.moblima.project.view.BaseMenu;
-import com.moblima.project.view.BaseMenu.ExitException;
 
 public class SearchMenu extends BaseMenu{
 
-	public SearchMenu(Scanner sc, MovieManager mMovieManager, CinemaManager mCinemaManager,
-			ReviewManager mReviewManager, ShowTimeManager mShowTimeManager, TicketManager mTicketManager, StaffManager mStaffManager) {
-		super(sc, mMovieManager, mCinemaManager, mReviewManager, mShowTimeManager, mTicketManager, mStaffManager);
+	public SearchMenu(CineplexManager mCineplexManager) {
+		super(mCineplexManager);
 	}
 	
 	@Override
@@ -58,20 +47,20 @@ public class SearchMenu extends BaseMenu{
 	}
 	
 	public void displayMoviesByCinema(Cinema cinema){
-		ArrayList<ShowTime> showTimes = cinema.getShowTimes();
-		Movie movie;
-		
-		for(ShowTime time : showTimes){
-			movie = (Movie)this.mMovieManager.getInstanceById(time.getMovieId());
-			println(movie.getTitle() + "  " + time.getDateTimeStr());
-		}
+//		ArrayList<ShowTime> showTimes = cinema.getShowTimes();
+//		Movie movie;
+//		
+//		for(ShowTime time : showTimes){
+//			movie = (Movie)this.mMovieManager.getInstanceById(time.getMovie().getId());
+//			println(movie.getTitle() + "  " + time.getDateTime());
+//		}
 	}
 	
 	public void displayMoviesByRating(Rating rating){
 		
 		println("Movies with rating " + rating.toString() + " :");
 		
-		for(Movie movie : this.mMovieManager.getMovies()){
+		for(Movie movie : this.mCineplexManager.getMovies()){
 			if(movie.getRating().equals(rating)){
 				println(movie.getTitle());
 			}

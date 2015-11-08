@@ -1,27 +1,19 @@
 package com.moblima.project.view.staff;
 
-import java.util.Scanner;
-
 import org.json.JSONException;
 
-import com.moblima.project.controller.CinemaManager;
-import com.moblima.project.controller.MovieManager;
-import com.moblima.project.controller.ReviewManager;
-import com.moblima.project.controller.ShowTimeManager;
-import com.moblima.project.controller.StaffManager;
-import com.moblima.project.controller.TicketManager;
+import com.moblima.project.controller.CineplexManager;
 import com.moblima.project.model.Cinema;
 import com.moblima.project.view.BaseMenu;
 
 public class ManageCinemaMenu extends BaseMenu {
 	
 	private ManageShowTimeMenu mManageShowTimeMenu;
-
-	public ManageCinemaMenu(Scanner sc, MovieManager mMovieManager, CinemaManager mCinemaManager,
-			ReviewManager mReviewManager, ShowTimeManager mShowTimeManager, TicketManager mTicketManager,
-			StaffManager mStaffManager) {
-		super(sc, mMovieManager, mCinemaManager, mReviewManager, mShowTimeManager, mTicketManager, mStaffManager);
-		mManageShowTimeMenu = new ManageShowTimeMenu(sc, mMovieManager, mCinemaManager, mReviewManager, mShowTimeManager, mTicketManager, mStaffManager);
+	
+	public ManageCinemaMenu(CineplexManager mCineplexManager) {
+		super(mCineplexManager);
+		
+		mManageShowTimeMenu = new ManageShowTimeMenu(mCineplexManager);
 	}
 	
 	private Cinema cinema;
@@ -43,15 +35,14 @@ public class ManageCinemaMenu extends BaseMenu {
 				
 				switch (choice) {
 					case 1:
-						this.createCinema();
+						createCinema();
 						break;
 					case 2:
-						this.updateCinema();
+						updateCinema();
 						break;
 					case 3:
-						this.mManageShowTimeMenu.displayMenu();
+						mManageShowTimeMenu.displayMenu();
 						break;
-					
 					case 4: 
 						return; // end this method and go back to previous menu
 					default:
@@ -75,25 +66,29 @@ public class ManageCinemaMenu extends BaseMenu {
 		cinema.setCode(read("Cinema Code: "));
 		cinema.setName(read("Cinema Name: "));
 		cinema.setCineplex(chooseCineplex());
-		cinema.setPlatinum(confirm("Is this cinema Platinum Suite?"));
+		cinema.setPlatinum(confirm("Is this cinema platinum suite?"));
 		
-		if (this.mCinemaManager.create(cinema))
+		if (mCineplexManager.create(cinema))
 			System.out.println("Create Successful");
 		else
 			System.out.println("Create Unsuccessful");
 	}
 	
 	public void updateCinema() throws ExitException, JSONException{
-		printHeader("Update Movie");
+		printHeader("Update Cinema");
 		
-		cinema = chooseCinema();
+		cinema = chooseCinema(chooseCineplex());
 		
 		if(confirm("Change Name ?"))
 			cinema.setName(read("New Name: "));
+
 		if(confirm("Change Cineplex?"))
 			cinema.setCineplex(chooseCineplex());
 		
-		if(this.mCinemaManager.update(cinema))
+		if(confirm("Change Class of Cinema?"))
+			cinema.setPlatinum(!cinema.isPlatinum());
+		
+		if(mCineplexManager.update(cinema))
 			println("Update Cinema Successful");
 		else
 			println("Update Cinema Unsuccessful");

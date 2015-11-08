@@ -1,0 +1,37 @@
+[
+	{
+		"PLATINUM":
+			{
+				"DIGITAL": 
+					{
+						"MON_TO_THU": 28.00,
+						"FRI_SUN": 38.00,
+					},
+				"THREED":
+					{
+						"MON_TO_THU": 35.00,
+						"FRI_SUN": 45.00,
+					}
+			},
+		"DIGITAL":
+			{
+				"SENIOR_CITIZENS": 4.00, 
+				"STUDENTS": 7.00,
+				"MON_WED": 8.50,
+				"THU": 9.50,
+				"FRI_BEFORE_SIX_PM": 9.50,
+				"FRI_AFTER_SIX_PM": 11.00,
+				"SAT_AND_SUN": 11.00
+			},
+		"THREED":
+			{
+				"SENIOR_CITIZENS": "NA",
+				"STUDENTS": 9.00,
+				"MON_WED": 11.00,
+				"THU": 11.00,
+				"FRI_BEFORE_SIX_PM": 15.00,
+				"FRI_AFTER_SIX_PM": 15.00,
+				"SAT_AND_SUN": 15.00
+			}
+	}
+]

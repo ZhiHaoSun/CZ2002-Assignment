@@ -1,83 +1,136 @@
 package com.moblima.project.view;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.InputMismatchException;
+import java.util.Collections;
+import java.util.Date;
 import java.util.Scanner;
 
-import com.moblima.project.controller.CinemaManager;
-import com.moblima.project.controller.MovieManager;
-import com.moblima.project.controller.ReviewManager;
-import com.moblima.project.controller.ShowTimeManager;
-import com.moblima.project.controller.StaffManager;
+import com.moblima.project.controller.CineplexManager;
 import com.moblima.project.controller.TicketManager;
 import com.moblima.project.model.Cinema;
 import com.moblima.project.model.Constant;
 import com.moblima.project.model.Constant.Cineplex;
-import com.moblima.project.model.Constant.ClassType;
 import com.moblima.project.model.Constant.Language;
+import com.moblima.project.model.Constant.MovieType;
 import com.moblima.project.model.Constant.Rating;
 import com.moblima.project.model.Constant.Status;
 import com.moblima.project.model.Movie;
-import com.moblima.project.model.Seat;
 import com.moblima.project.model.ShowTime;
 
 public abstract class BaseMenu {
 	private Scanner sc;
 	protected int choice;
 	
-	public MovieManager mMovieManager = null;
-	public CinemaManager mCinemaManager = null;
-	public ReviewManager mReviewManager = null;
-	public ShowTimeManager mShowTimeManager = null;
 	public TicketManager mTicketManager = null;
-	public StaffManager mStaffManager = null;
+	
+	protected CineplexManager mCineplexManager;
+	
+	public BaseMenu() {
+		sc = new Scanner(System.in);
+		sc.useDelimiter("\\n");
+	}
 	
 	public BaseMenu(Scanner sc) {
 		this.sc = sc;
 	}
 	
-	public BaseMenu(Scanner sc, StaffManager mStaffManager) {
-		this(sc);
-		this.mStaffManager = mStaffManager;
-	}
-	public BaseMenu(Scanner sc, MovieManager mMovieManager, CinemaManager mCinemaManager, ReviewManager mReviewManager,
-			ShowTimeManager mShowTimeManager, TicketManager mTicketManager, StaffManager mStaffManager) {
-		this(sc, mStaffManager);
-		this.mMovieManager = mMovieManager;
-		this.mCinemaManager = mCinemaManager;
-		this.mReviewManager = mReviewManager;
-		this.mShowTimeManager = mShowTimeManager;
-		this.mTicketManager = mTicketManager;
+	public BaseMenu(CineplexManager mCineplexManager) {
+		this();
+		this.mCineplexManager = mCineplexManager;
 	}
 
 	public abstract void displayMenu();
 	
-	protected String read(String message) {
-		print(message);
-		return sc.next();
+	/**
+	 * This method will read a String input with label
+	 * @param label	is the message to be printed when asking for input
+	 * @return the entered String input
+	 */
+	protected String read(String label) {
+		String input = "";
+		
+		do{
+			print(label);
+			input = sc.nextLine();
+		}while(input.trim().equals(""));
+		
+		return input;
 	}
 	
-	protected int readInt(String message) {
-		print(message);		
-		return sc.nextInt();
+	/**
+	 * This method will read a Double value with label
+	 * @param label	is the message to be printed when asking for input
+	 * @return the entered Integer input
+	 */
+	protected double readDouble(String label) {
+		double c = 0;
+		
+		do {
+			try {
+				c = Double.parseDouble(read(label));
+				break;
+			} catch (NumberFormatException ime) {
+				println("Please input a decimal number.");
+			}
+		} while(true);
+		
+		return c;
 	}
 	
-	protected int readInt(String label, int min, int max) throws ExitException {		
+	/**
+	 * This method will read an Integer value with label
+	 * @param label	is the message to be printed when asking for input
+	 * @return the entered Integer input
+	 */
+	protected int readInt(String label) {
+		return Integer.parseInt(read(label));
+	}
+
+	/**
+	 * This method will only read in a range of Integer value with label
+	 * @param label is the message to be printed when asking for input
+	 * @param min	is the minimum range to be read in
+	 * @param max	is the maximum range to be read in
+	 * @return an Integer value between min and max
+	 */
+	protected int readInt(String label, int min, int max) {		
 		int c = 0;
 		
 		do {
 			try {
-				c = readInt(label+" ("+min+"~"+max+"):  ");
-			} catch (InputMismatchException ime) {
-				sc.nextLine();
+				c = readInt(label+" ("+min+"~"+max+"): ");
+			} catch (NumberFormatException ime) {
+				println("Please input an Integer value.");
 			}
 		} while(!(c >= min && c <= max));
 		
 		return c;
 	}
 	
+	/**
+	 * This method will only read in a range of Integer value with back/exit function
+	 * @param min	is the minimum range to be read in
+	 * @param max	is the maximum range to be read in
+	 * @return an Integer value between min and (max-1)
+	 * @throws ExitException when the max value is selected
+	 */
 	protected int readChoice(int min, int max) throws ExitException {
-		int c = readInt("Choice ", min, max);
+		return readChoice("Choice", min, max);
+	}
+	
+	/**
+	 * This method will only read in a range of Integer value with 
+	 * customize label and back/exit function
+	 * @param label is the message to be printed when asking for input
+	 * @param min	is the minimum range to be read in
+	 * @param max	is the maximum range to be read in
+	 * @return an Integer value between min and (max-1)
+	 * @throws ExitException when the max value is selected
+	 */
+	protected int readChoice(String label, int min, int max) throws ExitException {
+		int c = readInt(label, min, max);
 		
 		if (c == max) throw new ExitException();
 		
@@ -102,44 +155,63 @@ public abstract class BaseMenu {
 		}
 	}
 	
-	// Method to print header with default style
-	protected void printHeader(String title){
-		println("");
-		println("    "+title);
-		for (int i=0; i<title.length()+8; i++)
-			print("-");
-		println("");
+	/**
+	 * This method will only read in a format of the date with label
+	 * @param label is the message to be printed when asking for input
+	 * @return Date when a correct format if entered, Otherwise keep prompting
+	 */
+	protected Date readDate(String label) {
+		return readDate(label, "");
 	}
 
-	// Method to print header with default style
-	protected void printSubHeader(String title){
-		println("");
-		println("    "+title);
-		for (int i=0; i<title.length()+8; i++)
-			print("-");
-		println("");
-	}
+	protected Date readDate(String label, String format) {
+		SimpleDateFormat sdf;
 		
-	// This method was created to replace System.out.print
-	// for Better Readability
-	protected void print(String message) {
-		System.out.print(message);
+		if (format.isEmpty()) { // default value
+			sdf = Constant.dateFormatShort;
+			format = Constant.FORMAT_DATE_SHORT;
+		} else {
+			sdf = new SimpleDateFormat(format);
+		}
+		
+		do {
+			try {
+				String date = read(label+" ("+format+"): ");
+				return sdf.parse(date);
+			} catch (ParseException ime) {
+				println("Please enter a correct date format");
+				sc.nextLine();
+			}
+		} while(true);
 	}
 	
-	// This method was created to replace System.out.println
-	// for Better Readability
-	protected void println(String message) {
-		System.out.println(message);
+	/**
+	 * This method will only read in a format of the time with label
+	 * @param label is the message to be printed when asking for input
+	 * @return Date when a correct format if entered, Otherwise keep prompting
+	 */
+	protected Date readTime(String label) {		
+		do {
+			try {
+				String time = read(label+" ("+Constant.FORMAT_TIME_CLOCK+"): ");
+				return Constant.clockFormat.parse(time);
+			} catch (ParseException ime) {
+				println("Please enter a correct time format");
+				sc.nextLine();
+			}
+		} while(true);
 	}
+	
 	
 	protected Movie chooseMovie() throws ExitException {
 		return chooseMovie("Choose Movie:");
 	}
 	
 	protected Movie chooseMovie(String title) throws ExitException {
-		ArrayList<Movie> movies = mMovieManager.getMovies();
-		
-		println(title);						
+		ArrayList<Movie> movies = mCineplexManager.getMovies();
+
+		if (!title.isEmpty())
+			println(title);						
 		
 		for (int i=0, j=1; i<movies.size(); i++,j++)
 			println(" "+j+". "+movies.get(i).getTitle());
@@ -149,47 +221,7 @@ public abstract class BaseMenu {
 		
 		int index = readChoice(1, movies.size()+1)-1;
 		
-		return movies.get(index);
-	}
-	
-	protected Cinema chooseCinema() throws ExitException {
-		ArrayList<Cinema> cinemas = this.mCinemaManager.getmCinemas();
-		
-		println("Choose Cinema:");						
-		
-		for (int i=0, j=1; i<cinemas.size(); i++,j++)
-			println(" "+j+". "+cinemas.get(i).getName());
-		
-		println(" "+(cinemas.size()+1)+". Back");
-		println("");
-		
-		int index = readChoice(1, cinemas.size()+1)-1;
-		
-		return cinemas.get(index);
-	}
-	
-	protected ShowTime chooseShowTime() throws ExitException {
-		ArrayList<ShowTime> showTimes = this.mShowTimeManager.getmShowTimes();
-		ShowTime time;
-		Cinema cinema;
-		Movie movie;
-		
-		println("Choose Show Times:");						
-		
-		for (int i=0; i<showTimes.size(); i++){
-			time = showTimes.get(i);
-			cinema = (Cinema)(this.mCinemaManager.getInstanceById(time.getCinemaId()));
-			movie =  (Movie)(mMovieManager.getInstanceById(time.getMovieId()));
-			println(" " + (i+1) + "  " + cinema.getName() + "  " + movie.getTitle() + "  " + time.getDateTimeStr());
-
-		}
-		
-		println(" "+(showTimes.size()+1)+". Back");
-		println("");
-		
-		int index = readChoice(1, showTimes.size()+1)-1;
-		
-		return showTimes.get(index);
+		return movies.get(index).clone();
 	}
 	
 	protected Language chooseLanguage() throws ExitException {
@@ -222,19 +254,23 @@ public abstract class BaseMenu {
 		return Rating.values()[index];
 	}
 	
-	protected ClassType chooseMovieType() throws ExitException {
-		int length = ClassType.values().length;
+	protected MovieType chooseMovieType() throws ExitException {
+		return chooseMovieType("Choose Movie Type:");
+	}
+	
+	protected MovieType chooseMovieType(String label) throws ExitException {
+		int length = MovieType.values().length;
 		
-		println("Choose Movie Type:");						
+		println(label);						
 		
 		for (int i=0, j=1; i<length; i++,j++)
-			println(" "+j+". "+ClassType.values()[i]);
+			println(" "+j+". "+MovieType.values()[i].value());
 		
 		println(" "+(length+1)+". Back");
 		println("");
 		
 		int index = readChoice(1, length+1) -1;
-		return ClassType.values()[index];
+		return MovieType.values()[index];
 	}
 	
 	protected Status chooseMovieStatus() throws ExitException {
@@ -267,54 +303,144 @@ public abstract class BaseMenu {
 		return Cineplex.values()[index];
 	}
 	
-	protected void displaySeats(Boolean[][] seats){
-		int i,j;
-		StringBuilder builder = new StringBuilder("   ");
-		
-		for(j=1;j<=Constant.colNumber;j++){
-			builder.append("" + j +" ");
-		}
-		builder.append("\n");
-		
-		for(i=1;i<=Constant.rowNumber;i++){
-			builder.append("" + i + "  ");
-			for(j=1;j<=Constant.colNumber;j++){
-				if(seats[i][j]){
-					builder.append("# ");
-				}else{
-					builder.append("_ ");
-				}
-			}
-			builder.append("\n");
-		}
-		
-		printHeader("Seat Arrangement");
-		
-		println(builder.toString());
-		println("");
+	protected Cinema chooseCinema() throws ExitException {
+		return chooseCinema(mCineplexManager.getCinemas());
 	}
 	
-	protected Seat chooseSeat(ShowTime time) throws ExitException {
-		Seat seat;
-		int row, col;
-		Boolean[][] seats = mShowTimeManager.getSeats(time, mTicketManager);
+	protected Cinema chooseCinema(Cineplex cineplex) throws ExitException {
+		return chooseCinema(mCineplexManager.getCinemas(cineplex));
+	}
+	
+	protected Cinema chooseCinema(ArrayList<Cinema> cinemas) throws ExitException {		
+		println("Choose Cinema:");						
 		
-		printHeader("Choose An Empty Seat:");
+		for (int i=0, j=1; i<cinemas.size(); i++,j++)
+			println(" "+j+". "+cinemas.get(i).getName());
+		
+		println(" "+(cinemas.size()+1)+". Back");
 		println("");
 		
-		this.displaySeats(seats);
+		int index = readChoice(1, cinemas.size()+1)-1;
 		
-		println("Please choose an empty seat. (# means taken. _ means empty)");
+		return cinemas.get(index).clone();
+	}
+	
+	///** Start: For Show Time **//**/*	
+	protected ShowTime chooseShowTime() throws ExitException {
+		return chooseShowTime(chooseMovie());
+	}
+	
+	protected ShowTime chooseShowTime(Movie movie) throws ExitException {
+		// select the movie ShowTime to be shown
+		ArrayList<ShowTime> mMovieShowTimes = new ArrayList<>();
 		
-		do{
-			row = readInt("Please select row number: " , 1, Constant.rowNumber + 1);
-			col = readInt("Please select col number: " , 1, Constant.colNumber + 1);
-		}while(seats[row][col]);
+		// select the Cineplex of the Movie to be shown
+		Cineplex cineplex = chooseCineplex();
+
+		// traverse through the list of showtimes in the movie
+		// find showtime with same cineplex
+		// and add into the temp list
+		for (ShowTime st:movie.getShowTimes()) {
+			if (st.equals(cineplex)) 
+				mMovieShowTimes.add(st);
+		}
 		
-		println("Seat (" + row + "," + col + ") is selected.");
+		printHeader("ShowTime of "+movie.getTitle());
+
+		if (!mMovieShowTimes.isEmpty()) {
+			// Once the filter is done
+			// Display the ShowTime according to date & time		
+			// initialize the variables going to be used
+			String prevDate = "";		// keep track of the previous ShowTime's date been printed
+			int pos, row = 1, col = 0;
+			
+			// sort the ShowTime according to the date then time
+			Collections.sort(mMovieShowTimes);
+			
+			// start doing the printing of the showtime
+			for (pos=0; pos<mMovieShowTimes.size(); pos++,row++) {
+				// retrieve ShowTime from list
+				ShowTime showtime = mMovieShowTimes.get(pos);
+				
+				// print the ShowTime Date
+				// when prevDate is empty (no date had been printed yet)
+				// or 	prevDate is not equal to the current ShowTime's date 
+				// (which mean the current showtime is another date)
+				if (prevDate.isEmpty() || !prevDate.equals(showtime.getDate())) {
+					// store the showtime date
+					prevDate = showtime.getDate();
+					
+					if (pos != 0) println("");			
+					
+					// display the date of the showtime
+					println("\n "+prevDate);
+					
+					// reset the col to 0 when the date change
+					col = 0;
+				}
+				
+				// display time of the movie
+				print("    ("+row+") "+showtime.getTime());
+				
+				// pre-increment the col counter 
+				// and reset the col counter
+				// when col counter is equal to 5
+				if (++col == 5) {
+					println(""); 
+					col = 0;
+				}
+			}
+			
+			// ask user to input the choice of the showtime
+			println("\n\n ("+(mMovieShowTimes.size()+1)+") Cancel");
+			println("");
+			
+			pos = readChoice(1, mMovieShowTimes.size()+1) -1;
+
+			// return the selected showtime back
+			return mMovieShowTimes.get(pos).clone();
+		} else {
+			println("");
+			println("  No Show Time in this Cineplex");
+			throw new ExitException();
+		}
+	}
+	
+	///** End: For Show Time **//**/*
+	
+	/**
+	 * shortcut for 
+	 * - System.out.print(); 
+	 * - System.out.println(); 
+	 */
+	// Method to print header with default style
+	protected void printHeader(String title){
+		println("");
+		println("    "+title);
+		for (int i=0; i<title.length()+8; i++)
+			print("-");
+		println("");
+	}
+
+	// Method to print header with default style
+	protected void printSubHeader(String title){
+		println("");
+		println("    "+title);
+		for (int i=0; i<title.length()+8; i++)
+			print("-");
+		println("");
+	}
 		
-		seat = new Seat(col , row, time);
-		return seat;
+	// This method was created to replace System.out.print
+	// for Better Readability
+	protected void print(String message) {
+		System.out.print(message);
+	}
+	
+	// This method was created to replace System.out.println
+	// for Better Readability
+	protected void println(String message) {
+		System.out.println(message);
 	}
 	
 	// Exception Class

@@ -1,17 +1,8 @@
 package com.moblima.project.view.moviegoer;
 
-import java.util.ArrayList;
-import java.util.Scanner;
-
-import com.moblima.project.controller.CinemaManager;
-import com.moblima.project.controller.MovieManager;
-import com.moblima.project.controller.ReviewManager;
-import com.moblima.project.controller.ShowTimeManager;
-import com.moblima.project.controller.StaffManager;
-import com.moblima.project.controller.TicketManager;
+import com.moblima.project.controller.CineplexManager;
 import com.moblima.project.model.Cinema;
 import com.moblima.project.model.Movie;
-import com.moblima.project.model.ShowTime;
 import com.moblima.project.view.BaseMenu;
 
 public class MovieGoerSearchMenu extends BaseMenu {
@@ -19,11 +10,9 @@ public class MovieGoerSearchMenu extends BaseMenu {
 	private Movie movie;
 	private MovieGoerTicketMenu ticketMenu;
 
-	public MovieGoerSearchMenu(Scanner sc, MovieManager mMovieManager, CinemaManager mCinemaManager,
-			ReviewManager mReviewManager, ShowTimeManager mShowTimeManager, TicketManager mTicketManager,
-			StaffManager mStaffManager) {
-		super(sc, mMovieManager, mCinemaManager, mReviewManager, mShowTimeManager, mTicketManager, mStaffManager);
-		ticketMenu = new MovieGoerTicketMenu(sc, mMovieManager, mCinemaManager, mReviewManager, mShowTimeManager, mTicketManager, mStaffManager);
+	public MovieGoerSearchMenu(CineplexManager mCineplexManager) {
+		super(mCineplexManager);
+		ticketMenu = new MovieGoerTicketMenu(mCineplexManager);
 	}
 
 	@Override
@@ -59,15 +48,15 @@ public class MovieGoerSearchMenu extends BaseMenu {
 		
 		printHeader("Movie in " + cinema.getName());
 		
-		ArrayList<ShowTime> times = this.mShowTimeManager.getmShowTimes();
+//		ArrayList<ShowTime> times = this.mShowTimeManager.getShowTimes();
 		
-		for(ShowTime time : times){
-			if(time.getCinemaId() == cinema.getId()){
-				movie = mShowTimeManager.getMovie(time, mMovieManager);
-				
-				println(movie.getTitle() +"  " + time.getDateTimeStr());
-			}
-		}
+//		for(ShowTime time : times){
+//			if(time.getCinema().getId() == cinema.getId()){
+//				movie = mShowTimeManager.getMovie(time, mMovieManager);
+//				
+//				println(movie.getTitle() +"  " + time.getDateTime());
+//			}
+//		}
 	}
 
 }

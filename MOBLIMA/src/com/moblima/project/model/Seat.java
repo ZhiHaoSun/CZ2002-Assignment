@@ -1,14 +1,17 @@
 package com.moblima.project.model;
 
-import java.util.Collection;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Seat {
+public class Seat extends Model implements Comparable<Seat> {
 	private int col;
 	private int row;
 	private ShowTime showTime;
+	
+	public Seat(int row, int col) {
+		this.col = col;
+		this.row = row;
+	}
 	
 	public Seat(int col, int row, ShowTime showTime) {
 		super();
@@ -41,24 +44,56 @@ public class Seat {
 	public ShowTime getShowTime() {
 		return showTime;
 	}
+	
+	public String getSeat() {
+		return String.valueOf(Character.toChars(65+row))+(col+1);
+	}
 
 	public void setShowTime(ShowTime showTime) {
 		this.showTime = showTime;
 	}
 
+	@Override
 	public JSONObject toJSONObject() throws JSONException {
 		JSONObject object = new JSONObject();
-		object.put("row" , row);
+		
 		object.put("col", col);
+		object.put("row" , row);
 		
 		return object;
 	}
 
-	public boolean equals(Seat seat) {
-		if(seat.getCol() == this.col && seat.getRow() == this.row)
-			return true;
-		else
-			return false;
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Seat) {
+			Seat s = (Seat) obj;
+			return this.col == s.col && this.row == s.row;
+		}
+		
+		return false;
+	}
+
+	@Override
+	public String toDisplay() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int compareTo(Seat s) {
+		int compare = 0;
+		
+		if (row < s.row) {
+			compare = -1;
+		} else if (row > s.row) {
+			compare = 1;
+		} else if (col < s.col) {
+			compare = -1;
+		} else if (col > s.col) {
+			compare = 1;
+		}
+		
+		return compare;
 	}
 	
 	

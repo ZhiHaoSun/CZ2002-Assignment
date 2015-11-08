@@ -1,26 +1,39 @@
 package com.moblima.project.model;
 
+import java.util.ArrayList;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Customer {
+public class Customer extends Model {
 	private String name;
 	private String phone;
 	private String email;
 	
-	public Customer(){}
+	private ArrayList<Booking> mBookingRecords;
 	
-	public Customer(String name, String phone, String email) {
-		super();
+	public Customer() {
+		mBookingRecords = new ArrayList<>();
+	}
+	
+	public Customer(int id) {
+		this();
+		this.id = id;
+	}
+	
+	public Customer(String name, String email, String phone) {
+		this();
 		this.name = name;
-		this.phone = phone;
 		this.email = email;
+		this.phone = phone;
 	}
 	
 	public Customer(JSONObject object) throws JSONException{
-		this.name = object.getString("name");
-		this.phone = object.getString("phone");
-		this.email = object.getString("email");
+		this(object.getString("name"), 
+			 object.getString("email"),
+			 object.getString("phone"));
+		
+		this.id = object.getInt("id");
 	}
 
 	public String getName() {
@@ -47,12 +60,44 @@ public class Customer {
 		this.email = email;
 	}
 	
+	public ArrayList<Booking> getBookingRecords() {
+		return mBookingRecords;
+	}
+
+	public void addBookingRecord(Booking record) {
+		this.mBookingRecords.add(record);
+	}
+	
+	public void setBookingRecords(ArrayList<Booking> mBookingRecords) {
+		this.mBookingRecords = mBookingRecords;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Customer) {		
+			Customer c = (Customer) obj;
+			if (id != 0)
+				return c.id == id;
+			else
+				return (email.equals(c.email) && phone.equals(c.phone) && name.equals(c.name));
+		}
+		return super.equals(obj);
+	}
+	
+	@Override
 	public JSONObject toJSONObject() throws JSONException{
 		JSONObject object = new JSONObject();
+		object.put("id", id);
 		object.put("name", name);
 		object.put("phone", phone);
 		object.put("email", email);
 		
 		return object;
+	}
+
+	@Override
+	public String toDisplay() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

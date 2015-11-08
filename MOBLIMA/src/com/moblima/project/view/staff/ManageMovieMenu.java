@@ -1,25 +1,15 @@
 package com.moblima.project.view.staff;
 
-import java.io.IOException;
 import java.text.ParseException;
-import java.util.Scanner;
 
-import org.json.JSONException;
-
-import com.moblima.project.controller.CinemaManager;
-import com.moblima.project.controller.MovieManager;
-import com.moblima.project.controller.ReviewManager;
-import com.moblima.project.controller.ShowTimeManager;
-import com.moblima.project.controller.StaffManager;
-import com.moblima.project.controller.TicketManager;
+import com.moblima.project.controller.CineplexManager;
 import com.moblima.project.model.Movie;
 import com.moblima.project.view.BaseMenu;
 
 public class ManageMovieMenu extends BaseMenu {
-
-	public ManageMovieMenu(Scanner sc, MovieManager mMovieManager, CinemaManager mCinemaManager,
-			ReviewManager mReviewManager, ShowTimeManager mShowTimeManager, TicketManager mTicketManager, StaffManager mStaffManager) {
-		super(sc, mMovieManager, mCinemaManager, mReviewManager, mShowTimeManager, mTicketManager, mStaffManager);
+	
+	public ManageMovieMenu(CineplexManager mCineplexManager) {
+		super(mCineplexManager);
 	}
 
 	private Movie movie;
@@ -49,93 +39,97 @@ public class ManageMovieMenu extends BaseMenu {
 					case 3:
 						removeMovie();
 						break;
-					case 4: 
-						return; // end this method and go back to previous menu
-					default:
-						println("Invalid choice! Please select again!!!");
-						break;
 				}			
-			} catch (Exception e) {
+			} catch (ExitException e) {
 				break;
+			} catch (ParseException e) {
+				e.printStackTrace();
 			}
 		} while (choice != 4);
 	}
 	
-	private void createMovie() throws ParseException, ExitException, JSONException {
-		
+	private void createMovie() throws ParseException {
 		printHeader("Create Movie");
-		movie = new Movie();
 		
-		movie.setTitle(read("Title: "));
-		movie.setSynopsis(read("SYNOPSIS: "));
-		
-		movie.setDirector(read("Director: "));
-		movie.setCasts(read("Casts (separate by ','): "));
-		
-		movie.setPrice(Integer.valueOf(read("Price: ")));
-		
-		movie.setLanguage(chooseLanguage());
-		movie.setRating(chooseMovieRating());
-		movie.setStatus(chooseMovieStatus());
-		
-		movie.setRunTime(read("RunTime (minutes): "));
-		movie.setOpening(read("Opening (TBA or dd/MM/yyyy): "));
-		
-		if (mMovieManager.create(movie))
-			System.out.println("Create Successful");
-		else
-			System.out.println("Create Unsuccessful");
+		try {
+			movie = new Movie();
+			
+			movie.setTitle(read("Title: "));
+			movie.setSynopsis(read("SYNOPSIS: "));
+			
+			movie.setDirector(read("Director: "));
+			movie.setCasts(read("Casts (separate by ','): "));
+				
+			movie.setLanguage(chooseLanguage());
+			movie.setRating(chooseMovieRating());
+			movie.setStatus(chooseMovieStatus());
+			
+			movie.setMovieType(chooseMovieType());
+			
+			
+			movie.setBlockBuster(confirm("Is this a Blockbuster movie?"));
+			movie.setRunTime(read("RunTime (minutes): "));
+			movie.setOpening(read("Opening (TBA or dd/MM/yyyy): "));
+			
+			if (mCineplexManager.create(movie))
+				System.out.println("Create Successful");
+			else
+				System.out.println("Create Unsuccessful");
+		} catch (ExitException exit) {}
 	}
 	
-	private void updateMovie() throws ExitException, ParseException, JSONException {
+	private void updateMovie() throws ParseException {	
 		printHeader("Update Movie");
-	
-		movie = chooseMovie();
 
-		if (confirm("Change Title?"))
-			movie.setTitle(read("New Title: "));
-		
-		if (confirm("Change SYNOPSIS?"))
-			movie.setSynopsis(read("New SYNOPSIS: "));
-		
-		if (confirm("Change Director?"))
-			movie.setDirector(read("New Director: "));
+		try {
 
-		if (confirm("Change Casts"))
-			movie.setCasts(read("New Casts: "));
-		
-		if (confirm("Change Price"))
-			movie.setPrice(Integer.valueOf(read("Price: ")));
-		
-		if (confirm("Change Language?"))
-			movie.setLanguage(chooseLanguage());
-		
-		if (confirm("Change Movie Rating?"))
-			movie.setRating(chooseMovieRating());
-		
-		if (confirm("Change Movie Status?"))
-			movie.setStatus(chooseMovieStatus());
-		
-		if (confirm("Change RunTime?"))
-			movie.setRunTime(read("New RunTime: "));
-		
-		if (confirm("Change Opening?"))
-			movie.setOpening(read("New Opening (dd/MM/yyyy): "));
+			movie = chooseMovie();
 
-		if (mMovieManager.update(movie))
-			println("Update Movie Successful");
-		else
-			println("Update Movie Unsuccessful");
+			if (confirm("Change Title?"))
+				movie.setTitle(read("New Title: "));
+			
+			if (confirm("Change SYNOPSIS?"))
+				movie.setSynopsis(read("New SYNOPSIS: "));
+			
+			if (confirm("Change Director?"))
+				movie.setDirector(read("New Director: "));
+
+			if (confirm("Change Casts"))
+				movie.setCasts(read("New Casts: "));
+					
+			if (confirm("Change Language?"))
+				movie.setLanguage(chooseLanguage());
+			
+			if (confirm("Change Movie Rating?"))
+				movie.setRating(chooseMovieRating());
+			
+			if (confirm("Change Movie Status?"))
+				movie.setStatus(chooseMovieStatus());
+			
+			if (confirm("Change RunTime?"))
+				movie.setRunTime(read("New RunTime: "));
+			
+			if (confirm("Change Opening?"))
+				movie.setOpening(read("New Opening (dd/MM/yyyy): "));
+
+			if (mCineplexManager.update(movie))
+				println("Update Movie Successful");
+			else
+				println("Update Movie Unsuccessful");
+		} catch (ExitException exit) {}
+		
 	}
 	
 	private void removeMovie() throws ExitException {
 		printHeader("Remove Movie");
-		
-		movie = chooseMovie();
-		
-		if (mMovieManager.delete(movie))
-			println("Remove Successful");
-		else
-			println("Remove Unsuccessful");
+
+		try {
+			movie = chooseMovie();
+			
+			if (mCineplexManager.delete(movie))
+				println("Remove Successful");
+			else
+				println("Remove Unsuccessful");
+		} catch (ExitException exit) {}
 	}
 }

@@ -1,16 +1,10 @@
 package com.moblima.project.view.moviegoer;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import org.json.JSONException;
 
-import com.moblima.project.controller.CinemaManager;
-import com.moblima.project.controller.MovieManager;
-import com.moblima.project.controller.ReviewManager;
-import com.moblima.project.controller.ShowTimeManager;
-import com.moblima.project.controller.StaffManager;
-import com.moblima.project.controller.TicketManager;
+import com.moblima.project.controller.CineplexManager;
 import com.moblima.project.model.Movie;
 import com.moblima.project.model.Review;
 import com.moblima.project.view.BaseMenu;
@@ -21,11 +15,9 @@ public class MovieGoerMovieMenu extends BaseMenu {
 	
 	private MovieGoerSearchMenu searchMenu;
 
-	public MovieGoerMovieMenu(Scanner sc, MovieManager mMovieManager, CinemaManager mCinemaManager,
-			ReviewManager mReviewManager, ShowTimeManager mShowTimeManager, TicketManager mTicketManager,
-			StaffManager mStaffManager) {
-		super(sc, mMovieManager, mCinemaManager, mReviewManager, mShowTimeManager, mTicketManager, mStaffManager);
-		searchMenu = new MovieGoerSearchMenu(sc, mMovieManager, mCinemaManager, mReviewManager, mShowTimeManager, mTicketManager, mStaffManager);
+	public MovieGoerMovieMenu(CineplexManager mCineplexManager) {
+		super(mCineplexManager);
+		searchMenu = new MovieGoerSearchMenu(mCineplexManager);
 	}
 
 	@Override
@@ -50,7 +42,7 @@ public class MovieGoerMovieMenu extends BaseMenu {
 						displayAllMovies();
 						break;
 					case 2:
-						displayTopMovies();
+//						displayTopMovies();
 						break;
 					case 3:
 						movie = chooseMovie();
@@ -73,24 +65,24 @@ public class MovieGoerMovieMenu extends BaseMenu {
 	public void displayAllMovies(){
 		printHeader("All Movies");
 		
-		ArrayList<Movie> movies = this.mMovieManager.getMovies();
+		ArrayList<Movie> movies = mCineplexManager.getMovies();
 		
 		for(Movie movie : movies){
 			println(movie.getTitle());
 		}
 	}
 	
-	public void displayTopMovies() {
-		printHeader("Top 5 Movies");
-		
-		ArrayList<Movie> movies = this.mMovieManager.getTopMovies();
-		
-		int size = movies.size() < 5 ? movies.size() : 5;
-		
-		for(int i=0;i<size;i++){
-			println(movies.get(i).getTitle());
-		}
-	}
+//	public void displayTopMovies() {
+//		printHeader("Top 5 Movies");
+//		
+//		ArrayList<Movie> movies = this.mMovieManager.getTopMovies();
+//		
+//		int size = movies.size() < 5 ? movies.size() : 5;
+//		
+//		for(int i=0;i<size;i++){
+//			println(movies.get(i).getTitle());
+//		}
+//	}
 	
 	public void displayMovieDetails(Movie movie){
 		printHeader("Details of " + movie.getTitle());
@@ -102,7 +94,6 @@ public class MovieGoerMovieMenu extends BaseMenu {
 		println("Movie Opening: " + (movie.getOpening().equals("TBA") ? "To Be Announced" : movie.getOpening()));
 		println("Movie Run Time: " + (movie.getRunTime().equals("TBA") ? "To Be Announced" : movie.getRunTime()));
 		println("Movie Overall Rating: " + (movie.getReviews().size() > 1 ? movie.getOverallRating() : "NA"));
-		println("Movie Normal Price" + movie.getPrice());
 		println("Movie Status: " + movie.getStatus());
 		println("Movie Level: " + movie.getRating());
 		println("Movie Language: " + movie.getLanguage());
@@ -131,7 +122,8 @@ public class MovieGoerMovieMenu extends BaseMenu {
 		review.setRating(readInt("Your rating(From 0 to 5): "));
 		
 		movie.addReview(review);
-		if(mMovieManager.update(movie)){
+		
+		if(mCineplexManager.update(movie)){
 			println("Review added successfully!");	
 		} else{
 			println("Review added failed.");
