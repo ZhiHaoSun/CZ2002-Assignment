@@ -28,13 +28,17 @@ public class Constant {
 	public static final int rowNumber = 5;
 	
 	public static enum Cineplex {
-		THE_CATHAY_CINEPLEX("The Cathay Cineplex"), 
-		CATHAY_CINEPLEX_CINELEISURE_ORCHARD("Cathay Cineplex Cineleisure Orchard"), 
-		CATHAY_CINEPLEX_DOWNTOWN_EAST("Cathay Cineplex Downtown East");
+		THE_CATHAY_CINEPLEX("C", "The Cathay Cineplex"), 
+		CATHAY_CINEPLEX_CINELEISURE_ORCHARD("O", "Cathay Cineplex Cineleisure Orchard"), 
+		CATHAY_CINEPLEX_DOWNTOWN_EAST("D", "Cathay Cineplex Downtown East");
 		
-		private String value;
-		Cineplex(String value) { this.value = value; }
+		private String code, value;
+		Cineplex(String code, String value) { 
+			this.code = code;
+			this.value = value; 
+		}
 		public String value() { return value; }
+		public String code() { return code; }
 	}
 	
 	public static enum Status {

@@ -254,6 +254,10 @@ public class Movie extends Model {
 		this.showtimes.add(showtime);
 	}
 	
+	public void removeShowTime(ShowTime showtime) {
+		this.showtimes.remove(showtime);
+	}
+	
 	public void setShowtimes(ArrayList<ShowTime> showtimes) {
 		this.showtimes = showtimes;
 	}

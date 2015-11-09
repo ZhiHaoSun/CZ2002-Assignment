@@ -290,7 +290,17 @@ public class CineplexManager extends Manager {
 			return writeFile(FILE_MOVIE, mMovies.toString());
 			
 		} else if (model instanceof Cinema) {
-			mCinemas.add((Cinema) model);
+			cinema = (Cinema) model;
+//			String code = cinema.getCineplex().code();
+//			
+//			if (cinema.isPlatinum())
+//				code += "P";
+//			else
+//				code += "N";
+//			
+//			cinema.setCode(code);
+			
+			mCinemas.add(cinema);
 			return writeFile(FILE_CINEMA, mCinemas.toString());
 			
 		} else if (model instanceof ShowTime) {
@@ -365,7 +375,13 @@ public class CineplexManager extends Manager {
 			return writeFile(FILE_MOVIE, mMovies.toString());
 			
 		} else if (model instanceof ShowTime) {
-			mShowTimes.remove(getInstance(model));
+			showtime = (ShowTime) model;
+			
+			showtime.getMovie().removeShowTime(showtime);
+			showtime.getCinema().removeShowTime(showtime);
+			
+			mShowTimes.remove(model);
+			
 			return writeFile(FILE_SHOWTIME, mShowTimes.toString());
 		}
 		

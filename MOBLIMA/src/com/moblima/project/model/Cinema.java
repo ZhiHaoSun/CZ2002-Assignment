@@ -90,6 +90,10 @@ public class Cinema extends Model {
 		this.mShowTimes.add(showTime);
 	}
 	
+	public void removeShowTime(ShowTime showTime) {
+		this.mShowTimes.remove(showTime);
+	}
+	
 	public void copy(Cinema copyInstance) {
 		id 	 = copyInstance.id;
 		name = copyInstance.name;
