@@ -44,7 +44,8 @@ public class Constant {
 	public static enum Status {
 		COMING_SOON("Coming Soon"), 
 		PREVIEW("Preview"), 
-		NOW_SHOWING("Now Showing");
+		NOW_SHOWING("Now Showing"),
+		END_OF_SHOWING("End of Showing");
 		
 		// END_OF_SHOWING("End of Showing")
 	

@@ -101,6 +101,7 @@ public abstract class BaseMenu {
 		do {
 			try {
 				c = readInt(label+" ("+min+"~"+max+"): ");
+				
 			} catch (NumberFormatException ime) {
 				println("Please input an Integer value.");
 			}
@@ -202,16 +203,17 @@ public abstract class BaseMenu {
 		} while(true);
 	}
 	
-	
 	protected Movie chooseMovie() throws ExitException {
 		return chooseMovie("Choose Movie:");
 	}
 	
-	protected Movie chooseMovie(String title) throws ExitException {
-		ArrayList<Movie> movies = mCineplexManager.getMovies();
-
-		if (!title.isEmpty())
-			println(title);						
+	protected Movie chooseMovie(String label) throws ExitException {
+		return chooseMovie(label, mCineplexManager.getMovies());
+	}
+	
+	protected Movie chooseMovie(String label, ArrayList<Movie> movies) throws ExitException {
+		if (!label.isEmpty())
+			println(label);						
 		
 		for (int i=0, j=1; i<movies.size(); i++,j++)
 			println(" "+j+". "+movies.get(i).getTitle());
@@ -289,7 +291,7 @@ public abstract class BaseMenu {
 	}
 	
 	protected Cineplex chooseCineplex() throws ExitException {
-		int length = Status.values().length;
+		int length = Cineplex.values().length;
 		
 		println("Choose Cineplex:");						
 		
@@ -314,8 +316,11 @@ public abstract class BaseMenu {
 	protected Cinema chooseCinema(ArrayList<Cinema> cinemas) throws ExitException {		
 		println("Choose Cinema:");						
 		
-		for (int i=0, j=1; i<cinemas.size(); i++,j++)
-			println(" "+j+". "+cinemas.get(i).getName());
+		for (int i=0, j=1; i<cinemas.size(); i++,j++) {
+			Cinema c = cinemas.get(i);
+			print(" "+j+". "+c.getName());
+			print(c.isPlatinum()?" (Platinum)\n":"\n");
+		}
 		
 		println(" "+(cinemas.size()+1)+". Back");
 		println("");
@@ -352,6 +357,7 @@ public abstract class BaseMenu {
 			// Display the ShowTime according to date & time		
 			// initialize the variables going to be used
 			String prevDate = "";		// keep track of the previous ShowTime's date been printed
+			boolean platinum = true;
 			int pos, row = 1, col = 0;
 			
 			// sort the ShowTime according to the date then time
@@ -359,8 +365,25 @@ public abstract class BaseMenu {
 			
 			// start doing the printing of the showtime
 			for (pos=0; pos<mMovieShowTimes.size(); pos++,row++) {
+				
 				// retrieve ShowTime from list
 				ShowTime showtime = mMovieShowTimes.get(pos);
+				
+				if (showtime.getCinema().isPlatinum() == platinum || pos == 0) {
+					if (platinum) {
+						println(" Platinum");
+						println("**********");
+					} else {
+						if (pos != 0) 
+							println("\n");
+						println(" Normal");
+						println("********");
+					}
+					
+					col = 0;
+					platinum = !platinum;
+					prevDate = "";
+				}
 				
 				// print the ShowTime Date
 				// when prevDate is empty (no date had been printed yet)
@@ -369,9 +392,7 @@ public abstract class BaseMenu {
 				if (prevDate.isEmpty() || !prevDate.equals(showtime.getFormattedDate())) {
 					// store the showtime date
 					prevDate = showtime.getFormattedDate();
-					
-					if (pos != 0) println("");			
-					
+										
 					// display the date of the showtime
 					println("\n "+prevDate);
 					

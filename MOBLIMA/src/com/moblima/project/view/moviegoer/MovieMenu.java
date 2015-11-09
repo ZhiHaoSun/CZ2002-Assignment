@@ -6,6 +6,7 @@ import com.moblima.project.controller.CineplexManager;
 import com.moblima.project.model.Booking;
 import com.moblima.project.model.Cinema;
 import com.moblima.project.model.Constant;
+import com.moblima.project.model.Constant.Status;
 import com.moblima.project.model.Customer;
 import com.moblima.project.model.Movie;
 import com.moblima.project.model.Review;
@@ -13,7 +14,6 @@ import com.moblima.project.model.Seat;
 import com.moblima.project.model.ShowTime;
 import com.moblima.project.model.Ticket;
 import com.moblima.project.view.BaseMenu;
-import com.moblima.project.view.BaseMenu.ExitException;
 
 public class MovieMenu extends BaseMenu{
 	private Movie movie;
@@ -44,7 +44,13 @@ public class MovieMenu extends BaseMenu{
 				
 				switch (choice) {
 					case 1:
-						displayMovieShowTimes();
+						if (movie.getStatus() == Status.COMING_SOON) {
+							println(movie.getTitle() + " is coming soon. Please check back soon! :)");
+						} else if (movie.getStatus() == Status.END_OF_SHOWING) {
+							println(movie.getTitle() + " has reached its end of showing. Thanks for supporting! :)");
+						} else {
+							displayMovieShowTimes(movie);
+						}
 						break;
 					case 2:
 						displayReviews();
@@ -65,7 +71,11 @@ public class MovieMenu extends BaseMenu{
 		println("Status  : " + movie.getStatus().value());
 		println("Opening : " + (movie.getOpening().equals("TBA") ? "To Be Announced" : movie.getOpening()));
 		println("Run Time: " + (movie.getRunTime().equals("TBA") ? "To Be Announced" : movie.getRunTime()));
-		println("Rating  : " + movie.getOverallStarRating() +"("+ String.format("%.1f", movie.getOverallRating()) +")");
+		if (movie.hasReviews()) 
+			println("Rating  : " + movie.getOverallStarRating() +"("+ String.format("%.1f", movie.getOverallRating()) +")");
+		else
+			println("Rating  : NA");
+
 	}
 	
 	public static final int ASCII_CODE_A = 65;
@@ -76,7 +86,7 @@ public class MovieMenu extends BaseMenu{
 	private ArrayList<Seat> selectedSeats;
 	
 	// Movie Details Option #1: ShowTimes
-	public void displayMovieShowTimes() {
+	public void displayMovieShowTimes(Movie movie) {
 		int choice = 0; // each menu manage their own choice integer
 		
 		try {
@@ -88,7 +98,7 @@ public class MovieMenu extends BaseMenu{
 				
 				println("Options : ");
 				println(" 1. Select Seats"); 			// show movie showtime and prompt user for movie
-				println(" 2. Back to Movie Details");				
+				println(" 2. Back");				
 				
 				choice = readChoice(1, 2);
 				
@@ -117,7 +127,9 @@ public class MovieMenu extends BaseMenu{
 							record.setSeats(selectedSeats);	
 							
 							generateFinalPrice(record);
-
+							
+							if (confirm("Do you want to purchase the tickets?")) break;
+							
 							if (mCineplexManager.create(record)) {
 								println("Successful booked the selected seats");
 							} else {
@@ -142,14 +154,14 @@ public class MovieMenu extends BaseMenu{
 				
 				if (num != 0) {
 					tprice = mCineplexManager.getTicketPrice(showtime, true, false);
-					
+					println((tprice==null)+"");
 					finalPrice  += (tprice.getPrice()*num);
 					numOfTicket -= num;
 				} 
 			}
 			
 			if (numOfTicket != 0) {
-				if (confirm("Are there students watching?")) {
+				if (confirm("Are there senior citizens watching?")) {
 					num = readInt("Enter number of senior citizen watching", 0, numOfTicket);
 					if (num != 0) {
 						tprice = mCineplexManager.getTicketPrice(showtime, false, true);

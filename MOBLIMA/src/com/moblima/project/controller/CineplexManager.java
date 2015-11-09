@@ -5,8 +5,6 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -14,6 +12,7 @@ import org.json.JSONException;
 import com.moblima.project.model.Booking;
 import com.moblima.project.model.Cinema;
 import com.moblima.project.model.Constant.Cineplex;
+import com.moblima.project.model.Constant.Status;
 import com.moblima.project.model.Customer;
 import com.moblima.project.model.Model;
 import com.moblima.project.model.Movie;
@@ -102,7 +101,19 @@ public class CineplexManager extends Manager {
 		
 		return mSearchResult;
 	}
-
+	
+	public ArrayList<Movie> getCurrentMovies() {
+		ArrayList<Movie> cMovies = new ArrayList<>();
+		
+		for (Movie m:mMovies) {
+			if (m.getStatus() == Status.PREVIEW || 
+				m.getStatus() == Status.NOW_SHOWING) {
+				cMovies.add(m);
+			}
+		}
+		
+		return cMovies;
+	}
 		
 	public ArrayList<Movie> getTopFiveMovies(boolean byOverallRating) {
 		// create new list to prevent from affecting the original copy
@@ -153,6 +164,18 @@ public class CineplexManager extends Manager {
 		for (Cinema c:mCinemas) {
 			if(c.equals(cineplex)) 
 				cinemas.add(c);
+		}
+		
+		return cinemas;
+	}
+	
+	public ArrayList<Cinema> getCinemas(boolean platinum) {
+		ArrayList<Cinema> cinemas = new ArrayList<>();
+		
+		for (Cinema c:cinemas) {
+			if (c.isPlatinum() == platinum) {
+				cinemas.add(c);
+			}
 		}
 		
 		return cinemas;
@@ -264,7 +287,7 @@ public class CineplexManager extends Manager {
 		if (array.length()!=0) {
 			for(pos=0;pos<array.length();pos++){
 				booking  = new Booking(array.getJSONObject(pos));		
-				
+				System.out.println(booking.getShowtime().getId()+"");
 				customer = (Customer) getInstance(booking.getCustomer()); 
 				showtime = (ShowTime) getInstance(booking.getShowtime());
 				
@@ -290,17 +313,7 @@ public class CineplexManager extends Manager {
 			return writeFile(FILE_MOVIE, mMovies.toString());
 			
 		} else if (model instanceof Cinema) {
-			cinema = (Cinema) model;
-//			String code = cinema.getCineplex().code();
-//			
-//			if (cinema.isPlatinum())
-//				code += "P";
-//			else
-//				code += "N";
-//			
-//			cinema.setCode(code);
-			
-			mCinemas.add(cinema);
+			mCinemas.add((Cinema) model);
 			return writeFile(FILE_CINEMA, mCinemas.toString());
 			
 		} else if (model instanceof ShowTime) {

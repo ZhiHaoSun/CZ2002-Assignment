@@ -5,8 +5,6 @@ import java.text.ParseException;
 import org.json.JSONException;
 
 import com.moblima.project.controller.CineplexManager;
-import com.moblima.project.model.Cinema;
-import com.moblima.project.model.Movie;
 import com.moblima.project.model.ShowTime;
 import com.moblima.project.view.BaseMenu;
 

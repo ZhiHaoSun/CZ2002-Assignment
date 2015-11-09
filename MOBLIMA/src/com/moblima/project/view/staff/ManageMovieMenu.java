@@ -22,12 +22,11 @@ public class ManageMovieMenu extends BaseMenu {
 			printHeader("Manage Movie Listing");
 			println(" 1. Create Movie");
 			println(" 2. Update Movie");
-			println(" 3. Remove Movie");
-			println(" 4. Back");
+			println(" 3. Back");
 			println("");
 			
 			try {
-				choice = readChoice(1, 4);
+				choice = readChoice(1, 3);
 				
 				switch (choice) {
 					case 1:
@@ -35,9 +34,6 @@ public class ManageMovieMenu extends BaseMenu {
 						break;
 					case 2:
 						updateMovie();
-						break;
-					case 3:
-						removeMovie();
 						break;
 				}			
 			} catch (ExitException e) {

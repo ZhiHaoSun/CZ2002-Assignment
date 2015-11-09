@@ -27,18 +27,23 @@ public class MovieGoerMenu extends BaseMenu {
 		do {
 			printHeader("Welcome to MOBLIMA");
 			println(" 1. Movie Listing");
-			println(" 2. Display Booking History");
-			println(" 3. Back");
+			println(" 2. Book and Purchase Ticket");
+			println(" 3. Display Booking History");
+			println(" 4. Back");
 			println("");
 			
 			try {
-				choice = readChoice(1, 3);
+				choice = readChoice(1, 4);
 				
 				switch (choice) {
 					case 1:
 						displayMovieListing();
 						break;
-					case 2:
+					case 2: // Book and Purchase Ticket
+						printHeader("Book and Purchase Ticket");
+						mMovieMenu.displayMovieShowTimes(chooseMovie("Choose Movie: ", mCineplexManager.getCurrentMovies()));		
+						break;
+					case 3:
 						//** View Book History 
 						displayBookingHistory();
 						break;
@@ -164,7 +169,7 @@ public class MovieGoerMenu extends BaseMenu {
 			for (Booking record:customer.getBookingRecords()) {
 				printBookingRecord(record);
 			}
-			
+
 			return;
 		}
 	

@@ -2,6 +2,7 @@ package com.moblima.project.model;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 import org.json.JSONException;
@@ -127,17 +128,20 @@ public class ShowTime extends Model implements Comparable<ShowTime> {
 		} else if (obj instanceof ShowTime) {
 			ShowTime st = (ShowTime) obj;
 			return st.id == id;
+		} else if (obj instanceof Holiday) {
+			Holiday h = (Holiday) obj;
+			
+			Calendar hdate = Calendar.getInstance();
+			hdate.setTime(h.getDate());
+			
+			Calendar sdate = Calendar.getInstance();
+			sdate.setTime(date);
+
+			return (hdate.get(Calendar.MONTH) == sdate.get(Calendar.MONTH)) && 
+				   (hdate.get(Calendar.DAY_OF_MONTH) == sdate.get(Calendar.DAY_OF_MONTH));
 		}
 		
 		return super.equals(obj);
-	}
-	
-	public void copy(ShowTime copyInstance) {
-		id 	   = copyInstance.id;
-		movie  = copyInstance.movie;
-		cinema = copyInstance.cinema;
-		date   = copyInstance.date;
-		time   = copyInstance.time;
 	}
 	
 	public ShowTime clone() {
@@ -157,6 +161,12 @@ public class ShowTime extends Model implements Comparable<ShowTime> {
 		// sort by cineplex first
 		int compare = cinema.getCineplex().compareTo(st.cinema.getCineplex());
 		if (compare != 0) return compare;
+
+		if (st.cinema.isPlatinum() && cinema.isPlatinum()) 
+			return 1;
+		else if (!st.cinema.isPlatinum() && !cinema.isPlatinum())
+			return -1;
+			
 		
 		// sort by date
 		if (st.date.before(date))

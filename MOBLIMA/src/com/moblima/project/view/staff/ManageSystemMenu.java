@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import com.moblima.project.controller.CineplexManager;
 import com.moblima.project.model.Constant.TicketType;
 import com.moblima.project.model.Holiday;
-import com.moblima.project.model.Movie;
 import com.moblima.project.model.Ticket;
 import com.moblima.project.view.BaseMenu;
 import com.moblima.project.view.TopRankingMenu;

@@ -1,5 +1,6 @@
 package com.moblima.project.model;
 
+import java.nio.charset.Charset;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -230,6 +231,12 @@ public class Movie extends Model {
 		this.runtime = runtime;
 	}
 	
+	public boolean hasReviews() {
+		if (reviews.isEmpty()) 
+			return false;
+		else
+			return true;
+	}
 	public ArrayList<Review> getReviews() {
 		return reviews;
 	}

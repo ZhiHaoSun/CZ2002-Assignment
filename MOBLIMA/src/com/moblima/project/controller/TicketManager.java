@@ -11,7 +11,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.moblima.project.model.Booking;
 import com.moblima.project.model.Constant;
 import com.moblima.project.model.Constant.MovieType;
 import com.moblima.project.model.Constant.TicketType;
@@ -182,9 +181,10 @@ public class TicketManager extends Manager {
 			Date testdate = Constant.dateFormatShort.parse("1/1/2015");
 		    cal.setTime(testdate);
 		    
+		    
 			Date six = Constant.clockFormat.parse("1800");
 			int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
-	
+
 			TicketType type = null;
 	
 			if (showtime.getCinema().isPlatinum()) {
@@ -197,8 +197,8 @@ public class TicketManager extends Manager {
 				}
 			} else {
 				// Sat, Sun, Eve of PH or PH
-				if ((dayOfWeek >= Calendar.SATURDAY && dayOfWeek <= Calendar.SUNDAY) ||
-					mHolidays.contains(showtime)) {
+				if (mHolidays.contains(showtime) || 
+					(dayOfWeek >= Calendar.SATURDAY && dayOfWeek <= Calendar.SUNDAY)) {
 					type = TicketType.SAT_AND_SUN;
 				} else {
 					// Mon to Fri
@@ -212,6 +212,7 @@ public class TicketManager extends Manager {
 								type = TicketType.FRI_BEFORE_SIX_PM;
 							}
 						// Fri after 6pm
+						System.out.println("after 6pm");
 						} else if (dayOfWeek == Calendar.FRIDAY) {
 							type = TicketType.FRI_AFTER_SIX_PM;
 						} 
@@ -223,6 +224,7 @@ public class TicketManager extends Manager {
 						} else if (dayOfWeek == Calendar.THURSDAY) {
 							type = TicketType.THU;
 						}
+						
 					}
 				}
 			}

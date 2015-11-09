@@ -20,8 +20,12 @@ public class Holiday extends Model implements Comparable<Holiday> {
 		this.date = Constant.holidayFormat.parse(object.getString("date"));
 	}
 	
-	public String getDate() {
+	public String getFormattedDate() {
 		return Constant.holidayFormat.format(date);
+	}
+	
+	public Date getDate() {
+		return date;
 	}
 
 	public void setDate(Date date) {
@@ -50,10 +54,7 @@ public class Holiday extends Model implements Comparable<Holiday> {
 		if (obj instanceof Holiday) {
 			Holiday h = (Holiday) obj;
 			return h.id == id;
-		} else if (obj instanceof ShowTime) {
-			ShowTime st = (ShowTime) obj;
-			return st.getDate().equals(date);
-		}
+		} 
 		return super.equals(obj);
 	}
 	
@@ -62,7 +63,7 @@ public class Holiday extends Model implements Comparable<Holiday> {
 		JSONObject object = new JSONObject();
 		object.put("id", id);
 		object.put("name", name);
-		object.put("date", getDate());
+		object.put("date", getFormattedDate());
 
 		return object;
 	}

@@ -55,7 +55,7 @@ public class Ticket extends Model {
 	public boolean equals(Object obj) {
 		if (obj instanceof Ticket) {
 			Ticket t = (Ticket) obj;
-			return (t.platinum = platinum && t.movieType.equals(movieType) && t.ticketType.equals(ticketType));
+			return (t.platinum == platinum && t.movieType ==movieType && t.ticketType == ticketType);
 		}
 		return super.equals(obj);
 	}
