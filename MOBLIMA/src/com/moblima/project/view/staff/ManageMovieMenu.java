@@ -62,7 +62,6 @@ public class ManageMovieMenu extends BaseMenu {
 			
 			movie.setMovieType(chooseMovieType());
 			
-			
 			movie.setBlockBuster(confirm("Is this a Blockbuster movie?"));
 			movie.setRunTime(read("RunTime (minutes): "));
 			movie.setOpening(read("Opening (TBA or dd/MM/yyyy): "));
@@ -96,6 +95,9 @@ public class ManageMovieMenu extends BaseMenu {
 			if (confirm("Change Language?"))
 				movie.setLanguage(chooseLanguage());
 			
+			if (confirm("Change Movie Type?"))
+				movie.setMovieType(chooseMovieType());
+
 			if (confirm("Change Movie Rating?"))
 				movie.setRating(chooseMovieRating());
 			

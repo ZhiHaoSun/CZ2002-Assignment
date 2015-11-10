@@ -1,6 +1,5 @@
 package com.moblima.project.model;
 
-import java.nio.charset.Charset;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -25,7 +24,7 @@ public class Movie extends Model {
 	private ArrayList<String> casts;
 	
 	private MovieType type;  //The ClassType is the type of the move, like 3D, Blockbulster
-	private boolean isBlockBuster;
+	private boolean blockbuster;
 
 	private Status   status;
 	private Rating   rating;
@@ -67,6 +66,9 @@ public class Movie extends Model {
 
 		overallRating = jObj.getDouble("overall rating");
 		
+		if (jObj.has("blockbuster"))
+			blockbuster = jObj.getBoolean("blockbuster");
+		
 		JSONArray jcasts = jObj.getJSONArray("casts");
 		
 		for (int i=0; i<jcasts.length(); i++)
@@ -97,11 +99,11 @@ public class Movie extends Model {
 	}
 
 	public boolean isBlockBuster() {
-		return isBlockBuster;
+		return blockbuster;
 	}
 
-	public void setBlockBuster(boolean isBlockBuster) {
-		this.isBlockBuster = isBlockBuster;
+	public void setBlockBuster(boolean blockbuster) {
+		this.blockbuster = blockbuster;
 	}
 
 	public MovieType getMovieType() {
@@ -289,7 +291,7 @@ public class Movie extends Model {
 		cloned.reviews  = reviews;
 		
 		cloned.showtimes = showtimes;
-		cloned.isBlockBuster = isBlockBuster;
+		cloned.blockbuster = blockbuster;
 		cloned.overallRating = overallRating;
 		return cloned;
 	}
@@ -316,7 +318,7 @@ public class Movie extends Model {
 		
 		jobj.put("runtime", runtime);
 		jobj.put("opening", opening);
-	
+		jobj.put("blockbuster", blockbuster);
 		jobj.put("status", status.name());
 		jobj.put("rating", rating.name());
 		jobj.put("language", language.name());

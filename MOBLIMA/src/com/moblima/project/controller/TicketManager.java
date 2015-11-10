@@ -36,8 +36,9 @@ public class TicketManager extends Manager {
 	}
 	
 	public ArrayList<Holiday> getHolidays() {
-		Collections.sort(mHolidays);
-		return mHolidays;
+		ArrayList<Holiday> holidays = new ArrayList<>(mHolidays);
+		Collections.sort(holidays);
+		return holidays;
 	}
 	
 	public ArrayList<Ticket> getTicketPrices() {
@@ -176,12 +177,8 @@ public class TicketManager extends Manager {
 	
 	public Ticket getTicketPrice (ShowTime showtime, boolean isStudent, boolean isSeniorCitizen) {
 		Calendar cal = Calendar.getInstance();
-	    //cal.setTime(showtime.getDate());
-	    try {
-			Date testdate = Constant.dateFormatShort.parse("1/1/2015");
-		    cal.setTime(testdate);
-		    
-		    
+	    cal.setTime(showtime.getDate());
+	    try {		    
 			Date six = Constant.clockFormat.parse("1800");
 			int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
 
@@ -212,7 +209,6 @@ public class TicketManager extends Manager {
 								type = TicketType.FRI_BEFORE_SIX_PM;
 							}
 						// Fri after 6pm
-						System.out.println("after 6pm");
 						} else if (dayOfWeek == Calendar.FRIDAY) {
 							type = TicketType.FRI_AFTER_SIX_PM;
 						} 
@@ -232,6 +228,7 @@ public class TicketManager extends Manager {
 			Ticket tprice = new Ticket();
 			tprice.setPlatinum(showtime.getCinema().isPlatinum());
 			tprice.setMovieType(showtime.getMovie().getMovieType());
+
 			tprice.setTicketType(type);
 			tprice = (Ticket) getInstance(tprice);
 			return tprice;

@@ -63,12 +63,13 @@ public class MovieMenu extends BaseMenu{
 	}
 	
 	public void displayMovieDetails(){		
-		printHeader(movie.getTitle() +" ("+ movie.getRating().name()+")");
+		printHeader(movie.getTitle() +" ("+ movie.getMovieType().value()+")");
 		println("Casts   : " + movie.getCastsStr());
 		println("Director: " + movie.getDirector());
 		println("Synopsis: " + movie.getSynopsis());
 		println("Language: " + movie.getLanguage().value());
 		println("Status  : " + movie.getStatus().value());
+		println("Rating  : " + movie.getRating().name());
 		println("Opening : " + (movie.getOpening().equals("TBA") ? "To Be Announced" : movie.getOpening()));
 		println("Run Time: " + (movie.getRunTime().equals("TBA") ? "To Be Announced" : movie.getRunTime()));
 		if (movie.hasReviews()) 
@@ -155,7 +156,6 @@ public class MovieMenu extends BaseMenu{
 				
 				if (num != 0) {
 					tprice = mCineplexManager.getTicketPrice(showtime, true, false);
-					println((tprice==null)+"");
 					finalPrice  += (tprice.getPrice()*num);
 					numOfTicket -= num;
 				} 
@@ -166,7 +166,6 @@ public class MovieMenu extends BaseMenu{
 					num = readInt("Enter number of senior citizen watching", 0, numOfTicket);
 					if (num != 0) {
 						tprice = mCineplexManager.getTicketPrice(showtime, false, true);
-
 						finalPrice  += (tprice.getPrice()*num);
 						numOfTicket -= num;
 					} 
@@ -176,12 +175,12 @@ public class MovieMenu extends BaseMenu{
 		
 		if (numOfTicket != 0) {
 			tprice = mCineplexManager.getTicketPrice(showtime, false, false);
-
 			finalPrice  += (tprice.getPrice()*numOfTicket);
 		}
 		
 		// add $1 when the movie is a blockbuster 
-		if (record.getShowtime().getMovie().isBlockBuster()) finalPrice ++;
+		if (record.getShowtime().getMovie().isBlockBuster()) 
+			finalPrice = finalPrice + record.getSeats().size();
 		
 		record.setTotalPrice(finalPrice);
 		println("Your final ticket price is: " + String.format("$%.2f", finalPrice));

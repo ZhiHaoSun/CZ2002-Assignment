@@ -348,8 +348,16 @@ public class CineplexManager extends Manager {
 	public boolean update(Model model) {
 		if (model instanceof Movie) {
 			// replace the new copy at the same location of the old copy
-			index = mMovies.indexOf(model);
-			mMovies.set(index, (Movie) model); 
+			movie = (Movie) model;
+			index = mMovies.indexOf(movie);
+			mMovies.set(index, movie);
+			
+			// update the showtime with the new info since
+			// it reference to the old one
+			index = movie.getShowTimes().indexOf(movie);
+			showtime = movie.getShowTimes().get(index);
+			showtime.setMovie(movie);
+			
 			return writeFile(FILE_MOVIE, mMovies.toString());
 			
 		} else if (model instanceof Cinema) {
