@@ -70,6 +70,7 @@ public class CineplexManager extends Manager {
 	 */
 	public CineplexManager() throws IOException, JSONException, ParseException {
 		super();
+		new CineplexManager();
 	}
 	
 	// Read-Only for the list of movies, cinema, showtimes
