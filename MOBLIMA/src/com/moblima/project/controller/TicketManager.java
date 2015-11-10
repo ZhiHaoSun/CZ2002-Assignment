@@ -186,70 +186,70 @@ public class TicketManager extends Manager {
 	 * @return
 	 */
 	public Ticket getTicketPrice (ShowTime showtime, boolean isStudent, boolean isSeniorCitizen) {
-		Calendar cal = Calendar.getInstance();
-	    cal.setTime(showtime.getDate());
-	    try {		    
+		Ticket tprice = new Ticket();
+		tprice.setPlatinum(showtime.getCinema().isPlatinum());
+		tprice.setMovieType(showtime.getMovie().getMovieType());
+		tprice.setTicketType(getTicketType(showtime, isStudent, isSeniorCitizen));
+		
+		// use this ticket price object to find the original instance of the ticket price
+		tprice = (Ticket) getInstance(tprice);
+		return tprice;	    
+	}
+
+	private TicketType getTicketType(ShowTime showtime, boolean isStudent, boolean isSeniorCitizen) {
+	    try {		
+	    	Calendar cal = Calendar.getInstance();
+		    cal.setTime(showtime.getDate());
+	    
 			Date six = Constant.clockFormat.parse("1800");
 			int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
 
-			TicketType type = null;
-	
 			if (showtime.getCinema().isPlatinum()) {
 				// Monday to Thursday
 				if (dayOfWeek >= Calendar.MONDAY && dayOfWeek <= Calendar.THURSDAY) {
-					type = TicketType.MON_TO_THU;
+					return TicketType.MON_TO_THU;
 				// Friday to Sun
 				} else {
-					type = TicketType.FRI_TO_SUN;
+					return TicketType.FRI_TO_SUN;
 				}
 			} else {
 				// Sat, Sun, Eve of PH or PH
 				if (mHolidays.contains(showtime) || 
 					(dayOfWeek >= Calendar.SATURDAY && dayOfWeek <= Calendar.SUNDAY)) {
-					type = TicketType.SAT_AND_SUN;
+					return TicketType.SAT_AND_SUN;
 				} else {
 					// Mon to Fri
 					if (dayOfWeek >= Calendar.MONDAY && dayOfWeek <= Calendar.FRIDAY) {
 						if (showtime.getTime().before(six)) {
 							if (isStudent) {
-								type = TicketType.STUDENTS;
+								return TicketType.STUDENTS;
 							} else if (isSeniorCitizen) {	
-								type = TicketType.SENIOR_CITIZENS;
+								return TicketType.SENIOR_CITIZENS;
 							} else if (dayOfWeek == Calendar.FRIDAY) {
-								type = TicketType.FRI_BEFORE_SIX_PM;
+								return TicketType.FRI_BEFORE_SIX_PM;
 							}
 						// Fri after 6pm
 						} else if (dayOfWeek == Calendar.FRIDAY) {
-							type = TicketType.FRI_AFTER_SIX_PM;
+							return TicketType.FRI_AFTER_SIX_PM;
 						} 
 						
 						// Mon to Wed
 						if (dayOfWeek >= Calendar.MONDAY && dayOfWeek <= Calendar.WEDNESDAY) {
-							type = TicketType.MON_WED;
+							return TicketType.MON_WED;
 						// Thu
 						} else if (dayOfWeek == Calendar.THURSDAY) {
-							type = TicketType.THU;
+							return TicketType.THU;
 						}
-						
 					}
 				}
 			}
-			
-			Ticket tprice = new Ticket();
-			tprice.setPlatinum(showtime.getCinema().isPlatinum());
-			tprice.setMovieType(showtime.getMovie().getMovieType());
-
-			tprice.setTicketType(type);
-			tprice = (Ticket) getInstance(tprice);
-			return tprice;
 	    } catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+	    }
 	    
 	    return null;
 	}
-
 
 	@Override
 	public boolean create(Model model) {
