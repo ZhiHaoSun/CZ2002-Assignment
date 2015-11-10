@@ -36,13 +36,17 @@ public class Constant {
 	 *
 	 */
 	public static enum Cineplex {
-		THE_CATHAY_CINEPLEX("The Cathay Cineplex"), 
-		CATHAY_CINEPLEX_CINELEISURE_ORCHARD("Cathay Cineplex Cineleisure Orchard"), 
-		CATHAY_CINEPLEX_DOWNTOWN_EAST("Cathay Cineplex Downtown East");
+		THE_CATHAY_CINEPLEX("C", "The Cathay Cineplex"), 
+		CATHAY_CINEPLEX_CINELEISURE_ORCHARD("O", "Cathay Cineplex Cineleisure Orchard"), 
+		CATHAY_CINEPLEX_DOWNTOWN_EAST("D", "Cathay Cineplex Downtown East");
 		
-		private String value;
-		Cineplex(String value) { this.value = value; }
+		private String code, value;
+		Cineplex(String code, String value) { 
+			this.code = code;
+			this.value = value; 
+		}
 		public String value() { return value; }
+		public String code() { return code; }
 	}
 	
 	/**Status of a movie.
@@ -52,7 +56,8 @@ public class Constant {
 	public static enum Status {
 		COMING_SOON("Coming Soon"), 
 		PREVIEW("Preview"), 
-		NOW_SHOWING("Now Showing");
+		NOW_SHOWING("Now Showing"),
+		END_OF_SHOWING("End of Showing");
 		
 		// END_OF_SHOWING("End of Showing")
 	

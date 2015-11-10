@@ -1,2 +1,36 @@
+<<<<<<< HEAD
 [{"THREED":{"THU":11,"SAT_AND_SUN":15,"MON_WED":11,"FRI_AFTER_SIX_PM":15,"FRI_BEFORE_SIX_PM":15,"STUDENTS":9},"PLATINUM":{"THREED":{"FRI_TO_SUN":45,"MON_TO_THU":35},"DIGITAL":{"FRI_TO_SUN":38,"MON_TO_THU":28}},"DIGITAL":{"THU":9.5,"SENIOR_CITIZENS":4,"SAT_AND_SUN":11,"MON_WED":8.5,"FRI_AFTER_SIX_PM":11,"FRI_BEFORE_SIX_PM":9.5,"STUDENTS":7}}]
+=======
+[  
+   {  
+      "THREED":{  
+         "THU":11,
+         "SAT_AND_SUN":15,
+         "MON_WED":11,
+         "FRI_AFTER_SIX_PM":15,
+         "FRI_BEFORE_SIX_PM":15,
+         "STUDENTS":9
+      },
+      "PLATINUM":{  
+         "THREED":{  
+            "FRI_TO_SUN":45,
+            "MON_TO_THU":35
+         },
+         "DIGITAL":{  
+            "FRI_TO_SUN":38,
+            "MON_TO_THU":29
+         }
+      },
+      "DIGITAL":{  
+         "THU":9.5,
+         "SENIOR_CITIZENS":4,
+         "SAT_AND_SUN":11,
+         "MON_WED":8.5,
+         "FRI_AFTER_SIX_PM":11,
+         "FRI_BEFORE_SIX_PM":9.5,
+         "STUDENTS":7
+      }
+   }
+]
+>>>>>>> origin/master
 

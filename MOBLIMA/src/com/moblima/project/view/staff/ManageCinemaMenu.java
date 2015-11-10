@@ -71,7 +71,7 @@ public class ManageCinemaMenu extends BaseMenu {
 		
 		printHeader("Create Cinema");
 		
-		cinema.setCode(read("Cinema Code: "));
+//		cinema.setCode(read("Cinema Code: "));
 		cinema.setName(read("Cinema Name: "));
 		cinema.setCineplex(chooseCineplex());
 		cinema.setPlatinum(confirm("Is this cinema platinum suite?"));

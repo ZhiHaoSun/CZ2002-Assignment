@@ -9,6 +9,7 @@ public class StaffMenu extends BaseMenu {
 	private Staff mCurrentLoginStaff;
 	
 	private ManageMovieMenu mManageMovieMenu;
+<<<<<<< HEAD
 	private ManageCinemaMenu mManageCinemaMenu;
 	private ManageSystemMenu mManageTicketMenu;
 	
@@ -20,12 +21,17 @@ public class StaffMenu extends BaseMenu {
 	 * ManageSystemMenu
 	 * @param mCineplexManager
 	 */
+=======
+	private ManageSystemMenu mManageSystemMenu;
+	private ManageShowTimeMenu mManageShowTimeMenu;
+
+>>>>>>> origin/master
 	public StaffMenu(CineplexManager mCineplexManager) {
 		super(mCineplexManager);
 		
-		mManageMovieMenu  = new ManageMovieMenu(mCineplexManager);
-		mManageCinemaMenu = new ManageCinemaMenu(mCineplexManager);
-		mManageTicketMenu = new ManageSystemMenu(mCineplexManager);
+		mManageMovieMenu    = new ManageMovieMenu(mCineplexManager);
+		mManageSystemMenu   = new ManageSystemMenu(mCineplexManager);
+		mManageShowTimeMenu = new ManageShowTimeMenu(mCineplexManager);
 	}
 	
 	// Main Menu: Choice #1
@@ -65,15 +71,10 @@ public class StaffMenu extends BaseMenu {
 							mManageMovieMenu.displayMenu();
 							break;
 						case 2:
-							mManageCinemaMenu.displayMenu();
+							mManageShowTimeMenu.displayMenu();
 							break;
 						case 3:
-							mManageTicketMenu.displayMenu();
-							break;
-						case 4: 
-							return;
-						default:
-							System.out.println("Invalid choice! Please select again!!!");
+							mManageSystemMenu.displayMenu();
 							break;
 					}			
 				} catch (ExitException e) {
@@ -81,7 +82,10 @@ public class StaffMenu extends BaseMenu {
 				}
 			} while (choice != 4);				
 		} else println("Invalid username/password");	
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 	}
 	
 	

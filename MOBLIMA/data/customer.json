@@ -1,1 +1,20 @@
-[{"phone":"82188744","name":"Chang Jun Wei","id":1,"email":"chang@gmail.com"}, {"phone":"82188744","name":"junwei","id":3,"email":"j@gmail.com"}]
+[  
+   {  
+      "phone":"82188744",
+      "name":"Chang Jun Wei",
+      "id":1,
+      "email":"chang@gmail.com"
+   },
+   {  
+      "phone":"82188744",
+      "name":"junwei",
+      "id":3,
+      "email":"j@gmail.com"
+   },
+   {  
+      "phone":"82187744",
+      "name":"Chang Jun Wei",
+      "id":4,
+      "email":"chang@gmail.com"
+   }
+]

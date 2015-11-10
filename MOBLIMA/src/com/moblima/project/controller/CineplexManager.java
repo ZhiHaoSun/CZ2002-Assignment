@@ -5,8 +5,6 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -14,6 +12,7 @@ import org.json.JSONException;
 import com.moblima.project.model.Booking;
 import com.moblima.project.model.Cinema;
 import com.moblima.project.model.Constant.Cineplex;
+import com.moblima.project.model.Constant.Status;
 import com.moblima.project.model.Customer;
 import com.moblima.project.model.Model;
 import com.moblima.project.model.Movie;
@@ -138,7 +137,19 @@ public class CineplexManager extends Manager {
 		
 		return mSearchResult;
 	}
-
+	
+	public ArrayList<Movie> getCurrentMovies() {
+		ArrayList<Movie> cMovies = new ArrayList<>();
+		
+		for (Movie m:mMovies) {
+			if (m.getStatus() == Status.PREVIEW || 
+				m.getStatus() == Status.NOW_SHOWING) {
+				cMovies.add(m);
+			}
+		}
+		
+		return cMovies;
+	}
 		
 	/**Get the top five movies.
 	 * Two options to be based on:
@@ -203,6 +214,18 @@ public class CineplexManager extends Manager {
 		for (Cinema c:mCinemas) {
 			if(c.equals(cineplex)) 
 				cinemas.add(c);
+		}
+		
+		return cinemas;
+	}
+	
+	public ArrayList<Cinema> getCinemas(boolean platinum) {
+		ArrayList<Cinema> cinemas = new ArrayList<>();
+		
+		for (Cinema c:cinemas) {
+			if (c.isPlatinum() == platinum) {
+				cinemas.add(c);
+			}
 		}
 		
 		return cinemas;
@@ -326,7 +349,7 @@ public class CineplexManager extends Manager {
 		if (array.length()!=0) {
 			for(pos=0;pos<array.length();pos++){
 				booking  = new Booking(array.getJSONObject(pos));		
-				
+
 				customer = (Customer) getInstance(booking.getCustomer()); 
 				showtime = (ShowTime) getInstance(booking.getShowtime());
 				
@@ -427,11 +450,17 @@ public class CineplexManager extends Manager {
 			return writeFile(FILE_MOVIE, mMovies.toString());
 			
 		} else if (model instanceof ShowTime) {
-			mShowTimes.remove(getInstance(model));
+			showtime = (ShowTime) model;
+			
+			showtime.getMovie().removeShowTime(showtime);
+			showtime.getCinema().removeShowTime(showtime);
+			
+			mShowTimes.remove(model);
+			
 			return writeFile(FILE_SHOWTIME, mShowTimes.toString());
 		}
 		
-		return false;
+		return mTicketManager.delete(model);
 	}
 
 	@Override

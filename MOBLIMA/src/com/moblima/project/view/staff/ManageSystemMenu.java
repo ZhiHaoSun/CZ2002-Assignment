@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import com.moblima.project.controller.CineplexManager;
 import com.moblima.project.model.Constant.TicketType;
 import com.moblima.project.model.Holiday;
-import com.moblima.project.model.Movie;
 import com.moblima.project.model.Ticket;
 import com.moblima.project.view.BaseMenu;
 import com.moblima.project.view.TopRankingMenu;
@@ -174,7 +173,7 @@ public class ManageSystemMenu extends BaseMenu {
 			} catch (ExitException e) {
 				break;
 			} 
-		} while (choice != 3);
+		} while (choice != 4);
 	}
 	
 	protected Holiday choosePublicHoliday() {		
@@ -185,7 +184,7 @@ public class ManageSystemMenu extends BaseMenu {
 				println("Select a Public Holiday:");						
 				
 				for (int i=0, j=1; i<holidays.size(); i++,j++)
-					println(" "+j+". "+holidays.get(i).getDate()+", "+holidays.get(i).getName());
+					println(" "+j+". "+holidays.get(i).getFormattedDate()+", "+holidays.get(i).getName());
 				
 				println(" "+(holidays.size()+1)+". Back");
 				println("");

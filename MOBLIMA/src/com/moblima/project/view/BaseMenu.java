@@ -59,6 +59,11 @@ public abstract class BaseMenu {
 		return input;
 	}
 	
+	public void readNextLine() {
+		println("Press ENTER key to continue...");
+		sc.nextLine();
+	}
+	
 	/**
 	 * This method will read a Double value with label
 	 * @param label	is the message to be printed when asking for input
@@ -101,6 +106,7 @@ public abstract class BaseMenu {
 		do {
 			try {
 				c = readInt(label+" ("+min+"~"+max+"): ");
+				
 			} catch (NumberFormatException ime) {
 				println("Please input an Integer value.");
 			}
@@ -202,16 +208,17 @@ public abstract class BaseMenu {
 		} while(true);
 	}
 	
-	
 	protected Movie chooseMovie() throws ExitException {
 		return chooseMovie("Choose Movie:");
 	}
 	
-	protected Movie chooseMovie(String title) throws ExitException {
-		ArrayList<Movie> movies = mCineplexManager.getMovies();
-
-		if (!title.isEmpty())
-			println(title);						
+	protected Movie chooseMovie(String label) throws ExitException {
+		return chooseMovie(label, mCineplexManager.getMovies());
+	}
+	
+	protected Movie chooseMovie(String label, ArrayList<Movie> movies) throws ExitException {
+		if (!label.isEmpty())
+			println(label);						
 		
 		for (int i=0, j=1; i<movies.size(); i++,j++)
 			println(" "+j+". "+movies.get(i).getTitle());
@@ -289,7 +296,7 @@ public abstract class BaseMenu {
 	}
 	
 	protected Cineplex chooseCineplex() throws ExitException {
-		int length = Status.values().length;
+		int length = Cineplex.values().length;
 		
 		println("Choose Cineplex:");						
 		
@@ -314,8 +321,11 @@ public abstract class BaseMenu {
 	protected Cinema chooseCinema(ArrayList<Cinema> cinemas) throws ExitException {		
 		println("Choose Cinema:");						
 		
-		for (int i=0, j=1; i<cinemas.size(); i++,j++)
-			println(" "+j+". "+cinemas.get(i).getName());
+		for (int i=0, j=1; i<cinemas.size(); i++,j++) {
+			Cinema c = cinemas.get(i);
+			print(" "+j+". "+c.getName());
+			print(c.isPlatinum()?" (Platinum)\n":"\n");
+		}
 		
 		println(" "+(cinemas.size()+1)+". Back");
 		println("");
@@ -332,18 +342,18 @@ public abstract class BaseMenu {
 	
 	protected ShowTime chooseShowTime(Movie movie) throws ExitException {
 		// select the movie ShowTime to be shown
-		ArrayList<ShowTime> mMovieShowTimes = new ArrayList<>();
+		ArrayList<ShowTime> mMovieShowTimes = new ArrayList<>(mCineplexManager.getShowTimes());
 		
-		// select the Cineplex of the Movie to be shown
-		Cineplex cineplex = chooseCineplex();
-
-		// traverse through the list of showtimes in the movie
-		// find showtime with same cineplex
-		// and add into the temp list
-		for (ShowTime st:movie.getShowTimes()) {
-			if (st.equals(cineplex)) 
-				mMovieShowTimes.add(st);
-		}
+//		// select the Cineplex of the Movie to be shown
+//		Cineplex cineplex = chooseCineplex();
+//
+//		// traverse through the list of showtimes in the movie
+//		// find showtime with same cineplex
+//		// and add into the temp list
+//		for (ShowTime st:movie.getShowTimes()) {
+//			if (st.equals(cineplex)) 
+//				mMovieShowTimes.add(st);
+//		}
 		
 		printHeader("ShowTime of "+movie.getTitle());
 
@@ -352,15 +362,45 @@ public abstract class BaseMenu {
 			// Display the ShowTime according to date & time		
 			// initialize the variables going to be used
 			String prevDate = "";		// keep track of the previous ShowTime's date been printed
+			boolean platinum = false;
+			Cineplex cineplex = null;
 			int pos, row = 1, col = 0;
 			
 			// sort the ShowTime according to the date then time
 			Collections.sort(mMovieShowTimes);
-			
+//			for (ShowTime st: mMovieShowTimes) 
+//				println(st.getCinema().getCineplex().name()+" "+st.getCinema().isPlatinum()+" "+st.getCinema().getName()+" "+st.getDateTime());
+
 			// start doing the printing of the showtime
 			for (pos=0; pos<mMovieShowTimes.size(); pos++,row++) {
+				
 				// retrieve ShowTime from list
 				ShowTime showtime = mMovieShowTimes.get(pos);
+				
+				if (cineplex == null || cineplex != showtime.getCinema().getCineplex() ||
+					showtime.getCinema().isPlatinum() == platinum) {
+					
+					cineplex = showtime.getCinema().getCineplex();
+					
+					if (pos != 0) println("");
+					
+					if (platinum) {
+						printSubHeader(cineplex.value() + " (Platinum Suite)");
+					} else {
+						printSubHeader(cineplex.value());
+					}					
+					
+					col = 0;
+					platinum = !platinum;
+					prevDate = "";
+				} else {
+					if (col == 4) {
+						println(""); 
+						col = 0;
+					} else if (!prevDate.equals(showtime.getFormattedDate())) {
+						println("");
+					}
+				}
 				
 				// print the ShowTime Date
 				// when prevDate is empty (no date had been printed yet)
@@ -370,7 +410,6 @@ public abstract class BaseMenu {
 					// store the showtime date
 					prevDate = showtime.getFormattedDate();
 					
-					if (pos != 0) println("");			
 					
 					// display the date of the showtime
 					println("\n "+prevDate);
@@ -385,10 +424,7 @@ public abstract class BaseMenu {
 				// pre-increment the col counter 
 				// and reset the col counter
 				// when col counter is equal to 5
-				if (++col == 5) {
-					println(""); 
-					col = 0;
-				}
+				col++;
 			}
 			
 			// ask user to input the choice of the showtime
@@ -424,11 +460,14 @@ public abstract class BaseMenu {
 
 	// Method to print header with default style
 	protected void printSubHeader(String title){
+		print("\n");
+		for (int i=0; i<title.length()+8; i++)
+			print("=");
 		println("");
 		println("    "+title);
 		for (int i=0; i<title.length()+8; i++)
-			print("-");
-		println("");
+			print("=");
+		print("\n");
 	}
 		
 	// This method was created to replace System.out.print
