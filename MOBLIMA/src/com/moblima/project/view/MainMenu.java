@@ -32,7 +32,7 @@ public class MainMenu extends BaseMenu {
 
 	public void displayMenu() {
 		int choice = 0; // each menu manage their own choice integer
-	
+
 		do {
 			printHeader("MOvie Booking and LIsting Management Application (MOBLIMA)");
 			println(" 1. Staff Login");

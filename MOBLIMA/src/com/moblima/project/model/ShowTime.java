@@ -162,11 +162,10 @@ public class ShowTime extends Model implements Comparable<ShowTime> {
 		int compare = cinema.getCineplex().compareTo(st.cinema.getCineplex());
 		if (compare != 0) return compare;
 
-		if (st.cinema.isPlatinum() && cinema.isPlatinum()) 
-			return 1;
-		else if (!st.cinema.isPlatinum() && !cinema.isPlatinum())
+		if (st.cinema.isPlatinum() && !cinema.isPlatinum()) 
 			return -1;
-			
+		else if (!st.cinema.isPlatinum() && cinema.isPlatinum())
+			return 1;
 		
 		// sort by date
 		if (st.date.before(date))

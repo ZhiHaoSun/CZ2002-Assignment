@@ -287,7 +287,7 @@ public class CineplexManager extends Manager {
 		if (array.length()!=0) {
 			for(pos=0;pos<array.length();pos++){
 				booking  = new Booking(array.getJSONObject(pos));		
-				System.out.println(booking.getShowtime().getId()+"");
+
 				customer = (Customer) getInstance(booking.getCustomer()); 
 				showtime = (ShowTime) getInstance(booking.getShowtime());
 				
@@ -398,7 +398,7 @@ public class CineplexManager extends Manager {
 			return writeFile(FILE_SHOWTIME, mShowTimes.toString());
 		}
 		
-		return false;
+		return mTicketManager.delete(model);
 	}
 
 	@Override

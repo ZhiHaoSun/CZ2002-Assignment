@@ -128,10 +128,11 @@ public class MovieMenu extends BaseMenu{
 							
 							generateFinalPrice(record);
 							
-							if (confirm("Do you want to purchase the tickets?")) break;
+							if (!confirm("Do you want to purchase the tickets?")) break;
 							
 							if (mCineplexManager.create(record)) {
-								println("Successful booked the selected seats");
+								println("Successful booked the selected seats");	
+								readNextLine();
 							} else {
 								println("Unable to book the selected seats.");
 							}

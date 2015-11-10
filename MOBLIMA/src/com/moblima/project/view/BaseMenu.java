@@ -59,6 +59,11 @@ public abstract class BaseMenu {
 		return input;
 	}
 	
+	public void readNextLine() {
+		println("Press ENTER key to continue...");
+		sc.nextLine();
+	}
+	
 	/**
 	 * This method will read a Double value with label
 	 * @param label	is the message to be printed when asking for input
@@ -337,18 +342,18 @@ public abstract class BaseMenu {
 	
 	protected ShowTime chooseShowTime(Movie movie) throws ExitException {
 		// select the movie ShowTime to be shown
-		ArrayList<ShowTime> mMovieShowTimes = new ArrayList<>();
+		ArrayList<ShowTime> mMovieShowTimes = new ArrayList<>(mCineplexManager.getShowTimes());
 		
-		// select the Cineplex of the Movie to be shown
-		Cineplex cineplex = chooseCineplex();
-
-		// traverse through the list of showtimes in the movie
-		// find showtime with same cineplex
-		// and add into the temp list
-		for (ShowTime st:movie.getShowTimes()) {
-			if (st.equals(cineplex)) 
-				mMovieShowTimes.add(st);
-		}
+//		// select the Cineplex of the Movie to be shown
+//		Cineplex cineplex = chooseCineplex();
+//
+//		// traverse through the list of showtimes in the movie
+//		// find showtime with same cineplex
+//		// and add into the temp list
+//		for (ShowTime st:movie.getShowTimes()) {
+//			if (st.equals(cineplex)) 
+//				mMovieShowTimes.add(st);
+//		}
 		
 		printHeader("ShowTime of "+movie.getTitle());
 
@@ -357,32 +362,44 @@ public abstract class BaseMenu {
 			// Display the ShowTime according to date & time		
 			// initialize the variables going to be used
 			String prevDate = "";		// keep track of the previous ShowTime's date been printed
-			boolean platinum = true;
+			boolean platinum = false;
+			Cineplex cineplex = null;
 			int pos, row = 1, col = 0;
 			
 			// sort the ShowTime according to the date then time
 			Collections.sort(mMovieShowTimes);
-			
+//			for (ShowTime st: mMovieShowTimes) 
+//				println(st.getCinema().getCineplex().name()+" "+st.getCinema().isPlatinum()+" "+st.getCinema().getName()+" "+st.getDateTime());
+
 			// start doing the printing of the showtime
 			for (pos=0; pos<mMovieShowTimes.size(); pos++,row++) {
 				
 				// retrieve ShowTime from list
 				ShowTime showtime = mMovieShowTimes.get(pos);
 				
-				if (showtime.getCinema().isPlatinum() == platinum || pos == 0) {
+				if (cineplex == null || cineplex != showtime.getCinema().getCineplex() ||
+					showtime.getCinema().isPlatinum() == platinum) {
+					
+					cineplex = showtime.getCinema().getCineplex();
+					
+					if (pos != 0) println("");
+					
 					if (platinum) {
-						println(" Platinum");
-						println("**********");
+						printSubHeader(cineplex.value() + " (Platinum Suite)");
 					} else {
-						if (pos != 0) 
-							println("\n");
-						println(" Normal");
-						println("********");
-					}
+						printSubHeader(cineplex.value());
+					}					
 					
 					col = 0;
 					platinum = !platinum;
 					prevDate = "";
+				} else {
+					if (col == 4) {
+						println(""); 
+						col = 0;
+					} else if (!prevDate.equals(showtime.getFormattedDate())) {
+						println("");
+					}
 				}
 				
 				// print the ShowTime Date
@@ -392,7 +409,8 @@ public abstract class BaseMenu {
 				if (prevDate.isEmpty() || !prevDate.equals(showtime.getFormattedDate())) {
 					// store the showtime date
 					prevDate = showtime.getFormattedDate();
-										
+					
+					
 					// display the date of the showtime
 					println("\n "+prevDate);
 					
@@ -406,10 +424,7 @@ public abstract class BaseMenu {
 				// pre-increment the col counter 
 				// and reset the col counter
 				// when col counter is equal to 5
-				if (++col == 5) {
-					println(""); 
-					col = 0;
-				}
+				col++;
 			}
 			
 			// ask user to input the choice of the showtime
@@ -445,11 +460,14 @@ public abstract class BaseMenu {
 
 	// Method to print header with default style
 	protected void printSubHeader(String title){
+		print("\n");
+		for (int i=0; i<title.length()+8; i++)
+			print("=");
 		println("");
 		println("    "+title);
 		for (int i=0; i<title.length()+8; i++)
-			print("-");
-		println("");
+			print("=");
+		print("\n");
 	}
 		
 	// This method was created to replace System.out.print
