@@ -9,23 +9,10 @@ public class StaffMenu extends BaseMenu {
 	private Staff mCurrentLoginStaff;
 	
 	private ManageMovieMenu mManageMovieMenu;
-<<<<<<< HEAD
-	private ManageCinemaMenu mManageCinemaMenu;
-	private ManageSystemMenu mManageTicketMenu;
-	
-	/**Initialize the StaffMenu
-	 * Staff is for cinema staffs to manage all the data
-	 * Three child menus inside.
-	 * ManageMovieMenu
-	 * ManageCinemaMenu
-	 * ManageSystemMenu
-	 * @param mCineplexManager
-	 */
-=======
+
 	private ManageSystemMenu mManageSystemMenu;
 	private ManageShowTimeMenu mManageShowTimeMenu;
 
->>>>>>> origin/master
 	public StaffMenu(CineplexManager mCineplexManager) {
 		super(mCineplexManager);
 		
@@ -82,10 +69,7 @@ public class StaffMenu extends BaseMenu {
 				}
 			} while (choice != 4);				
 		} else println("Invalid username/password");	
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
 	}
 	
 	

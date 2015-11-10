@@ -166,7 +166,6 @@ public class ShowTime extends Model implements Comparable<ShowTime> {
 		return super.equals(obj);
 	}
 	
-<<<<<<< HEAD
 	/**Load info from a ShowTime object
 	 * @param copyInstance
 	 */
@@ -178,8 +177,6 @@ public class ShowTime extends Model implements Comparable<ShowTime> {
 		time   = copyInstance.time;
 	}
 	
-=======
->>>>>>> origin/master
 	public ShowTime clone() {
 		ShowTime cloned = new ShowTime();
 		cloned.id     = id;

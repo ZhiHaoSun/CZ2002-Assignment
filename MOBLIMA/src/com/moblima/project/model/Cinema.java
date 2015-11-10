@@ -111,16 +111,13 @@ public class Cinema extends Model {
 		this.mShowTimes.add(showTime);
 	}
 	
-<<<<<<< HEAD
-	/**Update the cinema info from a cinema instance.
-	 * @param copyInstance
-	 */
-=======
 	public void removeShowTime(ShowTime showTime) {
 		this.mShowTimes.remove(showTime);
 	}
-	
->>>>>>> origin/master
+
+/**Update the cinema info from a cinema instance.
+ * @param copyInstance
+ */
 	public void copy(Cinema copyInstance) {
 		id 	 = copyInstance.id;
 		name = copyInstance.name;
