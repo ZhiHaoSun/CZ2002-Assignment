@@ -342,18 +342,7 @@ public abstract class BaseMenu {
 	
 	protected ShowTime chooseShowTime(Movie movie) throws ExitException {
 		// select the movie ShowTime to be shown
-		ArrayList<ShowTime> mMovieShowTimes = new ArrayList<>(mCineplexManager.getShowTimes());
-		
-//		// select the Cineplex of the Movie to be shown
-//		Cineplex cineplex = chooseCineplex();
-//
-//		// traverse through the list of showtimes in the movie
-//		// find showtime with same cineplex
-//		// and add into the temp list
-//		for (ShowTime st:movie.getShowTimes()) {
-//			if (st.equals(cineplex)) 
-//				mMovieShowTimes.add(st);
-//		}
+		ArrayList<ShowTime> mMovieShowTimes = new ArrayList<>(movie.getShowTimes());
 		
 		printHeader("ShowTime of "+movie.getTitle());
 
@@ -362,14 +351,14 @@ public abstract class BaseMenu {
 			// Display the ShowTime according to date & time		
 			// initialize the variables going to be used
 			String prevDate = "";		// keep track of the previous ShowTime's date been printed
-			boolean platinum = false;
+			boolean platinum = true;
 			Cineplex cineplex = null;
 			int pos, row = 1, col = 0;
 			
 			// sort the ShowTime according to the date then time
 			Collections.sort(mMovieShowTimes);
-//			for (ShowTime st: mMovieShowTimes) 
-//				println(st.getCinema().getCineplex().name()+" "+st.getCinema().isPlatinum()+" "+st.getCinema().getName()+" "+st.getDateTime());
+			for (ShowTime st: mMovieShowTimes) 
+				println(st.getCinema().getCineplex().name()+" "+st.getCinema().isPlatinum()+" "+st.getCinema().getName()+" "+st.getDateTime());
 
 			// start doing the printing of the showtime
 			for (pos=0; pos<mMovieShowTimes.size(); pos++,row++) {
@@ -384,7 +373,7 @@ public abstract class BaseMenu {
 					
 					if (pos != 0) println("");
 					
-					if (platinum) {
+					if (showtime.getCinema().isPlatinum()) {
 						printSubHeader(cineplex.value() + " (Platinum Suite)");
 					} else {
 						printSubHeader(cineplex.value());

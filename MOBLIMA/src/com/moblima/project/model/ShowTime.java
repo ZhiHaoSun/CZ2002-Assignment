@@ -163,9 +163,9 @@ public class ShowTime extends Model implements Comparable<ShowTime> {
 		if (compare != 0) return compare;
 
 		if (st.cinema.isPlatinum() && !cinema.isPlatinum()) 
-			return -1;
-		else if (!st.cinema.isPlatinum() && cinema.isPlatinum())
 			return 1;
+		else if (!st.cinema.isPlatinum() && cinema.isPlatinum())
+			return -1;
 		
 		// sort by date
 		if (st.date.before(date))
