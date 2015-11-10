@@ -1,0 +1,142 @@
+package com.moblima.project.model;
+
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+public class Booking extends Model {
+
+	private String tid;
+
+	private Date   date;
+	private double totalPrice;
+	private Customer customer;
+	private ShowTime showtime;
+	
+	private ArrayList<Seat>   seats;
+
+	/**
+	 * Booking is the model for any customer info.
+	 */
+	public Booking() {
+		seats = new ArrayList<>();
+	}
+	
+	public Booking(String tid) {
+		this.tid = tid;
+	}
+	
+	public Booking(Customer customer, ShowTime showtime) {
+		this();
+		this.date = new Date();
+		this.tid  = showtime.getCinema().getCode()+Constant.bookingFormat.format(date);
+
+		this.customer = customer;
+		this.showtime = showtime;
+	}
+	
+	public Booking(JSONObject object) throws ParseException, JSONException {
+		this();
+		this.tid  = object.getString("tid");
+		this.date = Constant.datetimeFormat.parse(object.getString("date"));
+		this.showtime = new ShowTime(object.getInt("showtimeId"));
+		this.customer = new Customer(object.getInt("customerId"));
+		this.totalPrice = object.getDouble("total price");
+		
+		JSONArray array = object.getJSONArray("seats");
+		
+		for (int i=0; i<array.length(); i++) 
+			seats.add(new Seat(array.getJSONObject(i)));
+	}
+	
+	public String getTID() {
+		return tid;
+	}
+
+	public void setTID(String tid) {
+		this.tid = tid;
+	}
+	
+	public String getDate() {
+		return Constant.datetimeFormat.format(date);
+	}
+	
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public double getTotalPrice() {
+		return totalPrice;
+	}
+	
+	public void setTotalPrice(double totalPrice) {
+		this.totalPrice = totalPrice;
+	}
+
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+
+	public ShowTime getShowtime() {
+		return showtime;
+	}
+
+	public void setShowtime(ShowTime showtime) {
+		this.showtime = showtime;
+	}
+
+	public ArrayList<Seat> getSeats() {
+		Collections.sort(seats);
+		return seats;
+	}
+
+	public void addSeat(Seat seat) {
+		this.seats.add(seat);
+	}
+	
+	public void setSeats(ArrayList<Seat> seats) {
+		this.seats = seats;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Booking) {
+			Booking t = (Booking) obj;
+			return t.tid.equals(tid);
+		} else if (obj instanceof Movie) {
+			return showtime.equals(obj);
+		}
+		return super.equals(obj);
+	}
+	
+	@Override
+	public JSONObject toJSONObject() throws JSONException {
+		JSONObject object = new JSONObject();
+		object.put("tid", tid);
+		object.put("date", getDate());
+		object.put("total price", String.format("%.2f", totalPrice));
+
+		object.put("seats", new JSONArray(seats.toString()));
+		object.put("showtimeId", showtime.getId());
+		object.put("customerId", customer.getId());
+
+		object.put("total price", String.format("%.2f", totalPrice));
+		return object;
+	}
+
+	@Override
+	public String toDisplay() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

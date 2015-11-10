@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**Model to hold customer info
+ * @author sunzhihao
+ *
+ */
 public class Customer extends Model {
 	private String name;
 	private String phone;
@@ -16,11 +20,19 @@ public class Customer extends Model {
 		mBookingRecords = new ArrayList<>();
 	}
 	
+	/**
+	 * @param id
+	 */
 	public Customer(int id) {
 		this();
 		this.id = id;
 	}
 	
+	/**
+	 * @param name
+	 * @param email
+	 * @param phone
+	 */
 	public Customer(String name, String email, String phone) {
 		this();
 		this.name = name;
@@ -28,6 +40,10 @@ public class Customer extends Model {
 		this.phone = phone;
 	}
 	
+	/**
+	 * @param object
+	 * @throws JSONException
+	 */
 	public Customer(JSONObject object) throws JSONException{
 		this(object.getString("name"), 
 			 object.getString("email"),
@@ -97,7 +113,6 @@ public class Customer extends Model {
 
 	@Override
 	public String toDisplay() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 }

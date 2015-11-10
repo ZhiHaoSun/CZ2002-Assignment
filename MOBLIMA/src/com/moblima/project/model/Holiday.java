@@ -6,6 +6,11 @@ import java.util.Date;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**The Model to hold all the Holiday discount info.
+ * Is Comparable for comparison of weekdays
+ * @author sunzhihao
+ *
+ */
 public class Holiday extends Model implements Comparable<Holiday> {
 	
 	private Date   date;
@@ -13,6 +18,11 @@ public class Holiday extends Model implements Comparable<Holiday> {
 	
 	public Holiday() {}
 	
+	/**
+	 * @param object
+	 * @throws ParseException
+	 * @throws JSONException
+	 */
 	public Holiday(JSONObject object) throws ParseException, JSONException {
 		this();
 		this.id   = object.getInt("id");

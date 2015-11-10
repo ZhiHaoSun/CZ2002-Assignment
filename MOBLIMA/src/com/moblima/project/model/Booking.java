@@ -20,14 +20,24 @@ public class Booking extends Model {
 	
 	private ArrayList<Seat>   seats;
 
+	/**
+	 * Booking is the model for any customer info.
+	 */
 	public Booking() {
 		seats = new ArrayList<>();
 	}
 	
+	/**
+	 * @param tid
+	 */
 	public Booking(String tid) {
 		this.tid = tid;
 	}
 	
+	/**Generate the id for the booking based on ShowTime and current date
+	 * @param customer
+	 * @param showtime
+	 */
 	public Booking(Customer customer, ShowTime showtime) {
 		this();
 		this.date = new Date();
@@ -37,6 +47,13 @@ public class Booking extends Model {
 		this.showtime = showtime;
 	}
 	
+	/**Generate the id for the booking based on ShowTime and current date
+	 * Initialize the Booking from a JSONObject.
+	 * Initialize all seats as empty.
+	 * @param object
+	 * @throws ParseException
+	 * @throws JSONException
+	 */
 	public Booking(JSONObject object) throws ParseException, JSONException {
 		this();
 		this.tid  = object.getString("tid");
@@ -51,6 +68,9 @@ public class Booking extends Model {
 			seats.add(new Seat(array.getJSONObject(i)));
 	}
 	
+	/**
+	 * @return String
+	 */
 	public String getTID() {
 		return tid;
 	}
@@ -59,6 +79,9 @@ public class Booking extends Model {
 		this.tid = tid;
 	}
 	
+	/**
+	 * @return String
+	 */
 	public String getDate() {
 		return Constant.datetimeFormat.format(date);
 	}
@@ -67,6 +90,9 @@ public class Booking extends Model {
 		this.date = date;
 	}
 
+	/**The price after discount
+	 * @return double
+	 */
 	public double getTotalPrice() {
 		return totalPrice;
 	}
@@ -75,6 +101,9 @@ public class Booking extends Model {
 		this.totalPrice = totalPrice;
 	}
 
+	/**
+	 * @return Customer
+	 */
 	public Customer getCustomer() {
 		return customer;
 	}
@@ -91,6 +120,9 @@ public class Booking extends Model {
 		this.showtime = showtime;
 	}
 
+	/**
+	 * @return ArrayList<Seat>
+	 */
 	public ArrayList<Seat> getSeats() {
 		Collections.sort(seats);
 		return seats;

@@ -12,20 +12,37 @@ import org.json.JSONException;
 
 import com.moblima.project.model.Model;
 
+/**Base abstract class of manager
+ * @author sunzhihao
+ *
+ */
 public abstract class Manager {
 	protected int index, pos;
 	protected int idCounter;
 	protected JSONArray array;
 	
+	/**Manager class to manage all the data update and saving.
+	 * 
+	 * @throws IOException
+	 * @throws JSONException
+	 * @throws ParseException
+	 * 
+	 */
 	public Manager() throws IOException, JSONException, ParseException{
 		load();
 	}
 	
 	protected JSONArray getData(String filepath) throws IOException, JSONException {
 		String data = new String(Files.readAllBytes(Paths.get(filepath)));
+// Updated upstream
 		return new JSONArray(data);
 	}
 	
+	/**Write json data to the file.
+	 * @param file
+	 * @param json
+	 * @return boolean
+	 */
 	protected boolean writeFile(String file, String json) {
 		try {
 			BufferedWriter bw = new BufferedWriter(new FileWriter(file));
@@ -40,8 +57,17 @@ public abstract class Manager {
 		return false;
 	}
 	
+	/*
+	 * Load all the data into manager.
+	 * Data of different models are stored in corresponding ArrayLists.
+	 */
 	protected abstract void load() throws IOException, JSONException, ParseException ;
 	
+	/**
+	 * @param instance
+	 * @return boolean
+	 * @throws JSONException
+	 */
 	public boolean save(Model instance) throws JSONException{
 		if(instance.getId() > this.idCounter)
 			return create(instance);
@@ -49,9 +75,25 @@ public abstract class Manager {
 			return update(instance);
 	}
 	
+	/*
+	 * The function to save a new model data created.
+	 * Insert the model inside the manager's ArrayList as well.
+	 */
 	public abstract boolean create(Model model);
+	/*
+	 * The function to save an existing model data updated.
+	 * Update the data in Manager's ArrayList as well.
+	 */
 	public abstract boolean update(Model model);
+	/*
+	 * The function to save a deleted model data.
+	 * Remove the data in Manager's Arraylist as well.
+	 */
 	public abstract boolean delete(Model model);
 	
+	/*
+	 * Get a concrete model from a model object.
+	 * Search based on id.
+	 */
 	public abstract Model getInstance(Model model);
 }

@@ -7,6 +7,9 @@ import java.util.Date;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**The model to hold a review and rating to a movie.
+ *
+ */
 public class Review extends Model implements Comparable<Review> {
 		
 	private Date date;
@@ -17,6 +20,11 @@ public class Review extends Model implements Comparable<Review> {
 	
 	public Review() {}
 	
+	/**
+	 * @param rating
+	 * @param description
+	 * @param movieId
+	 */
 	public Review(int rating, String description, int movieId) {
 		super();
 		this.rating = rating;
@@ -24,6 +32,12 @@ public class Review extends Model implements Comparable<Review> {
 		this.description = description;
 	}
 	
+	/**
+	 * @param rating
+	 * @param date
+	 * @param description
+	 * @param movieId
+	 */
 	public Review(int rating, Date date, String description, int movieId) {
 		super();
 		this.rating = rating;
@@ -31,6 +45,11 @@ public class Review extends Model implements Comparable<Review> {
 		this.description = description;
 	}
 	
+	/**
+	 * @param object
+	 * @throws JSONException
+	 * @throws ParseException
+	 */
 	public Review(JSONObject object) throws JSONException, ParseException{
 		name 		= object.getString("name");
 		description = object.getString("description");
@@ -46,6 +65,9 @@ public class Review extends Model implements Comparable<Review> {
 		this.name = name;
 	}
 	
+	/**Returns the rating of a review as stars.
+	 * @return String
+	 */
 	public String getStarRating() {
 		String orate = "";
 		
@@ -68,6 +90,9 @@ public class Review extends Model implements Comparable<Review> {
 		this.rating = rating;
 	}
 	
+	/**Get the current date as a String
+	 * @return String
+	 */
 	public String getPostedDate() {
 		if (date == null) date = Calendar.getInstance().getTime();
 

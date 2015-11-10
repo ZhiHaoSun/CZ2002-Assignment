@@ -1,0 +1,96 @@
+package com.moblima.project.view.staff;
+
+import org.json.JSONException;
+
+import com.moblima.project.controller.CineplexManager;
+import com.moblima.project.model.Cinema;
+import com.moblima.project.view.BaseMenu;
+
+public class ManageCinemaMenu extends BaseMenu {
+	
+	private ManageShowTimeMenu mManageShowTimeMenu;
+	
+	public ManageCinemaMenu(CineplexManager mCineplexManager) {
+		super(mCineplexManager);
+		
+		mManageShowTimeMenu = new ManageShowTimeMenu(mCineplexManager);
+	}
+	
+	private Cinema cinema;
+
+	@Override
+	public void displayMenu() {
+		choice = 0; // each menu manage their own choice integer
+		
+		do {
+			printHeader("Manage Cinema Listing");
+			println(" 1. Create Cinema");
+			println(" 2. Update Cinema");
+			println(" 3. Manage Cinema Show Times");
+			println(" 4. Back");
+			println("");
+			
+			try {
+				choice = readChoice(1, 4);
+				
+				switch (choice) {
+					case 1:
+						createCinema();
+						break;
+					case 2:
+						updateCinema();
+						break;
+					case 3:
+						mManageShowTimeMenu.displayMenu();
+						break;
+					case 4: 
+						return; // end this method and go back to previous menu
+					default:
+						println("Invalid choice! Please select again!!!");
+						break;
+				}			
+			} catch (ExitException e) {
+				break;
+			} catch (JSONException e) {
+				println("FAIL");
+				break;
+			}
+		} while (choice != 4);
+	}
+
+	public void createCinema() throws ExitException, JSONException{
+		cinema = new Cinema();
+		
+		printHeader("Create Cinema");
+		
+		cinema.setCode(read("Cinema Code: "));
+		cinema.setName(read("Cinema Name: "));
+		cinema.setCineplex(chooseCineplex());
+		cinema.setPlatinum(confirm("Is this cinema platinum suite?"));
+		
+		if (mCineplexManager.create(cinema))
+			System.out.println("Create Successful");
+		else
+			System.out.println("Create Unsuccessful");
+	}
+	
+	public void updateCinema() throws ExitException, JSONException{
+		printHeader("Update Cinema");
+		
+		cinema = chooseCinema(chooseCineplex());
+		
+		if(confirm("Change Name ?"))
+			cinema.setName(read("New Name: "));
+
+		if(confirm("Change Cineplex?"))
+			cinema.setCineplex(chooseCineplex());
+		
+		if(confirm("Change Class of Cinema?"))
+			cinema.setPlatinum(!cinema.isPlatinum());
+		
+		if(mCineplexManager.update(cinema))
+			println("Update Cinema Successful");
+		else
+			println("Update Cinema Unsuccessful");
+	}
+}

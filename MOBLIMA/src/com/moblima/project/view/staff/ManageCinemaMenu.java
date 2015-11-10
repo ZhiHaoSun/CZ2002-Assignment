@@ -10,6 +10,9 @@ public class ManageCinemaMenu extends BaseMenu {
 	
 	private ManageShowTimeMenu mManageShowTimeMenu;
 	
+	/**Menu that manages cinema info and gives the entrance to ShowTime menu.
+	 * @param mCineplexManager
+	 */
 	public ManageCinemaMenu(CineplexManager mCineplexManager) {
 		super(mCineplexManager);
 		
@@ -58,6 +61,11 @@ public class ManageCinemaMenu extends BaseMenu {
 		} while (choice != 4);
 	}
 
+	/**Option to create new cinema.
+	 * If creation is successful, Successful message will be displayed.
+	 * @throws ExitException
+	 * @throws JSONException
+	 */
 	public void createCinema() throws ExitException, JSONException{
 		cinema = new Cinema();
 		
@@ -74,6 +82,11 @@ public class ManageCinemaMenu extends BaseMenu {
 			System.out.println("Create Unsuccessful");
 	}
 	
+	/**Option to update cinema info for existing cinemas.
+	 * Successful message will be shown if updated.
+	 * @throws ExitException
+	 * @throws JSONException
+	 */
 	public void updateCinema() throws ExitException, JSONException{
 		printHeader("Update Cinema");
 		

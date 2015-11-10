@@ -3,16 +3,27 @@ package com.moblima.project.model;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**The model to hold the info an admin of a cinema
+ *
+ */
 public class Staff {
 	private String username;
 	private String password;
 		
 	public Staff() {}
+	/**
+	 * @param username
+	 * @param password
+	 */
 	public Staff(String username, String password) {
 		this.username = username;
 		this.password = password;
 	}
 	
+	/**
+	 * @param object
+	 * @throws JSONException
+	 */
 	public Staff(JSONObject object) throws JSONException{
 		this.username = object.getString("usrname");
 		this.password = object.getString("passwd");
