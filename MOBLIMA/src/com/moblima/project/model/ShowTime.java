@@ -10,6 +10,9 @@ import org.json.JSONObject;
 
 import com.moblima.project.model.Constant.Cineplex;
 
+/**The model to hold the info of a time for a movie to display in a cinema
+ *
+ */
 public class ShowTime extends Model implements Comparable<ShowTime> {	
 	private Date date;
 	private Date time;
@@ -22,16 +25,28 @@ public class ShowTime extends Model implements Comparable<ShowTime> {
 		occupiedSeats = new ArrayList<>();
 	}
 	
+	/**
+	 * @param id
+	 */
 	public ShowTime(int id) {
 		this.id = id;
 	}
 	
+	/**
+	 * @param movieId
+	 * @param cinemaCode
+	 */
 	public ShowTime(int movieId, String cinemaCode) {
 		this();
 		this.movie  = new Movie(movieId);
 		this.cinema = new Cinema(cinemaCode);
 	}
 
+	/**
+	 * @param object
+	 * @throws JSONException
+	 * @throws ParseException
+	 */
 	public ShowTime(JSONObject object) throws JSONException, ParseException {
 		this(object.getInt("movieId"), object.getString("cinemaCode"));
 		
@@ -56,19 +71,26 @@ public class ShowTime extends Model implements Comparable<ShowTime> {
 		return time;
 	}
 	
+	/**Get the date and time of the ShowTime
+	 * @return String
+	 */
 	public String getDateTime() {
 		return getFormattedDate() +", "+ getFormattedTime();
 	}
 	
+	/** Get the date String only
+	 * @return
+	 */
 	public String getFormattedDate() {
 		return Constant.dateFormatLong.format(date);
 	}
 
+	/**Get the time String only
+	 * @return
+	 */
 	public String getFormattedTime() {
 		return Constant.timeFormat.format(time);
 	}
-	
-	
 	
 	public Movie getMovie() {
 		return movie;
@@ -142,6 +164,17 @@ public class ShowTime extends Model implements Comparable<ShowTime> {
 		}
 		
 		return super.equals(obj);
+	}
+	
+	/**Load info from a ShowTime object
+	 * @param copyInstance
+	 */
+	public void copy(ShowTime copyInstance) {
+		id 	   = copyInstance.id;
+		movie  = copyInstance.movie;
+		cinema = copyInstance.cinema;
+		date   = copyInstance.date;
+		time   = copyInstance.time;
 	}
 	
 	public ShowTime clone() {

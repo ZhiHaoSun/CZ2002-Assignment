@@ -3,6 +3,10 @@ package com.moblima.project.model;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
+/**The class to hold all the constant values and enum classes, Date formats
+ * @author sunzhihao
+ *
+ */
 public class Constant {
 	
 	public static final String FORMAT_TIME_CLOCK = "HHmm";
@@ -27,6 +31,10 @@ public class Constant {
 	public static final int colNumber = 9;
 	public static final int rowNumber = 5;
 	
+	/**Name of Cineplex
+	 * @author sunzhihao
+	 *
+	 */
 	public static enum Cineplex {
 		THE_CATHAY_CINEPLEX("C", "The Cathay Cineplex"), 
 		CATHAY_CINEPLEX_CINELEISURE_ORCHARD("O", "Cathay Cineplex Cineleisure Orchard"), 
@@ -41,6 +49,10 @@ public class Constant {
 		public String code() { return code; }
 	}
 	
+	/**Status of a movie.
+	 * @author sunzhihao
+	 *
+	 */
 	public static enum Status {
 		COMING_SOON("Coming Soon"), 
 		PREVIEW("Preview"), 
@@ -54,6 +66,10 @@ public class Constant {
 		public String value() { return value; }
 	}
 	
+	/**Language of a movie
+	 * @author sunzhihao
+	 *
+	 */
 	public static enum Language {
 		ENGLISH("English"), 
 		ENGLISH_WITH_CHINESE_SUBTITLES("English with Chinese subtitles"), 
@@ -70,10 +86,18 @@ public class Constant {
 		public String value() { return value; }
 	}
 	
+	/**Rating of a movie, like 18-ban
+	 * @author sunzhihao
+	 *
+	 */
 	public static enum Rating {
 		G, PG, PG13, NC16, M18, R21
 	}
 	
+	/**The type of movie, like Digital and 3D
+	 * @author sunzhihao
+	 *
+	 */
 	public static enum MovieType {
 		DIGITAL ("Digital"),
 		THREED ("3D");
@@ -83,6 +107,10 @@ public class Constant {
 		public String value() { return value; }
 	}
 	
+	/**The type of a ticket, like holiday and buyer age
+	 * @author sunzhihao
+	 *
+	 */
 	public static enum TicketType {
 		SENIOR_CITIZENS("Senior Citizens"), 
 		STUDENTS("Students"), 

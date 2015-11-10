@@ -19,6 +19,10 @@ import com.moblima.project.model.Model;
 import com.moblima.project.model.ShowTime;
 import com.moblima.project.model.Ticket;
 
+/**The manager class to manage all the discount stuffs
+ * @author sunzhihao
+ *
+ */
 public class TicketManager extends Manager {
 	private static final String FILE_TICKET  = "data/ticket.json";
 	private static final String FILE_HOLIDAY = "data/holiday.json";
@@ -175,6 +179,12 @@ public class TicketManager extends Manager {
 		return sb.toString();
 	}
 	
+	/**Derive a new ticket from input conditions
+	 * @param showtime
+	 * @param isStudent
+	 * @param isSeniorCitizen
+	 * @return
+	 */
 	public Ticket getTicketPrice (ShowTime showtime, boolean isStudent, boolean isSeniorCitizen) {
 		Calendar cal = Calendar.getInstance();
 	    cal.setTime(showtime.getDate());

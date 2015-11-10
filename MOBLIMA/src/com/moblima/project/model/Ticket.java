@@ -6,6 +6,10 @@ import org.json.JSONObject;
 import com.moblima.project.model.Constant.MovieType;
 import com.moblima.project.model.Constant.TicketType;
 
+/**The Ticket class to hold all the discount info and the total price of the ticket after discount.
+ * @author sunzhihao
+ *
+ */
 public class Ticket extends Model {
 	
 	private boolean platinum;
@@ -14,6 +18,10 @@ public class Ticket extends Model {
 	private double price;
 	
 	public Ticket(){}
+	/**
+	 * @param platinum
+	 * @param movieType
+	 */
 	public Ticket(boolean platinum, MovieType movieType){
 		this.platinum  = platinum;
 		this.movieType = movieType;

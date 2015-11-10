@@ -9,6 +9,7 @@ public class StaffMenu extends BaseMenu {
 	private Staff mCurrentLoginStaff;
 	
 	private ManageMovieMenu mManageMovieMenu;
+
 	private ManageSystemMenu mManageSystemMenu;
 	private ManageShowTimeMenu mManageShowTimeMenu;
 
@@ -21,6 +22,9 @@ public class StaffMenu extends BaseMenu {
 	}
 	
 	// Main Menu: Choice #1
+	/**Read in staff info and authenticate the staff
+	 * @return boolean
+	 */
 	public boolean login() {
 		printHeader("Staff Login");
 				
@@ -65,6 +69,7 @@ public class StaffMenu extends BaseMenu {
 				}
 			} while (choice != 4);				
 		} else println("Invalid username/password");	
+
 	}
 	
 	

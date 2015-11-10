@@ -20,7 +20,14 @@ import com.moblima.project.model.ShowTime;
 import com.moblima.project.model.Staff;
 import com.moblima.project.model.Ticket;
 
+/**The manager class to manage the storage of all the models.
+ * All the model data is held inside corresponding ArrayLists.
+ *Any updates on the data is done on the ArrayLists here and files both.
+ */
 public class CineplexManager extends Manager {
+	/**
+	 * 
+	 */
 	private static final String FILE_STAFF       = "data/staff.json";
 	private static final String FILE_MOVIE       = "data/movie.json";
 	private static final String FILE_CINEMA      = "data/cinema.json";
@@ -55,36 +62,64 @@ public class CineplexManager extends Manager {
 	
 	private TicketManager mTicketManager;
 	
+	/**{@link Manager}
+	 * @throws IOException
+	 * @throws JSONException
+	 * @throws ParseException
+	 * 
+	 */
 	public CineplexManager() throws IOException, JSONException, ParseException {
 		super();
 	}
 	
 	// Read-Only for the list of movies, cinema, showtimes
 	// No direct replacement is allow
+	/**
+	 * @return ArraayList<Movie>
+	 */
 	public ArrayList<Movie> getMovies() {
 		return mMovies;
 	}
 
+	/**
+	 * @return ArrayList<Cinema>
+	 */
 	public ArrayList<Cinema> getCinemas() {
 		return mCinemas;
 	}
 
+	/**
+	 * @return ArrayList<ShowTime>
+	 */
 	public ArrayList<ShowTime> getShowTimes() {
 		return mShowTimes;
 	}
 	
+	/**
+	 * @return ArrayList<Customer>
+	 */
 	public ArrayList<Customer> getCustomers() {
 		return mCustomers;
 	}
 	
+	/**
+	 * @return ArrayList<Booking>
+	 */
 	public ArrayList<Booking> getBookingRecords() {
 		return mBookingRecords;
 	}
 	
+	/**
+	 * @return ArrayList<Ticket>
+	 */
 	public ArrayList<Ticket> getTicketPrices() {
 		return mTicketPrices;
 	}
 	
+	/**Search movies based on movie title.
+	 * @param String
+	 * @return ArrayList<Movie>
+	 */
 	public ArrayList<Movie> searchMovies(String search) {
 		// create new list to prevent from affecting the original copy
 		ArrayList<Movie> mSearchResult = new ArrayList<>();
@@ -115,6 +150,13 @@ public class CineplexManager extends Manager {
 		return cMovies;
 	}
 		
+	/**Get the top five movies.
+	 * Two options to be based on:
+	 * 1. Overall Rating
+	 * 2. Total Sale calculated from booking history
+	 * @param boolean byOverallRating
+	 * @return ArrayList<Movie> 
+	 */
 	public ArrayList<Movie> getTopFiveMovies(boolean byOverallRating) {
 		// create new list to prevent from affecting the original copy
 		ArrayList<Movie> movies = new ArrayList<>(mMovies);
@@ -148,7 +190,14 @@ public class CineplexManager extends Manager {
 		return movies;
 	}
 	
+	/**Get ticket price of a ShowTime after discount
+	 * @param showtime
+	 * @param isStudent
+	 * @param isSeniorCitizen
+	 * @return Ticket
+	 */
 	public Ticket getTicketPrice(ShowTime showtime, boolean isStudent, boolean isSeniorCitizen) {
+		this.getTopFiveMovies(true);
 		return mTicketManager.getTicketPrice(showtime, isStudent, isSeniorCitizen);
 	}
 	
@@ -181,6 +230,10 @@ public class CineplexManager extends Manager {
 		return cinemas;
 	}
 
+	/**
+	 * Initialize all the data.
+	 * Give all the data an empty value.
+	 */
 	private void initialize() {
 		// default value for the counter of movie and showtime
 		midCounter = 0; 
@@ -198,13 +251,21 @@ public class CineplexManager extends Manager {
 		mBookingRecords = new ArrayList<>();
 	}
 	
+	/**Check if a staff is authenticated
+	 * @param staff
+	 * @return boolean
+	 */
 	public boolean authenticate(Staff staff){
 		return mStaffs.contains(staff);
 	}
 	
+	/**Get current TicketManager
+	 * @return TicketManager
+	 */
 	public TicketManager getTicketManager() {
 		return mTicketManager;
 	}
+	
 	
 	@Override
 	protected void load() throws IOException, JSONException, ParseException {

@@ -8,6 +8,7 @@
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="re"/>
 			<item value="chooseClassType"/>
 			<item value="classType"/>
 			<item value="price"/>
@@ -15,7 +16,6 @@
 			<item value="reviews"/>
 			<item value="date"/>
 			<item value="showTime"/>
-			<item value="cineplex"/>
 		</list>
 		<list key="replacehistory">
 		</list>

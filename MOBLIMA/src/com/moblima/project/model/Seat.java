@@ -3,16 +3,28 @@ package com.moblima.project.model;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**The model to hold a seat location and its ShowTime
+ *
+ */
 public class Seat extends Model implements Comparable<Seat> {
 	private int col;
 	private int row;
 	private ShowTime showTime;
 	
+	/**
+	 * @param row
+	 * @param col
+	 */
 	public Seat(int row, int col) {
 		this.col = col;
 		this.row = row;
 	}
 	
+	/**
+	 * @param col
+	 * @param row
+	 * @param showTime
+	 */
 	public Seat(int col, int row, ShowTime showTime) {
 		super();
 		this.col = col;
@@ -20,6 +32,10 @@ public class Seat extends Model implements Comparable<Seat> {
 		this.showTime = showTime;
 	}
 
+	/**
+	 * @param object
+	 * @throws JSONException
+	 */
 	public Seat(JSONObject object) throws JSONException {
 		this.row = object.getInt("row");
 		this.col = object.getInt("col");
@@ -45,6 +61,9 @@ public class Seat extends Model implements Comparable<Seat> {
 		return showTime;
 	}
 	
+	/**Get the seat in format A5
+	 * @return String
+	 */
 	public String getSeat() {
 		return String.valueOf(Character.toChars(65+row))+(col+1);
 	}

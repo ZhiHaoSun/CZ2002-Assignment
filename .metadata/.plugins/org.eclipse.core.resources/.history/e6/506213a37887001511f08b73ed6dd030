@@ -1,0 +1,228 @@
+package com.moblima.project.model;
+
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.moblima.project.model.Constant.Cineplex;
+
+/**The model to hold the info of a time for a movie to display in a cinema
+ *
+ */
+public class ShowTime extends Model implements Comparable<ShowTime> {	
+	private Date date;
+	private Date time;
+	private Movie movie;
+	private Cinema cinema;
+	
+	private ArrayList<Seat> occupiedSeats; 
+
+	public ShowTime() {
+		occupiedSeats = new ArrayList<>();
+	}
+	
+	/**
+	 * @param id
+	 */
+	public ShowTime(int id) {
+		this.id = id;
+	}
+	
+	/**
+	 * @param movieId
+	 * @param cinemaCode
+	 */
+	public ShowTime(int movieId, String cinemaCode) {
+		this();
+		this.movie  = new Movie(movieId);
+		this.cinema = new Cinema(cinemaCode);
+	}
+
+	/**
+	 * @param object
+	 * @throws JSONException
+	 * @throws ParseException
+	 */
+	public ShowTime(JSONObject object) throws JSONException, ParseException {
+		this(object.getInt("movieId"), object.getString("cinemaCode"));
+		
+		this.id   = object.getInt("id");
+		this.date = Constant.dateFormatLong.parse(object.getString("date"));
+		this.time = Constant.timeFormat.parse(object.getString("time"));
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+	
+	public void setTime(Date time) {
+		this.time = time;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public Date getTime() {
+		return time;
+	}
+	
+	/**Get the date and time of the ShowTime
+	 * @return String
+	 */
+	public String getDateTime() {
+		return getFormattedDate() +", "+ getFormattedTime();
+	}
+	
+	/** Get the date String only
+	 * @return
+	 */
+	public String getFormattedDate() {
+		return Constant.dateFormatLong.format(date);
+	}
+
+	/**Get the time String only
+	 * @return
+	 */
+	public String getFormattedTime() {
+		return Constant.timeFormat.format(time);
+	}
+	
+	public Movie getMovie() {
+		return movie;
+	}
+
+	public void setMovie(Movie movie) {
+		this.movie = movie;
+	}
+
+	public Cinema getCinema() {
+		return cinema;
+	}
+
+	public void setCinema(Cinema cinema) {
+		this.cinema = cinema;
+	}
+	
+	public ArrayList<Seat> getOccupiedSeats() {
+		return occupiedSeats;
+	}
+
+	public void addOccupiedSeats(Seat seat) {
+		occupiedSeats.add(seat);
+	}
+	
+	public void addOccupiedSeats(ArrayList<Seat> seats) {
+		occupiedSeats.addAll(seats);
+	}
+	
+	public void setOccupiedSeats(ArrayList<Seat> occupiedSeats) {
+		this.occupiedSeats = occupiedSeats;
+	}
+
+	@Override
+	public JSONObject toJSONObject() throws JSONException {
+		JSONObject object = new JSONObject();
+		object.put("id",id);
+		object.put("movieId", movie.getId());
+		object.put("cinemaCode",cinema.getCode());
+		object.put("date", getFormattedDate());
+		object.put("time", getFormattedTime());
+		
+		return object;
+	}
+
+	@Override
+	public String toDisplay() {
+		return "";
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Movie) {
+			return movie.equals(obj);
+		} else if (obj instanceof Cinema || obj instanceof Cineplex) {
+			return cinema.equals(obj);
+		} else if (obj instanceof ShowTime) {
+			ShowTime st = (ShowTime) obj;
+			return st.id == id;
+		} else if (obj instanceof Holiday) {
+			Holiday h = (Holiday) obj;
+			
+			Calendar hdate = Calendar.getInstance();
+			hdate.setTime(h.getDate());
+			
+			Calendar sdate = Calendar.getInstance();
+			sdate.setTime(date);
+
+			return (hdate.get(Calendar.MONTH) == sdate.get(Calendar.MONTH)) && 
+				   (hdate.get(Calendar.DAY_OF_MONTH) == sdate.get(Calendar.DAY_OF_MONTH));
+		}
+		
+		return super.equals(obj);
+	}
+	
+<<<<<<< HEAD
+	/**Load info from a ShowTime object
+	 * @param copyInstance
+	 */
+	public void copy(ShowTime copyInstance) {
+		id 	   = copyInstance.id;
+		movie  = copyInstance.movie;
+		cinema = copyInstance.cinema;
+		date   = copyInstance.date;
+		time   = copyInstance.time;
+	}
+	
+=======
+>>>>>>> origin/master
+	public ShowTime clone() {
+		ShowTime cloned = new ShowTime();
+		cloned.id     = id;
+		cloned.movie  = movie;
+		cloned.cinema = cinema;
+		cloned.date   = date;
+		cloned.time   = time;
+		
+		cloned.occupiedSeats = occupiedSeats;
+		return cloned;
+	}
+	
+	@Override
+	public int compareTo(ShowTime st) {
+		// sort by cineplex first
+		int compare = cinema.getCineplex().compareTo(st.cinema.getCineplex());
+		if (compare != 0) return compare;
+
+		if (st.cinema.isPlatinum() && !cinema.isPlatinum()) 
+			return -1;
+		else if (!st.cinema.isPlatinum() && cinema.isPlatinum())
+			return 1;
+		
+		// sort by date
+		if (st.date.before(date))
+			return 1;
+		else if (st.date.after(date))
+			return -1;
+		
+		// then by time
+		if (st.time.before(time))
+			return 1;
+		else if (st.time.after(time))
+			return -1;
+		
+		// then by showtime id
+		if (st.id < id)
+			return 1;
+		else if (st.id > id)
+			return -1;
+		
+		// if all same << don't think it will reach here
+		return 0;
+	}
+
+}

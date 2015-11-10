@@ -8,6 +8,10 @@ import org.json.JSONObject;
 
 import com.moblima.project.model.Constant.Cineplex;
 
+/**The class to hold cinema info and all the showtimes inside the cinema
+ * @author sunzhihao
+ *
+ */
 public class Cinema extends Model {
 
 	private String name;
@@ -22,15 +26,27 @@ public class Cinema extends Model {
 		mShowTimes = new ArrayList<>();
 	}
 	
+	/**
+	 * @param code
+	 */
 	public Cinema(String code) {
 		this.code = code;
 	}
 
+	/**
+	 * @param name
+	 * @param cineplex
+	 */
 	public Cinema(String name, Cineplex cineplex) {
 		this.name = name;
 		this.cineplex = cineplex;
 	}
 
+	/**
+	 * @param name
+	 * @param cineplex
+	 * @param showTimes
+	 */
 	public Cinema(String name, Cineplex cineplex, ArrayList<ShowTime> showTimes) {
 		super();
 		this.name = name;
@@ -38,6 +54,11 @@ public class Cinema extends Model {
 		this.mShowTimes = showTimes;
 	}
 
+	/**
+	 * @param object
+	 * @throws JSONException
+	 * @throws ParseException
+	 */
 	public Cinema(JSONObject object) throws JSONException, ParseException {
 		this();
 		this.name = object.getString("name");
@@ -93,7 +114,10 @@ public class Cinema extends Model {
 	public void removeShowTime(ShowTime showTime) {
 		this.mShowTimes.remove(showTime);
 	}
-	
+
+/**Update the cinema info from a cinema instance.
+ * @param copyInstance
+ */
 	public void copy(Cinema copyInstance) {
 		id 	 = copyInstance.id;
 		name = copyInstance.name;

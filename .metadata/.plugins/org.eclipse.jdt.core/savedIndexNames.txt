@@ -8,7 +8,6 @@ INDEX VERSION 1.127+/Users/sunzhihao/Desktop/CZ2002-Assignment/.metadata/.plugin
 3630079742.index
 1165542491.index
 353965938.index
-1443895614.index
 1819685514.index
 3302703152.index
 1833648217.index

@@ -13,6 +13,11 @@ import com.moblima.project.model.Constant.MovieType;
 import com.moblima.project.model.Constant.Rating;
 import com.moblima.project.model.Constant.Status;
 
+/**The model to hold all the movie info.
+ * Also holds all the reviews to the movie and the showtimes
+ * @author sunzhihao
+ *
+ */
 public class Movie extends Model {
 	private String title;
 	private String synopsis;
@@ -44,11 +49,19 @@ public class Movie extends Model {
 		showtimes = new ArrayList<>();
 	}
 	
+	/**
+	 * @param id
+	 */
 	public Movie(int id) {
 		this();
 		this.id = id;
 	}
 	
+	/**Constructors of movie, loads all the reivews of the movie to it.
+	 * @param jObj
+	 * @throws JSONException
+	 * @throws ParseException
+	 */
 	public Movie(JSONObject jObj) throws JSONException, ParseException {
 		this(jObj.getInt("id"));
 
@@ -134,6 +147,9 @@ public class Movie extends Model {
 		return casts;
 	}
 	
+	/** Builds all the casts of a movie into a string.
+	 * @return String
+	 */
 	public String getCastsStr(){
 		StringBuilder builder = new StringBuilder();
 		
@@ -146,6 +162,10 @@ public class Movie extends Model {
 		return builder.toString();
 	}
 	
+	/**Set the casts of a movie from a combined string.
+	 * Decompose the string split by ,
+	 * @param casts
+	 */
 	public void setCasts(String casts) {
 		String[] names = casts.split(",");
 		
@@ -179,6 +199,10 @@ public class Movie extends Model {
 		this.language = language;
 	}
 
+	/**Get the overall rating of the movie based on its reviews.
+	 * Result is given by stars.
+	 * @return String
+	 */
 	public String getOverallStarRating() {
 		String orate = "";
 		
@@ -193,10 +217,16 @@ public class Movie extends Model {
 		return orate;
 	}
 	
+	/**The total sale of the movie
+	 * @return int
+	 */
 	public int getTicketSales() {
 		return ticketSales;
 	}
 
+	/**All a value to the total TicketValue
+	 * @param ticketSales
+	 */
 	public void addTicketSales(int ticketSales) {
 		this.ticketSales += ticketSales;
 	}
@@ -217,6 +247,11 @@ public class Movie extends Model {
 		return opening;
 	}
 	
+	/**Set the opening time of movie from a string.
+	 * Format the time string into a date object.
+	 * @param opening
+	 * @throws ParseException
+	 */
 	public void setOpening(String opening) throws ParseException {
 		if (opening.equals("TBA")) this.opening = opening;
 		else {
@@ -243,6 +278,9 @@ public class Movie extends Model {
 		return reviews;
 	}
 
+	/**Add the review to a movie and update the new rating.
+	 * @param review
+	 */
 	public void addReview(Review review) {
 		double total;
 		
@@ -252,7 +290,6 @@ public class Movie extends Model {
 		reviews.add(review);
 		
 		overallRating =  total/reviews.size();
-		
 	}
 	
 	public ArrayList<ShowTime> getShowTimes() {
