@@ -221,7 +221,7 @@ public abstract class BaseMenu {
 			println(label);						
 		
 		for (int i=0, j=1; i<movies.size(); i++,j++)
-			println(" "+j+". "+movies.get(i).getTitle());
+			println(" "+j+". "+movies.get(i).getTitle()+" ("+movies.get(i).getMovieType().value()+")");
 		
 		println(" "+(movies.size()+1)+". Back");
 		println("");

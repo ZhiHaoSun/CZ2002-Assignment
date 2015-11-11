@@ -91,7 +91,7 @@ public class Constant {
 	 *
 	 */
 	public static enum Rating {
-		G, PG, PG13, NC16, M18, R21
+		G, PG, PG13, NC16, M18, R21, TBA
 	}
 	
 	/**The type of movie, like Digital and 3D

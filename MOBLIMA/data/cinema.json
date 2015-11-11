@@ -1,1 +1,104 @@
-[{"code":"CNZ","cineplex":"THE_CATHAY_CINEPLEX","name":"Hall A","platinum suite":true}, {"code":"CNA","cineplex":"THE_CATHAY_CINEPLEX","name":"Hall B","platinum suite":true}, {"code":"CNB","cineplex":"THE_CATHAY_CINEPLEX","name":"Hall C","platinum suite":true}, {"code":"BPA","cineplex":"CATHAY_CINEPLEX_CINELEISURE_ORCHARD","name":"Hall A","platinum suite":true}, {"code":"BNB","cineplex":"CATHAY_CINEPLEX_CINELEISURE_ORCHARD","name":"Hall B","platinum suite":false}, {"code":"CAA","cineplex":"CATHAY_CINEPLEX_DOWNTOWN_EAST","name":"Hall A","platinum suite":false}, {"code":"CAB","cineplex":"CATHAY_CINEPLEX_DOWNTOWN_EAST","name":"Halll B","platinum suite":false}]
+[
+   {
+      "code":"CPA",
+      "cineplex":"THE_CATHAY_CINEPLEX",
+      "name":"Hall A",
+      "platinum suite":true
+   },
+   {
+      "code":"CPB",
+      "cineplex":"THE_CATHAY_CINEPLEX",
+      "name":"Hall B",
+      "platinum suite":true
+   },
+   {
+      "code":"CNC",
+      "cineplex":"THE_CATHAY_CINEPLEX",
+      "name":"Hall C",
+      "platinum suite":false
+   },
+   {
+      "code":"CND",
+      "cineplex":"THE_CATHAY_CINEPLEX",
+      "name":"Hall D",
+      "platinum suite":false
+   },
+   {
+      "code":"CNE",
+      "cineplex":"THE_CATHAY_CINEPLEX",
+      "name":"Hall E",
+      "platinum suite":false
+   },
+   {
+      "code":"CNF",
+      "cineplex":"THE_CATHAY_CINEPLEX",
+      "name":"Hall F",
+      "platinum suite":false
+   },
+   {
+      "code":"OPA",
+      "cineplex":"CATHAY_CINEPLEX_CINELEISURE_ORCHARD",
+      "name":"Hall A",
+      "platinum suite":true
+   },
+   {
+      "code":"OPB",
+      "cineplex":"CATHAY_CINEPLEX_CINELEISURE_ORCHARD",
+      "name":"Hall B",
+      "platinum suite":true
+   },
+   {
+      "code":"ONC",
+      "cineplex":"CATHAY_CINEPLEX_CINELEISURE_ORCHARD",
+      "name":"Hall C",
+      "platinum suite":false
+   },
+   {
+      "code":"OND",
+      "cineplex":"CATHAY_CINEPLEX_CINELEISURE_ORCHARD",
+      "name":"Hall D",
+      "platinum suite":false
+   },
+   {
+      "code":"ONE",
+      "cineplex":"CATHAY_CINEPLEX_CINELEISURE_ORCHARD",
+      "name":"Hall E",
+      "platinum suite":true
+   },
+   {
+      "code":"ONF",
+      "cineplex":"CATHAY_CINEPLEX_CINELEISURE_ORCHARD",
+      "name":"Hall F",
+      "platinum suite":false
+   },
+   {
+      "code":"DNA",
+      "cineplex":"CATHAY_CINEPLEX_DOWNTOWN_EAST",
+      "name":"SCREEN 1",
+      "platinum suite":false
+   },
+   {
+      "code":"DNB",
+      "cineplex":"CATHAY_CINEPLEX_DOWNTOWN_EAST",
+      "name":"SCREEN 2",
+      "platinum suite":false
+   },
+   {
+      "code":"DNC",
+      "cineplex":"CATHAY_CINEPLEX_DOWNTOWN_EAST",
+      "name":"SCREEN 3",
+      "platinum suite":false
+   },
+   {
+      "code":"DPD",
+      "cineplex":"CATHAY_CINEPLEX_DOWNTOWN_EAST",
+      "name":"SCREEN 4",
+      "platinum suite":true
+   },
+   {
+      "code":"DNF",
+      "cineplex":"CATHAY_CINEPLEX_DOWNTOWN_EAST",
+      "name":"SCREEN 5",
+      "platinum suite":false
+   }
+]

@@ -1,5 +1,228 @@
-<<<<<<< HEAD
-[{"director":"Nawapol Thamrongrattanarit","rating":"PG13","runtime":"TBA","language":"THAI","synopsis":"This is a funny movie","blockbuster":false,"title":"Heart Attack","type":"DIGITAL","opening":"TBA","casts":["Sunny Suwanmethanont","Davika Hoorne"],"reviews":[{"date":"31 Oct 2015, 05:53AM","name":"Jun Wei","rating":4,"description":"Not Bad"},{"date":"06 Nov 2015, 06:16PM","name":"Jian An","rating":5,"description":"Can't wait for the movie!!!"}],"id":0,"overall rating":"4.5","status":"NOW_SHOWING"}, {"director":"Sibi","rating":"G","runtime":"180","language":"ENGLISH","synopsis":"This is the end of the world!","blockbuster":false,"title":"World End","type":"DIGITAL","opening":"04 Nov 2015","casts":["Crazy Man","Fool Real"],"reviews":[{"date":"01 Nov 2015, 09:13PM","name":"szh","rating":4,"description":"This is a scary movie"},{"date":"01 Nov 2015, 09:13PM","name":"szh","rating":1,"description":"This is a very bad movie."},{"date":"04 Nov 2015, 04:47PM","name":"Jun Wei","rating":5,"description":"Nice Action Movie"},{"date":"04 Nov 2015, 04:57PM","name":"Jun Wei","rating":1,"description":"Not Really that good~"}],"id":1,"overall rating":"2.0","status":"COMING_SOON"}, {"director":"weixiang","rating":"PG13","runtime":"120","language":"MANDARIN","synopsis":"asd","blockbuster":false,"title":"THe Flash","type":"DIGITAL","opening":"09 Nov 2015","casts":["zzhiaho","junwei"],"reviews":[],"id":2,"overall rating":"0.0","status":"NOW_SHOWING"}, {"director":"asdd","rating":"G","runtime":"100","language":"ENGLISH","synopsis":"\"asdasde\"","blockbuster":false,"title":"The Arrow","type":"THREED","opening":"13 Nov 2015","casts":["dasda","asdas"],"reviews":[],"id":3,"overall rating":"0.0","status":"END_OF_SHOWING"}]
-=======
-[{"director":"Nawapol Thamrongrattanarit","rating":"PG13","runtime":"TBA","language":"THAI","synopsis":"This is a funny movie","title":"Heart Attack","type":"DIGITAL","opening":"TBA","casts":["Sunny Suwanmethanont","Davika Hoorne"],"reviews":[{"date":"31 Oct 2015, 05:53AM","name":"Jun Wei","rating":4,"description":"Not Bad"},{"date":"06 Nov 2015, 06:16PM","name":"Jian An","rating":5,"description":"Can't wait for the movie!!!"}],"id":0,"overall rating":"4.5","status":"NOW_SHOWING"}, {"director":"Sibi","rating":"G","runtime":"180","language":"ENGLISH","synopsis":"This is the end of the world!","title":"World End","type":"DIGITAL","opening":"04 Nov 2015","casts":["Crazy Man","Fool Real"],"reviews":[{"date":"01 Nov 2015, 09:13PM","name":"szh","rating":4,"description":"This is a scary movie"},{"date":"01 Nov 2015, 09:13PM","name":"szh","rating":1,"description":"This is a very bad movie."},{"date":"04 Nov 2015, 04:47PM","name":"Jun Wei","rating":5,"description":"Nice Action Movie"},{"date":"04 Nov 2015, 04:57PM","name":"Jun Wei","rating":1,"description":"Not Really that good~"}],"id":1,"overall rating":"2.0","status":"COMING_SOON"}, {"director":"weixiang","rating":"PG13","runtime":"120","language":"MANDARIN","synopsis":"asd","title":"THe Flash","type":"THREED","opening":"09 Nov 2015","casts":["zzhiaho","junwei"],"reviews":[],"id":2,"overall rating":"0.0","status":"NOW_SHOWING"}, {"director":"asdd","rating":"G","runtime":"100","language":"ENGLISH","synopsis":"\"asdasde\"","title":"The Arrow","type":"THREED","opening":"13 Nov 2015","casts":["dasda","asdas"],"reviews":[{"date":"10 Nov 2015, 03:22PM","name":"szh","rating":1,"description":"I haven't seen this movie."}],"id":3,"overall rating":"1.0","status":"END_OF_SHOWING"}]
->>>>>>> origin/master
+[
+  {
+    "director": "Nawapol Thamrongrattanarit",
+    "rating": "PG13",
+    "runtime": "TBA",
+    "language": "THAI",
+    "synopsis": "This is a funny movie",
+    "title": "Heart Attack",
+    "type": "DIGITAL",
+    "opening": "TBA",
+    "casts": [
+      "Sunny Suwanmethanont",
+      "Davika Hoorne"
+    ],
+    "reviews": [
+      {
+        "date": "31 Oct 2015, 05:53AM",
+        "name": "Jun Wei",
+        "rating": 4,
+        "description": "Not Bad"
+      },
+      {
+        "date": "06 Nov 2015, 06:16PM",
+        "name": "Jian An",
+        "rating": 5,
+        "description": "Can't wait for the movie!!!"
+      }
+    ],
+    "id": 0,
+    "overall rating": "4.5",
+    "status": "NOW_SHOWING"
+  },
+  {
+    "director": "Sibi",
+    "rating": "G",
+    "runtime": "180",
+    "language": "ENGLISH",
+    "synopsis": "This is the end of the world!",
+    "title": "World End",
+    "type": "DIGITAL",
+    "opening": "04 Nov 2015",
+    "casts": [
+      "Crazy Man",
+      "Fool Real"
+    ],
+    "reviews": [
+      {
+        "date": "01 Nov 2015, 09:13PM",
+        "name": "szh",
+        "rating": 4,
+        "description": "This is a scary movie"
+      },
+      {
+        "date": "01 Nov 2015, 09:13PM",
+        "name": "szh",
+        "rating": 1,
+        "description": "This is a very bad movie."
+      },
+      {
+        "date": "04 Nov 2015, 04:47PM",
+        "name": "Jun Wei",
+        "rating": 5,
+        "description": "Nice Action Movie"
+      },
+      {
+        "date": "04 Nov 2015, 04:57PM",
+        "name": "Jun Wei",
+        "rating": 1,
+        "description": "Not Really that good~"
+      }
+    ],
+    "id": 1,
+    "overall rating": "2.0",
+    "status": "COMING_SOON"
+  },
+  {
+    "director": "Sam Mendes",
+    "rating": "PG13",
+    "runtime": "148",
+    "language": "ENGLISH",
+    "synopsis": "A cryptic message from Bond’s past sends him on a trail to uncover a sinister organisation. While M battles political forces to keep the secret service alive, Bond peels back the layers of deceit to reveal the terrible truth behind SPECTRE.",
+    "title": "Spectre",
+    "type": "DIGITAL",
+    "opening": "05 Nov 2015",
+    "casts": [
+      "Daniel Craig",
+      "Christoph Waltz"
+    ],
+    "id": 2,
+    "overall rating": "4.5",
+    "status": "NOW_SHOWING"
+  },
+  {
+    "director": "Gregory Plotkin",
+    "rating": "NC16",
+    "runtime": "84",
+    "language": "ENGLISH",
+    "synopsis": "Ryan Fleege, his wife Emily and their 7-year-old daughter Leila are preparing for Christmas in their new home. After finding an old and mysterious camcorder, Ryan quickly learns that it can record strange apparitions that are invisible to the naked eye. When young Leila starts talking to an imaginary friend and displaying strange behavior, the couple soon find themselves in a terrifying battle with a supernatural force.",
+    "title": "Paranormal Activity The Ghost Dimension",
+    "type": "DIGITAL",
+    "opening": "29 Oct 2015",
+    "casts": [
+      "Chris J. Murray",
+      "Brit Shaw"
+    ],
+    "id": 3,
+    "overall rating": "4.5",
+    "status": "NOW_SHOWING"
+  },
+  {
+    "director": "Rob Letterman",
+    "rating": "PG",
+    "runtime": "103",
+    "language": "ENGLISH",
+    "synopsis": "Upset about moving from a big city to a small town, teenager Zach Cooper (Dylan Minnette) finds a silver lining when he meets the beautiful girl, Hannah (Odeya Rush), living right next door. But every silver lining has a cloud, and Zach’s comes when he learns that Hannah has a mysterious dad who is revealed to be R. L. Stine (Jack Black), the author of the bestselling Goosebumps series. It turns out that there is a reason why Stine is so strange… he is a prisoner of his own imagination – the monsters that his books made famous are real, and Stine protects his readers by keeping them locked up in their books. When Zach unintentionally unleashes the monsters from their manuscripts and they begin to terrorize the town, it’s suddenly up to Stine, Zach, and Hannah to get all of them back in the books where they belong.",
+    "title": "Goosebumps",
+    "type": "DIGITAL",
+    "opening": "29 Oct 2015",
+    "casts": [
+      "Dylan Minnette",
+      "Jack Black"
+    ],
+    "id": 4,
+    "overall rating": "4.5",
+    "status": "NOW_SHOWING"
+  },
+  {
+    "director": "John Wells",
+    "rating": "NC16",
+    "runtime": "100",
+    "language": "ENGLISH",
+    "synopsis": "Chef Adam Jones (Bradley Cooper) had it all – and lost it. A two-star Michelin rockstar with the bad habits to match, the former enfant terrible of the Paris restaurant scene did everything different every time out, and only ever cared about the thrill of creating explosions of taste. To land his own kitchen and that third elusive Michelin star though, he’ll need the best of the best on his side, including the beautiful Helene (Sienna Miller). BURNT is a remarkably funny and emotional story about the love of food, the love between two people, and the power of second chances.",
+    "title": "Burnt",
+    "type": "DIGITAL",
+    "opening": "29 Oct 2015",
+    "casts": [
+      "Sienna Miller",
+      "Bradley Cooper"
+    ],
+    "id": 5,
+    "overall rating": "4.5",
+    "status": "NOW_SHOWING"
+  },
+  {
+    "director": "Frankie Chen",
+    "rating": "PG13",
+    "runtime": "134",
+    "language": "MANDARIN",
+    "synopsis": "We all had to live through and rise above the awkward years in high school, and regardless how long it may have been a distant past you wish to forget, there’s always a beautiful memory somewhere waiting to be awakened. A joyful moment that truly belongs to you. An ordinary high school girl Lin Truly (played by Vivian Sung) pines over the most popular guy in school Ouyang Extraordinary (played by Dino Lee). The school’s troublemaker Hsu Taiyu (played by Ta Lu Wang) falls for the prettiest girl in school Tao Minmin (played by Dewi Chien). Together, Truly and Taiyu, work through misadventures to help each other win their dream dates. Through this youthful rite of passage, their friendship evolves and they learn a thing or two about true love.",
+    "title": "Our Times",
+    "type": "DIGITAL",
+    "opening": "22 Oct 2015",
+    "casts": [
+      "Vivian Sung",
+      "Ta Lu Wang"
+    ],
+    "id": 6,
+    "overall rating": "4.5",
+    "status": "NOW_SHOWING"
+  },
+  {
+    "director": "Breck Eisner",
+    "rating": "PG13",
+    "runtime": "107",
+    "language": "ENGLISH",
+    "synopsis": "Five hundred years ago, war raged between humankind and witches, vicious creatures that unleashed a Black Death upon the world. Armies of witch hunters followed their leader, the great and mighty KAULDER, into a final battle that would bring the war to a close. In a rage, Kaulder managed to kill the all-powerful QUEEN WITCH and capture the mysterious source of her power, the Plague Box. However, in the moments before her death, the Queen cursed Kaulder with immortality. Forever separated from his beloved wife and daughter in the afterlife, Kaulder has spent centuries hunting down rogue witches, all the while yearning for his long-lost loved ones. Today, he is the only one of his kind—the last witch hunter. With the help of FATHER DOLAN, a Catholic priest, and a mystical arsenal hidden beneath New York’s St. Patrick’s Cathedral, he continues to pursue the renegades and outlaws who endanger humanity. Chief among their adversaries is BELIAL, a powerful rebel witch who Kaulder believes has found the long-hidden Plague Box and is preparing to use it to destroy humankind and restore the witches to power. With the help of CHLOE, a goodhearted young witch, Kaulder sets out to stop Belial before he can recover the final element he needs to set his plan in motion. But the item Belial seeks is hidden in the last place anyone has thought to look…and seeming friends are not at all what they seem.",
+    "title": "The Last Witch Hunter",
+    "type": "DIGITAL",
+    "opening": "22 Oct 2015",
+    "casts": [
+      "Vin Diesel",
+      "Elijah Wood"
+    ],
+    "id": 7,
+    "overall rating": "4.5",
+    "status": "NOW_SHOWING"
+  },
+  {
+    "director": "Steve Martino",
+    "rating": "TBA",
+    "runtime": "86",
+    "language": "ENGLISH",
+    "synopsis": "Charlie Brown, Snoopy, Lucy, Linus and the rest of the beloved “Peanuts” gang make their big-screen debut, like they’ve never been seen before, in state of the art 3D animation. Snoopy, the world’s most lovable beagle – and flying ace – embarks upon his greatest mission as he takes to the skies to pursue his arch-nemesis The Red Baron, while his best pal, Charlie Brown, begins his own epic quest. From the imagination of Charles M. Schulz and the creators of the ICE AGE films, THE PEANUTS MOVIE will prove that every underdog has his day.",
+    "title": "Snoopy and Charlie Brown : The Peanuts Movie",
+    "type": "DIGITAL",
+    "opening": "10 Dec 2015",
+    "casts": [
+      "Bill Melendez"
+    ],
+    "id": 8,
+    "overall rating": "4.5",
+    "status": "NOW_SHOWING"
+  },
+  {
+    "director": "Peter Sohn",
+    "rating": "TBA",
+    "runtime": "120",
+    "language": "ENGLISH",
+    "synopsis": "\"The Good Dinosaur\" asks the question: What if the asteroid that forever changed life on Earth missed the planet completely and giant dinosaurs never became extinct? Pixar Animation Studios takes you on an epic journey into the world of dinosaurs where an Apatosaurus named Arlo (voice of Raymond Ochoa) makes an unlikely human friend. While traveling through a harsh and mysterious landscape, Arlo learns the power of confronting his fears and discovers what he is truly capable of.",
+    "title": "The Good Dinosaur",
+    "type": "DIGITAL",
+    "opening": "TBA",
+    "casts": [
+      "Raymond Ochoa",
+      "Jeffrey Wright"
+    ],
+    "id": 9,
+    "overall rating": "4.5",
+    "status": "COMING_SOON"
+  },
+  {
+    "director": "Ridley Scott",
+    "rating": "PG13",
+    "runtime": "142",
+    "language": "ENGLISH",
+    "synopsis": "During a manned mission to Mars, Astronaut Mark Watney (Matt Damon) is presumed dead after a fierce storm and left behind by his crew. But Watney has survived and finds himself stranded and alone on the hostile planet. With only meager supplies, Watney must draw upon his ingenuity, wit and spirit to subsist and find a way to signal to Earth that he is alive. Millions of miles away, NASA and a team of international scientists work tirelessly to bring “the Martian” home, while his crewmates concurrently plot a daring, if not impossible, rescue mission. As these stories of incredible bravery unfold, the world comes together to root for Watney’s safe return. Based on a best-selling novel, and helmed by master director Ridley Scott, THE MARTIAN features a star studded cast that includes Jessica Chastain, Kristen Wiig, Kate Mara, Michael Pena, Jeff Daniels, Chiwetel Ejiofor, and Donald Glover.",
+    "title": "The Martian",
+    "type": "DIGITAL",
+    "opening": "01 Oct 2015",
+    "casts": [
+      "Matt Damon",
+      "Kristen Wiig"
+    ],
+    "id": 10,
+    "overall rating": "4.5",
+    "status": "NOW_SHOWING"
+  }
+]
