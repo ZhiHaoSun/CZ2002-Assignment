@@ -357,8 +357,8 @@ public abstract class BaseMenu {
 			
 			// sort the ShowTime according to the date then time
 			Collections.sort(mMovieShowTimes);
-			for (ShowTime st: mMovieShowTimes) 
-				println(st.getCinema().getCineplex().name()+" "+st.getCinema().isPlatinum()+" "+st.getCinema().getName()+" "+st.getDateTime());
+//			for (ShowTime st: mMovieShowTimes) 
+//				println(st.getCinema().getCineplex().name()+" "+st.getCinema().isPlatinum()+" "+st.getCinema().getName()+" "+st.getDateTime());
 
 			// start doing the printing of the showtime
 			for (pos=0; pos<mMovieShowTimes.size(); pos++,row++) {

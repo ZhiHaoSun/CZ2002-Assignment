@@ -118,7 +118,7 @@ public class Constant {
 		THU("Thu"), 
 		FRI_BEFORE_SIX_PM("Fri before 6pm"), 
 		FRI_AFTER_SIX_PM("Fri after 6pm"), 
-		SAT_AND_SUN("Sat & Sun"),
+		SAT_AND_SUN("Sat, Sun & PH"),
 		MON_TO_THU("Mon - Thu"), 
 		FRI_TO_SUN("Fri - Sun");
 		

@@ -413,11 +413,10 @@ public class CineplexManager extends Manager {
 			index = mMovies.indexOf(movie);
 			mMovies.set(index, movie);
 			
-			// update the showtime with the new info since
-			// it reference to the old one
-			index = movie.getShowTimes().indexOf(movie);
-			showtime = movie.getShowTimes().get(index);
-			showtime.setMovie(movie);
+			// update all the showtime of the info since
+			for (ShowTime showtime: movie.getShowTimes()) {
+				showtime.setMovie(movie);
+			}
 			
 			return writeFile(FILE_MOVIE, mMovies.toString());
 			

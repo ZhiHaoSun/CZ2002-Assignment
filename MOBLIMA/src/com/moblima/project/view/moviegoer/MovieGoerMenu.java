@@ -127,15 +127,19 @@ public class MovieGoerMenu extends BaseMenu {
 			
 			printHeader("Search Result for '"+search+"'");
 			
-			int index = 1;
-			for (Movie m:result) {
-				println((index++)+". "+m.getTitle());
+			if (result.isEmpty()) {
+				println("");
+			} else {
+				int index = 1;
+				for (Movie m:result) {
+					println((index++)+". "+m.getTitle());
+				}
+				
+				println(index+". Cancel");
+				index = readChoice("Select Movie", 1, index) -1;
+				
+				mMovieMenu.displayMenu(result.get(index).clone());
 			}
-			
-			println(index+". Cancel");
-			index = readChoice("Select Movie", 1, index) -1;
-			
-			mMovieMenu.displayMenu(result.get(index).clone());
 		} catch (ExitException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -149,7 +153,7 @@ public class MovieGoerMenu extends BaseMenu {
 		record = (Booking) mCineplexManager.getInstance(record);
 		if (record != null) {
 			printHeader("Booking Details");
-			printBookingRecord(record);
+			mMovieMenu.printBookingRecord(record);
 		} else println("No Booking Record Found.");
 	}
 
@@ -166,27 +170,14 @@ public class MovieGoerMenu extends BaseMenu {
 			customer = (Customer) mCineplexManager.getInstance(customer);
 			
 			printHeader("Your Booking History");
-			for (Booking record:customer.getBookingRecords()) {
-				printBookingRecord(record);
+			if (customer.getBookingRecords().isEmpty()) { 
+				println("There is no booking found.");
+			} else {
+				for (Booking record:customer.getBookingRecords()) {
+					mMovieMenu.printBookingRecord(record);
+				}
 			}
-
-			return;
-		}
-	
-		println("Please inuput the correct customer information");
-	}
-
-	public void printBookingRecord(Booking record) {
-		println("Booking ID  : "+ record.getTID() +"\n");
-		
-		mMovieMenu.printShowTimeInfo(record.getShowtime());
-		print("\nSeats Booked: ");
-		for (Seat s: record.getSeats()) {
-			print(s.getSeat() +" ");
-		}
-		
-		println("\nTotal Price : "+ record.getTotalPrice());
-		println("");
+		} else println("Please input the correct customer information");
 	}
 }
 

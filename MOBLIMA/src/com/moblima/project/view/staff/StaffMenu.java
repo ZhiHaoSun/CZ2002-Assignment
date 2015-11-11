@@ -45,7 +45,7 @@ public class StaffMenu extends BaseMenu {
 		if (login()) {
 			do {
 				printHeader("Howdy, "+ mCurrentLoginStaff.getUsername());
-				println(" 1. Create/Update/Remove movie listing");
+				println(" 1. Create/Update movie listing");
 				println(" 2. Create/Update/Remove cinema showtimes and the movies to be shown");
 				println(" 3. Configure system settings");
 				println(" 4. Logout");

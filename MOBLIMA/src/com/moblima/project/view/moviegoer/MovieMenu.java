@@ -129,10 +129,16 @@ public class MovieMenu extends BaseMenu{
 							
 							generateFinalPrice(record);
 							
+							printHeader("Your Basket");
+							printBookingRecord(record);
+						
 							if (!confirm("Do you want to purchase the tickets?")) break;
 							
 							if (mCineplexManager.create(record)) {
-								println("Successful booked the selected seats");	
+								printHeader("Your Ticket Purchase");
+								println("You have successfully purchased the ticket(s).\n");	
+								printBookingRecord(record);
+
 								readNextLine();
 							} else {
 								println("Unable to book the selected seats.");
@@ -183,7 +189,6 @@ public class MovieMenu extends BaseMenu{
 			finalPrice = finalPrice + record.getSeats().size();
 		
 		record.setTotalPrice(finalPrice);
-		println("Your final ticket price is: " + String.format("$%.2f", finalPrice));
 		
 		return finalPrice;
 	}
@@ -192,16 +197,29 @@ public class MovieMenu extends BaseMenu{
 		Movie  m = st.getMovie();
 		Cinema c = st.getCinema();
 		
-		// Goosebumps (PG)
+		// Goosebumps (3D)
 		// Showing on Sat 7 Nov 9:45PM
 		// AMK Hub - SCREEN 1
-		println(m.getTitle()+" ("+m.getRating().name()+")");		
+		println(m.getTitle()+" ("+m.getMovieType().value()+")");		
 		println("Showing on "+st.getDateTime());
 		print(c.getCineplex().value() +" - "+ c.getName());
 		if (c.isPlatinum())
 			print(" (Platinum)\n");
 		else
 			println("");
+	}
+	
+	public void printBookingRecord(Booking record) {
+		println("Booking ID  : "+ record.getTID() +"\n");
+		
+		printShowTimeInfo(record.getShowtime());
+		print("\nSeats Booked: ");
+		for (Seat s: record.getSeats()) {
+			print(s.getSeat() +" ");
+		}
+		
+		println("\nTotal ticket price is: " + String.format("$%.2f", record.getTotalPrice()));
+		println("");
 	}
 	
 	// Show Times Option #1: Select Seats (Book For Seats)
