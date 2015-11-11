@@ -43,7 +43,6 @@ public class CineplexManager extends Manager {
 	private ArrayList<Staff>    mStaffs;
 	
 	private ArrayList<Movie>    mMovies;
-	private ArrayList<Movie>    mCurrentMovies;
 	
 	private ArrayList<Cinema>   mCinemas;
 	private ArrayList<ShowTime> mShowTimes;
@@ -246,8 +245,6 @@ public class CineplexManager extends Manager {
 		mCinemas   = new ArrayList<>();
 		mShowTimes = new ArrayList<>();
 		mCustomers = new ArrayList<>();
-		
-		mCurrentMovies  = new ArrayList<>();
 		mBookingRecords = new ArrayList<>();
 	}
 	
@@ -397,6 +394,7 @@ public class CineplexManager extends Manager {
 			Booking record = (Booking) model;
 			record.getCustomer().addBookingRecord(record);
 			record.getShowtime().addOccupiedSeats(record.getSeats());
+			record.getShowtime().getMovie().addTicketSales(record.getSeats().size());
 			mBookingRecords.add((Booking) model);			
 			
 			return writeFile(FILE_BOOKING, mBookingRecords.toString());
@@ -429,6 +427,8 @@ public class CineplexManager extends Manager {
 			ShowTime newCopy = (ShowTime) model;
 			ShowTime oldCopy = (ShowTime) getInstance(model);		
 			
+			System.out.println("old copy:"+oldCopy.getId());
+			System.out.println("new copy:"+newCopy.getId());
 			// remove the showtime first from movie and cinema 
 			oldCopy.getMovie().getShowTimes().remove(oldCopy);
 			oldCopy.getCinema().getShowTimes().remove(oldCopy);
@@ -438,7 +438,7 @@ public class CineplexManager extends Manager {
 			newCopy.getCinema().getShowTimes().add(newCopy);
 			
 			// replace the new copy at the same location of the old copy
-			index = mCinemas.indexOf(model);
+			index = mShowTimes.indexOf(model);
 			mShowTimes.set(index, (ShowTime) model); 
 			return writeFile(FILE_SHOWTIME, mShowTimes.toString());
 		} else if (model instanceof Booking) {

@@ -52,8 +52,8 @@ public class TopRankingMenu extends BaseMenu {
 			for (Movie movie: movies) {
 				String orating = String.format("%.1f", movie.getOverallRating());
 
-				print(rank +". "+ String.format("%-15s", movie.getTitle()));				
-				print("("+orating+") "+ movie.getOverallStarRating()); 
+				print(rank +". "+ String.format("%-13s", movie.getOverallStarRating()+" ("+orating+")"));				
+				print(movie.getTitle()); 
 				println("");
 				
 				if (rank++ == 5) break;
@@ -62,8 +62,8 @@ public class TopRankingMenu extends BaseMenu {
 			printHeader("Top 5 Movies by Ticket Sales");
 			
 			for (Movie movie: movies) {
-				print(rank+". "+String.format("%-15s", movie.getTitle())); 
-				print("("+movie.getTicketSales()+")"); 
+				print(rank+". "+String.format("%-15s", "("+movie.getTicketSales()+" Tickets)")); 
+				print(movie.getTitle()); 
 				println("");
 
 				if (rank++ == 5) break;

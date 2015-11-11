@@ -85,7 +85,9 @@ public class ManageShowTimeMenu extends BaseMenu {
 				System.out.println("Update Successful");
 			else 
 				System.out.println("Update Unsuccessful");
-		} catch (ExitException exit) {}
+		} catch (ExitException exit) {
+			//exit.printStackTrace();
+		}
 	}
 	
 	public void deleteShowTime() {

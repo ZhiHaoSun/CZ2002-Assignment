@@ -63,7 +63,7 @@
       "code":"ONE",
       "cineplex":"CATHAY_CINEPLEX_CINELEISURE_ORCHARD",
       "name":"Hall E",
-      "platinum suite":true
+      "platinum suite":false
    },
    {
       "code":"ONF",
@@ -96,7 +96,7 @@
       "platinum suite":true
    },
    {
-      "code":"DNF",
+      "code":"DNE",
       "cineplex":"CATHAY_CINEPLEX_DOWNTOWN_EAST",
       "name":"SCREEN 5",
       "platinum suite":false

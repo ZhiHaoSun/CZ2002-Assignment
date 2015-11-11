@@ -1,13 +1,6 @@
 package com.moblima.project.view;
 
-import java.io.IOException;
-import java.text.ParseException;
-import java.util.ArrayList;
-
-import org.json.JSONException;
-
 import com.moblima.project.controller.CineplexManager;
-import com.moblima.project.model.Movie;
 import com.moblima.project.view.moviegoer.MovieGoerMenu;
 import com.moblima.project.view.staff.StaffMenu;
 
@@ -23,7 +16,7 @@ public class MainMenu extends BaseMenu {
 			
 			mStaffMenu 	   = new StaffMenu(mCineplexManager);		
 			mMovieGoerMenu = new MovieGoerMenu(mCineplexManager);
-		} catch (IOException | JSONException | ParseException e) {
+		} catch (Exception e) {
 			println("problem loading the data, please contact the administrator");
 			e.printStackTrace();
 		}

@@ -139,7 +139,7 @@ public class MovieMenu extends BaseMenu{
 								println("You have successfully purchased the ticket(s).\n");	
 								printBookingRecord(record);
 
-								readNextLine();
+								throw new ExitException();
 							} else {
 								println("Unable to book the selected seats.");
 							}

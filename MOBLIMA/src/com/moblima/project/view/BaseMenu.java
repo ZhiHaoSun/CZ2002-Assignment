@@ -366,9 +366,7 @@ public abstract class BaseMenu {
 				// retrieve ShowTime from list
 				ShowTime showtime = mMovieShowTimes.get(pos);
 				
-				if (cineplex == null || cineplex != showtime.getCinema().getCineplex() ||
-					showtime.getCinema().isPlatinum() == platinum) {
-					
+				if (cineplex == null || showtime.getCinema().isPlatinum() != platinum || cineplex != showtime.getCinema().getCineplex()) {
 					cineplex = showtime.getCinema().getCineplex();
 					
 					if (pos != 0) println("");
@@ -380,7 +378,7 @@ public abstract class BaseMenu {
 					}					
 					
 					col = 0;
-					platinum = !platinum;
+					platinum = showtime.getCinema().isPlatinum();
 					prevDate = "";
 				} else {
 					if (col == 4) {

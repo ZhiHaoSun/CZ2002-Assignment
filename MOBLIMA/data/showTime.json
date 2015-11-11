@@ -1,1 +1,525 @@
-[{"date":"12 Nov 2015","cinemaCode":"CNC","movieId":0,"id":1,"time":"01:00PM"}]
+[{"date":"13 Nov 2015","cinemaCode":"CPA","movieId":0,"id":1,"time":"08:15PM"}, {"date":"14 Nov 2015","cinemaCode":"CPB","movieId":0,"id":2,"time":"09:15PM"}, {"date":"14 Nov 2015","cinemaCode":"CPB","movieId":0,"id":3,"time":"02:00PM"}, {"date":"14 Nov 2015","cinemaCode":"CND","movieId":0,"id":4,"time":"07:15PM"}, {"date":"12 Nov 2015","cinemaCode":"CNE","movieId":0,"id":5,"time":"08:15PM"}, {"date":"13 Nov 2015","cinemaCode":"CPB","movieId":0,"id":6,"time":"10:15AM"}, {"date":"13 Nov 2015","cinemaCode":"CPB","movieId":0,"id":7,"time":"04:15PM"}, {"date":"13 Nov 2015","cinemaCode":"CPA","movieId":0,"id":8,"time":"01:45PM"}, {"date":"13 Nov 2015","cinemaCode":"CND","movieId":0,"id":9,"time":"09:15AM"}, {"date":"13 Nov 2015","cinemaCode":"CNC","movieId":0,"id":10,"time":"12:00PM"}, {"date":"13 Nov 2015","cinemaCode":"CND","movieId":0,"id":11,"time":"02:15PM"}, {"date":"12 Nov 2015","cinemaCode":"CND","movieId":0,"id":12,"time":"05:00PM"}, {"date":"12 Nov 2015","cinemaCode":"CNC","movieId":0,"id":13,"time":"07:00PM"}, {"date":"14 Nov 2015","cinemaCode":"CPA","movieId":0,"id":14,"time":"07:00PM"}, {"date":"14 Nov 2015","cinemaCode":"CND","movieId":0,"id":15,"time":"09:15PM"}, {"date":"14 Nov 2015","cinemaCode":"CNC","movieId":0,"id":16,"time":"04:15PM"}, {"date":"13 Nov 2015","cinemaCode":"OPA","movieId":0,"id":17,"time":"08:15PM"}, {"date":"14 Nov 2015","cinemaCode":"OPB","movieId":0,"id":18,"time":"09:15PM"}, {"date":"14 Nov 2015","cinemaCode":"OPB","movieId":0,"id":19,"time":"02:00PM"}, {"date":"14 Nov 2015","cinemaCode":"OND","movieId":0,"id":20,"time":"07:15PM"}, {"date":"12 Nov 2015","cinemaCode":"ONE","movieId":0,"id":21,"time":"08:15PM"}, {"date":"13 Nov 2015","cinemaCode":"OPB","movieId":0,"id":22,"time":"10:15AM"}, {"date":"13 Nov 2015","cinemaCode":"OPB","movieId":0,"id":23,"time":"04:15PM"}, {"date":"13 Nov 2015","cinemaCode":"OPA","movieId":0,"id":24,"time":"01:45PM"}, {"date":"13 Nov 2015","cinemaCode":"OND","movieId":0,"id":25,"time":"09:15AM"}, {"date":"13 Nov 2015","cinemaCode":"ONC","movieId":0,"id":26,"time":"12:00PM"}, {"date":"13 Nov 2015","cinemaCode":"OND","movieId":0,"id":27,"time":"02:15PM"}, {"date":"12 Nov 2015","cinemaCode":"OND","movieId":0,"id":28,"time":"05:00PM"}, {"date":"12 Nov 2015","cinemaCode":"ONC","movieId":0,"id":29,"time":"07:00PM"}, {"date":"14 Nov 2015","cinemaCode":"OPA","movieId":0,"id":30,"time":"07:00PM"}, {"date":"14 Nov 2015","cinemaCode":"OND","movieId":0,"id":31,"time":"09:15PM"}, {"date":"14 Nov 2015","cinemaCode":"ONC","movieId":0,"id":32,"time":"04:15PM"}, {"date":"13 Nov 2015","cinemaCode":"DNA","movieId":0,"id":33,"time":"08:15PM"}, {"date":"14 Nov 2015","cinemaCode":"DNB","movieId":0,"id":34,"time":"09:15PM"}, {"date":"14 Nov 2015","cinemaCode":"DNC","movieId":0,"id":35,"time":"02:00PM"}, {"date":"14 Nov 2015","cinemaCode":"DPD","movieId":0,"id":36,"time":"07:10PM"}, {"date":"12 Nov 2015","cinemaCode":"DNE","movieId":0,"id":37,"time":"05:15PM"}, {"date":"13 Nov 2015","cinemaCode":"DNB","movieId":0,"id":38,"time":"10:15AM"}, {"date":"13 Nov 2015","cinemaCode":"DNB","movieId":0,"id":39,"time":"04:15PM"}, {"date":"13 Nov 2015","cinemaCode":"DNA","movieId":0,"id":40,"time":"01:45PM"}, {"date":"13 Nov 2015","cinemaCode":"DPD","movieId":0,"id":41,"time":"09:15AM"}, {"date":"13 Nov 2015","cinemaCode":"DNC","movieId":0,"id":42,"time":"12:00PM"}, {"date":"13 Nov 2015","cinemaCode":"DPD","movieId":0,"id":43,"time":"02:15PM"}, {"date":"13 Nov 2015","cinemaCode":"DPD","movieId":0,"id":44,"time":"04:10PM"}, {"date":"12 Nov 2015","cinemaCode":"DNC","movieId":0,"id":45,"time":"07:00PM"}, {"date":"12 Nov 2015","cinemaCode":"DNA","movieId":0,"id":46,"time":"08:15PM"}, {"date":"14 Nov 2015","cinemaCode":"DPD","movieId":0,"id":47,"time":"09:15PM"},{  
+      "date":"13 Nov 2015",
+      "cinemaCode":"CPA",
+      "movieId":1,
+      "id":48,
+      "time":"08:15PM"
+   },
+   {  
+      "date":"14 Nov 2015",
+      "cinemaCode":"CPB",
+      "movieId":1,
+      "id":49,
+      "time":"09:15PM"
+   },
+   {  
+      "date":"14 Nov 2015",
+      "cinemaCode":"CPB",
+      "movieId":1,
+      "id":50,
+      "time":"02:00PM"
+   },
+   {  
+      "date":"14 Nov 2015",
+      "cinemaCode":"CND",
+      "movieId":1,
+      "id":51,
+      "time":"07:15PM"
+   },
+   {  
+      "date":"12 Nov 2015",
+      "cinemaCode":"CNE",
+      "movieId":1,
+      "id":52,
+      "time":"08:15PM"
+   },
+   {  
+      "date":"13 Nov 2015",
+      "cinemaCode":"CPB",
+      "movieId":1,
+      "id":53,
+      "time":"10:15AM"
+   },
+   {  
+      "date":"13 Nov 2015",
+      "cinemaCode":"CPB",
+      "movieId":1,
+      "id":54,
+      "time":"04:15PM"
+   },
+   {  
+      "date":"13 Nov 2015",
+      "cinemaCode":"CPA",
+      "movieId":1,
+      "id":55,
+      "time":"01:45PM"
+   },
+   {  
+      "date":"13 Nov 2015",
+      "cinemaCode":"CND",
+      "movieId":1,
+      "id":56,
+      "time":"09:15AM"
+   },
+   {  
+      "date":"13 Nov 2015",
+      "cinemaCode":"CNC",
+      "movieId":1,
+      "id":57,
+      "time":"12:00PM"
+   },
+   {  
+      "date":"13 Nov 2015",
+      "cinemaCode":"CND",
+      "movieId":1,
+      "id":58,
+      "time":"02:15PM"
+   },
+   {  
+      "date":"12 Nov 2015",
+      "cinemaCode":"CND",
+      "movieId":1,
+      "id":59,
+      "time":"05:00PM"
+   },
+   {  
+      "date":"12 Nov 2015",
+      "cinemaCode":"CNC",
+      "movieId":1,
+      "id":60,
+      "time":"07:00PM"
+   },
+   {  
+      "date":"14 Nov 2015",
+      "cinemaCode":"CPA",
+      "movieId":1,
+      "id":61,
+      "time":"07:00PM"
+   },
+   {  
+      "date":"14 Nov 2015",
+      "cinemaCode":"CND",
+      "movieId":1,
+      "id":62,
+      "time":"09:15PM"
+   },
+   {  
+      "date":"14 Nov 2015",
+      "cinemaCode":"CNC",
+      "movieId":1,
+      "id":63,
+      "time":"04:15PM"
+   },
+   {  
+      "date":"13 Nov 2015",
+      "cinemaCode":"OPA",
+      "movieId":1,
+      "id":64,
+      "time":"08:15PM"
+   },
+   {  
+      "date":"14 Nov 2015",
+      "cinemaCode":"OPB",
+      "movieId":1,
+      "id":65,
+      "time":"09:15PM"
+   },
+   {  
+      "date":"14 Nov 2015",
+      "cinemaCode":"OPB",
+      "movieId":1,
+      "id":66,
+      "time":"02:00PM"
+   },
+   {  
+      "date":"14 Nov 2015",
+      "cinemaCode":"OND",
+      "movieId":1,
+      "id":67,
+      "time":"07:15PM"
+   },
+   {  
+      "date":"12 Nov 2015",
+      "cinemaCode":"ONE",
+      "movieId":1,
+      "id":68,
+      "time":"08:15PM"
+   },
+   {  
+      "date":"13 Nov 2015",
+      "cinemaCode":"OPB",
+      "movieId":1,
+      "id":69,
+      "time":"10:15AM"
+   },
+   {  
+      "date":"13 Nov 2015",
+      "cinemaCode":"OPB",
+      "movieId":1,
+      "id":70,
+      "time":"04:15PM"
+   },
+   {  
+      "date":"13 Nov 2015",
+      "cinemaCode":"OPA",
+      "movieId":1,
+      "id":71,
+      "time":"01:45PM"
+   },
+   {  
+      "date":"13 Nov 2015",
+      "cinemaCode":"OND",
+      "movieId":1,
+      "id":72,
+      "time":"09:15AM"
+   },
+   {  
+      "date":"13 Nov 2015",
+      "cinemaCode":"ONC",
+      "movieId":1,
+      "id":73,
+      "time":"12:00PM"
+   },
+   {  
+      "date":"13 Nov 2015",
+      "cinemaCode":"OND",
+      "movieId":1,
+      "id":74,
+      "time":"02:15PM"
+   },
+   {  
+      "date":"12 Nov 2015",
+      "cinemaCode":"OND",
+      "movieId":1,
+      "id":75,
+      "time":"05:00PM"
+   },
+   {  
+      "date":"12 Nov 2015",
+      "cinemaCode":"ONC",
+      "movieId":1,
+      "id":76,
+      "time":"07:00PM"
+   },
+   {  
+      "date":"14 Nov 2015",
+      "cinemaCode":"OPA",
+      "movieId":1,
+      "id":77,
+      "time":"07:00PM"
+   },
+   {  
+      "date":"14 Nov 2015",
+      "cinemaCode":"OND",
+      "movieId":1,
+      "id":78,
+      "time":"09:15PM"
+   },
+   {  
+      "date":"14 Nov 2015",
+      "cinemaCode":"ONC",
+      "movieId":1,
+      "id":79,
+      "time":"04:15PM"
+   },
+   {  
+      "date":"13 Nov 2015",
+      "cinemaCode":"DNA",
+      "movieId":1,
+      "id":80,
+      "time":"08:15PM"
+   },
+   {  
+      "date":"14 Nov 2015",
+      "cinemaCode":"DNB",
+      "movieId":1,
+      "id":81,
+      "time":"09:15PM"
+   },
+   {  
+      "date":"14 Nov 2015",
+      "cinemaCode":"DNC",
+      "movieId":1,
+      "id":82,
+      "time":"02:00PM"
+   },
+   {  
+      "date":"14 Nov 2015",
+      "cinemaCode":"DPD",
+      "movieId":1,
+      "id":83,
+      "time":"07:10PM"
+   },
+   {  
+      "date":"12 Nov 2015",
+      "cinemaCode":"DNE",
+      "movieId":1,
+      "id":84,
+      "time":"05:15PM"
+   },
+   {  
+      "date":"13 Nov 2015",
+      "cinemaCode":"DNB",
+      "movieId":1,
+      "id":85,
+      "time":"10:15AM"
+   },
+   {  
+      "date":"13 Nov 2015",
+      "cinemaCode":"DNB",
+      "movieId":1,
+      "id":86,
+      "time":"04:15PM"
+   },
+   {  
+      "date":"13 Nov 2015",
+      "cinemaCode":"DNA",
+      "movieId":1,
+      "id":87,
+      "time":"01:45PM"
+   },
+   {  
+      "date":"13 Nov 2015",
+      "cinemaCode":"DPD",
+      "movieId":1,
+      "id":88,
+      "time":"09:15AM"
+   },
+   {  
+      "date":"13 Nov 2015",
+      "cinemaCode":"DNC",
+      "movieId":1,
+      "id":89,
+      "time":"12:00PM"
+   },
+   {  
+      "date":"13 Nov 2015",
+      "cinemaCode":"DPD",
+      "movieId":1,
+      "id":90,
+      "time":"02:15PM"
+   },
+   {  
+      "date":"13 Nov 2015",
+      "cinemaCode":"DPD",
+      "movieId":1,
+      "id":91,
+      "time":"04:10PM"
+   },
+   {  
+      "date":"12 Nov 2015",
+      "cinemaCode":"DNC",
+      "movieId":1,
+      "id":92,
+      "time":"07:00PM"
+   },
+   {  
+      "date":"12 Nov 2015",
+      "cinemaCode":"DNA",
+      "movieId":1,
+      "id":93,
+      "time":"08:15PM"
+   },
+   {  
+      "date":"14 Nov 2015",
+      "cinemaCode":"DPD",
+      "movieId":1,
+      "id":94,
+      "time":"09:15PM"
+   },{  
+      "date":"14 Nov 2015",
+      "cinemaCode":"CND",
+      "movieId":2,
+      "id":95,
+      "time":"07:15PM"
+   },
+   {  
+      "date":"12 Nov 2015",
+      "cinemaCode":"CNE",
+      "movieId":2,
+      "id":96,
+      "time":"08:15PM"
+   },
+   {  
+      "date":"13 Nov 2015",
+      "cinemaCode":"CND",
+      "movieId":2,
+      "id":97,
+      "time":"09:15AM"
+   },
+   {  
+      "date":"13 Nov 2015",
+      "cinemaCode":"CNC",
+      "movieId":2,
+      "id":98,
+      "time":"12:00PM"
+   },
+   {  
+      "date":"13 Nov 2015",
+      "cinemaCode":"CND",
+      "movieId":2,
+      "id":99,
+      "time":"02:15PM"
+   },
+   {  
+      "date":"12 Nov 2015",
+      "cinemaCode":"CND",
+      "movieId":2,
+      "id":100,
+      "time":"05:00PM"
+   },
+   {  
+      "date":"12 Nov 2015",
+      "cinemaCode":"CNC",
+      "movieId":2,
+      "id":101,
+      "time":"07:00PM"
+   },
+   {  
+      "date":"14 Nov 2015",
+      "cinemaCode":"CND",
+      "movieId":2,
+      "id":102,
+      "time":"09:15PM"
+   },
+   {  
+      "date":"14 Nov 2015",
+      "cinemaCode":"CNC",
+      "movieId":2,
+      "id":103,
+      "time":"04:15PM"
+   },
+   {  
+      "date":"14 Nov 2015",
+      "cinemaCode":"OND",
+      "movieId":2,
+      "id":104,
+      "time":"07:15PM"
+   },
+   {  
+      "date":"12 Nov 2015",
+      "cinemaCode":"ONE",
+      "movieId":2,
+      "id":105,
+      "time":"08:15PM"
+   },
+   {  
+      "date":"13 Nov 2015",
+      "cinemaCode":"OND",
+      "movieId":2,
+      "id":106,
+      "time":"09:15AM"
+   },
+   {  
+      "date":"13 Nov 2015",
+      "cinemaCode":"ONC",
+      "movieId":2,
+      "id":107,
+      "time":"12:00PM"
+   },
+   {  
+      "date":"13 Nov 2015",
+      "cinemaCode":"OND",
+      "movieId":2,
+      "id":108,
+      "time":"02:15PM"
+   },
+   {  
+      "date":"12 Nov 2015",
+      "cinemaCode":"OND",
+      "movieId":2,
+      "id":109,
+      "time":"05:00PM"
+   },
+   {  
+      "date":"12 Nov 2015",
+      "cinemaCode":"ONC",
+      "movieId":2,
+      "id":110,
+      "time":"07:00PM"
+   },
+   {  
+      "date":"14 Nov 2015",
+      "cinemaCode":"OND",
+      "movieId":2,
+      "id":111,
+      "time":"09:15PM"
+   },
+   {  
+      "date":"14 Nov 2015",
+      "cinemaCode":"ONC",
+      "movieId":2,
+      "id":112,
+      "time":"04:15PM"
+   },
+   {  
+      "date":"13 Nov 2015",
+      "cinemaCode":"DNA",
+      "movieId":2,
+      "id":113,
+      "time":"08:15PM"
+   },
+   {  
+      "date":"14 Nov 2015",
+      "cinemaCode":"DNB",
+      "movieId":2,
+      "id":114,
+      "time":"09:15PM"
+   },
+   {  
+      "date":"14 Nov 2015",
+      "cinemaCode":"DNC",
+      "movieId":2,
+      "id":115,
+      "time":"02:00PM"
+   },
+   {  
+      "date":"12 Nov 2015",
+      "cinemaCode":"DNE",
+      "movieId":2,
+      "id":116,
+      "time":"05:15PM"
+   },
+   {  
+      "date":"13 Nov 2015",
+      "cinemaCode":"DNB",
+      "movieId":2,
+      "id":117,
+      "time":"10:15AM"
+   },
+   {  
+      "date":"13 Nov 2015",
+      "cinemaCode":"DNB",
+      "movieId":2,
+      "id":118,
+      "time":"04:15PM"
+   },
+   {  
+      "date":"13 Nov 2015",
+      "cinemaCode":"DNA",
+      "movieId":2,
+      "id":119,
+      "time":"01:45PM"
+   },
+   {  
+      "date":"13 Nov 2015",
+      "cinemaCode":"DNC",
+      "movieId":2,
+      "id":120,
+      "time":"12:00PM"
+   },
+   {  
+      "date":"12 Nov 2015",
+      "cinemaCode":"DNC",
+      "movieId":2,
+      "id":121,
+      "time":"07:00PM"
+   },
+   {  
+      "date":"12 Nov 2015",
+      "cinemaCode":"DNA",
+      "movieId":2,
+      "id":122,
+      "time":"08:15PM"
+   }
+   ]

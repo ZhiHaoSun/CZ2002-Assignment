@@ -117,17 +117,4 @@ public class ManageMovieMenu extends BaseMenu {
 		} catch (ExitException exit) {}
 		
 	}
-	
-	private void removeMovie() throws ExitException {
-		printHeader("Remove Movie");
-
-		try {
-			movie = chooseMovie();
-			
-			if (mCineplexManager.delete(movie))
-				println("Remove Successful");
-			else
-				println("Remove Unsuccessful");
-		} catch (ExitException exit) {}
-	}
 }

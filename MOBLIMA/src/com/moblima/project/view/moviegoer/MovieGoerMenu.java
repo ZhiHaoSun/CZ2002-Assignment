@@ -6,7 +6,6 @@ import com.moblima.project.controller.CineplexManager;
 import com.moblima.project.model.Booking;
 import com.moblima.project.model.Customer;
 import com.moblima.project.model.Movie;
-import com.moblima.project.model.Seat;
 import com.moblima.project.view.BaseMenu;
 import com.moblima.project.view.TopRankingMenu;
 
@@ -128,7 +127,7 @@ public class MovieGoerMenu extends BaseMenu {
 			printHeader("Search Result for '"+search+"'");
 			
 			if (result.isEmpty()) {
-				println("");
+				println("No Search Result Found.");
 			} else {
 				int index = 1;
 				for (Movie m:result) {
@@ -142,7 +141,7 @@ public class MovieGoerMenu extends BaseMenu {
 			}
 		} catch (ExitException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
 		} 
 	}
 	
