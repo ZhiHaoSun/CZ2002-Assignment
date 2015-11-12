@@ -50,8 +50,6 @@ public class CineplexManager extends Manager {
 	private ArrayList<Booking>  mBookingRecords;
 	private ArrayList<Ticket>   mTicketPrices;
 	
-	private JSONArray array;
-
 	private Staff staff;
 	private Movie movie;
 	private Cinema cinema;

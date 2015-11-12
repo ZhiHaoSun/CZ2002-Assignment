@@ -43,18 +43,6 @@ public class Cinema extends Model {
 	}
 
 	/**
-	 * @param name
-	 * @param cineplex
-	 * @param showTimes
-	 */
-	public Cinema(String name, Cineplex cineplex, ArrayList<ShowTime> showTimes) {
-		super();
-		this.name = name;
-		this.cineplex = cineplex;
-		this.mShowTimes = showTimes;
-	}
-
-	/**
 	 * @param object
 	 * @throws JSONException
 	 * @throws ParseException

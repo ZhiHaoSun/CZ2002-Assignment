@@ -9,6 +9,7 @@ import java.text.ParseException;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.moblima.project.model.Model;
 
@@ -19,7 +20,8 @@ import com.moblima.project.model.Model;
 public abstract class Manager {
 	protected int index, pos;
 	protected int idCounter;
-	protected JSONArray array;
+	protected JSONArray  array;
+	protected JSONObject object;
 	
 	/**Manager class to manage all the data update and saving.
 	 * 
@@ -61,19 +63,7 @@ public abstract class Manager {
 	 * Load all the data into manager.
 	 * Data of different models are stored in corresponding ArrayLists.
 	 */
-	protected abstract void load() throws IOException, JSONException, ParseException ;
-	
-	/**
-	 * @param instance
-	 * @return boolean
-	 * @throws JSONException
-	 */
-	public boolean save(Model instance) throws JSONException{
-		if(instance.getId() > this.idCounter)
-			return create(instance);
-		else
-			return update(instance);
-	}
+	protected abstract void load() throws IOException, JSONException, ParseException;
 	
 	/*
 	 * The function to save a new model data created.

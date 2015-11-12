@@ -26,9 +26,6 @@ import com.moblima.project.model.Ticket;
 public class TicketManager extends Manager {
 	private static final String FILE_TICKET  = "data/ticket.json";
 	private static final String FILE_HOLIDAY = "data/holiday.json";
-
-	private JSONArray  array;
-	private JSONObject object;
 	
 	private Holiday holiday;
 	
